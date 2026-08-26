@@ -1,0 +1,677 @@
+{
+  "metadata": {
+    "schema_version": "1.0",
+    "phase": "0C",
+    "scenario_id": "phase0c-falsification-grid-v1",
+    "seed": 260827,
+    "crs": "EPSG:25830",
+    "nature": "SYNTHETIC",
+    "assumptions_note": "Every numerical performance, timing, weather and camera value is an uncalibrated experimental assumption, not a Madrid observation or vendor claim."
+  },
+  "evidence": {
+    "incident_count": 180,
+    "candidate_site_count": 10,
+    "selected_site_order": [
+      "SYN-SITE-003",
+      "SYN-SITE-009",
+      "SYN-SITE-006",
+      "SYN-SITE-008",
+      "SYN-SITE-004",
+      "SYN-SITE-000",
+      "SYN-SITE-005",
+      "SYN-SITE-002",
+      "SYN-SITE-001",
+      "SYN-SITE-007"
+    ],
+    "progressive_models": [
+      {
+        "model": "A_DISTANCE",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 27,
+        "risk_weighted_coverage": 0.14385191710988704,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 153
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 27,
+        "risk_weighted_coverage": 0.14385191710988704,
+        "median_travel_seconds": 1016.9657804626514,
+        "median_ttfrp_seconds": 1916.9657804626513,
+        "p90_ttfrp_seconds": 2188.009640675623,
+        "pair_exclusions": {
+          "range": 153
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 18,
+        "risk_weighted_coverage": 0.0959268174557102,
+        "median_travel_seconds": 917.9691319243077,
+        "median_ttfrp_seconds": 1817.9691319243077,
+        "p90_ttfrp_seconds": 2081.8842473305012,
+        "pair_exclusions": {
+          "range": 162
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 14,
+        "risk_weighted_coverage": 0.07214099101405055,
+        "median_travel_seconds": 986.0364759592883,
+        "median_ttfrp_seconds": 1886.0364759592885,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "manned_aircraft_conflict": 1,
+          "range": 162,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 14,
+        "risk_weighted_coverage": 0.07214099101405055,
+        "median_travel_seconds": 986.0364759592883,
+        "median_ttfrp_seconds": 1886.0364759592885,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "manned_aircraft_conflict": 1,
+          "range": 162,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 4,
+        "risk_weighted_coverage": 0.02370812774414704,
+        "median_travel_seconds": 585.1036239357377,
+        "median_ttfrp_seconds": 1485.1036239357377,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "data_freshness": 2,
+          "incident_confidence": 1,
+          "manned_aircraft_conflict": 1,
+          "range": 170,
+          "temporary_restriction": 2
+        }
+      },
+      {
+        "model": "A_DISTANCE",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 48,
+        "risk_weighted_coverage": 0.2653328022666605,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 264
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 48,
+        "risk_weighted_coverage": 0.2653328022666605,
+        "median_travel_seconds": 955.8992019210614,
+        "median_ttfrp_seconds": 1855.8992019210614,
+        "p90_ttfrp_seconds": 2193.1536761963143,
+        "pair_exclusions": {
+          "range": 264
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 33,
+        "risk_weighted_coverage": 0.18621004914134623,
+        "median_travel_seconds": 866.7115589405884,
+        "median_ttfrp_seconds": 1766.7115589405885,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "range": 294
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 26,
+        "risk_weighted_coverage": 0.14183833705465246,
+        "median_travel_seconds": 888.2081969862888,
+        "median_ttfrp_seconds": 1788.2081969862888,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "airspace": 2,
+          "manned_aircraft_conflict": 2,
+          "range": 301,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 26,
+        "risk_weighted_coverage": 0.14183833705465246,
+        "median_travel_seconds": 888.2081969862888,
+        "median_ttfrp_seconds": 1788.2081969862888,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "airspace": 2,
+          "manned_aircraft_conflict": 2,
+          "range": 301,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 4,
+        "risk_weighted_coverage": 0.02370812774414704,
+        "median_travel_seconds": 585.1036239357377,
+        "median_ttfrp_seconds": 1485.1036239357377,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 1,
+          "communications": 8,
+          "data_freshness": 2,
+          "incident_confidence": 1,
+          "manned_aircraft_conflict": 1,
+          "range": 337,
+          "temporary_restriction": 2
+        }
+      },
+      {
+        "model": "A_DISTANCE",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 65,
+        "risk_weighted_coverage": 0.37810533628785187,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 345
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 65,
+        "risk_weighted_coverage": 0.37810533628785187,
+        "median_travel_seconds": 958.9216405969296,
+        "median_ttfrp_seconds": 1858.9216405969296,
+        "p90_ttfrp_seconds": 2188.009640675623,
+        "pair_exclusions": {
+          "range": 345
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 43,
+        "risk_weighted_coverage": 0.25002246940872475,
+        "median_travel_seconds": 909.7048350319893,
+        "median_ttfrp_seconds": 1809.7048350319892,
+        "p90_ttfrp_seconds": 2139.4476952789164,
+        "pair_exclusions": {
+          "range": 411
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 31,
+        "risk_weighted_coverage": 0.17417216715673908,
+        "median_travel_seconds": 926.2334288166261,
+        "median_ttfrp_seconds": 1826.2334288166262,
+        "p90_ttfrp_seconds": 2157.7201204660823,
+        "pair_exclusions": {
+          "airspace": 3,
+          "manned_aircraft_conflict": 5,
+          "range": 435,
+          "temporary_restriction": 4
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 31,
+        "risk_weighted_coverage": 0.17417216715673908,
+        "median_travel_seconds": 926.2334288166261,
+        "median_ttfrp_seconds": 1826.2334288166262,
+        "p90_ttfrp_seconds": 2157.7201204660823,
+        "pair_exclusions": {
+          "airspace": 3,
+          "manned_aircraft_conflict": 5,
+          "range": 435,
+          "temporary_restriction": 4
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 5,
+        "risk_weighted_coverage": 0.03045339421896763,
+        "median_travel_seconds": 600.3941114403315,
+        "median_ttfrp_seconds": 1500.3941114403315,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 2,
+          "communications": 8,
+          "data_freshness": 3,
+          "incident_confidence": 2,
+          "manned_aircraft_conflict": 3,
+          "range": 504,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "A_DISTANCE",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 93,
+        "risk_weighted_coverage": 0.5068563068918298,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 435
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 93,
+        "risk_weighted_coverage": 0.5068563068918298,
+        "median_travel_seconds": 956.1355911613565,
+        "median_ttfrp_seconds": 1856.1355911613564,
+        "p90_ttfrp_seconds": 2158.675395374232,
+        "pair_exclusions": {
+          "range": 435
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 64,
+        "risk_weighted_coverage": 0.3587778431665018,
+        "median_travel_seconds": 881.0249721139517,
+        "median_ttfrp_seconds": 1781.0249721139517,
+        "p90_ttfrp_seconds": 2148.833739232913,
+        "pair_exclusions": {
+          "range": 580
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 48,
+        "risk_weighted_coverage": 0.26506332667437843,
+        "median_travel_seconds": 881.0249721139517,
+        "median_ttfrp_seconds": 1781.0249721139517,
+        "p90_ttfrp_seconds": 2157.7201204660823,
+        "pair_exclusions": {
+          "airspace": 5,
+          "manned_aircraft_conflict": 7,
+          "range": 641,
+          "temporary_restriction": 7
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 48,
+        "risk_weighted_coverage": 0.26506332667437843,
+        "median_travel_seconds": 881.0249721139517,
+        "median_ttfrp_seconds": 1781.0249721139517,
+        "p90_ttfrp_seconds": 2157.7201204660823,
+        "pair_exclusions": {
+          "airspace": 5,
+          "manned_aircraft_conflict": 7,
+          "range": 641,
+          "temporary_restriction": 7
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 11,
+        "risk_weighted_coverage": 0.06352473719198293,
+        "median_travel_seconds": 794.6875124010123,
+        "median_ttfrp_seconds": 1694.6875124010123,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 3,
+          "communications": 8,
+          "data_freshness": 8,
+          "incident_confidence": 4,
+          "manned_aircraft_conflict": 5,
+          "range": 812,
+          "temporary_restriction": 5
+        }
+      },
+      {
+        "model": "A_DISTANCE",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 101,
+        "risk_weighted_coverage": 0.5534747557084589,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 790
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 101,
+        "risk_weighted_coverage": 0.5534747557084589,
+        "median_travel_seconds": 794.0239383838983,
+        "median_ttfrp_seconds": 1694.0239383838984,
+        "p90_ttfrp_seconds": 2129.378655753535,
+        "pair_exclusions": {
+          "range": 790
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 81,
+        "risk_weighted_coverage": 0.4474166963642729,
+        "median_travel_seconds": 797.0662228642576,
+        "median_ttfrp_seconds": 1697.0662228642577,
+        "p90_ttfrp_seconds": 2148.833739232913,
+        "pair_exclusions": {
+          "range": 990
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 58,
+        "risk_weighted_coverage": 0.31071773501225314,
+        "median_travel_seconds": 812.3289343881249,
+        "median_ttfrp_seconds": 1712.3289343881247,
+        "p90_ttfrp_seconds": 2145.5529346123126,
+        "pair_exclusions": {
+          "airspace": 16,
+          "manned_aircraft_conflict": 10,
+          "range": 1186,
+          "temporary_restriction": 8
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 58,
+        "risk_weighted_coverage": 0.31071773501225314,
+        "median_travel_seconds": 812.3289343881249,
+        "median_ttfrp_seconds": 1712.3289343881247,
+        "p90_ttfrp_seconds": 2145.5529346123126,
+        "pair_exclusions": {
+          "airspace": 16,
+          "manned_aircraft_conflict": 10,
+          "range": 1186,
+          "temporary_restriction": 8
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 17,
+        "risk_weighted_coverage": 0.10149601787480876,
+        "median_travel_seconds": 630.9441199825261,
+        "median_ttfrp_seconds": 1530.944119982526,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 4,
+          "communications": 6,
+          "data_freshness": 12,
+          "incident_confidence": 7,
+          "manned_aircraft_conflict": 6,
+          "range": 1263,
+          "site_available": 326,
+          "temporary_restriction": 6
+        }
+      }
+    ],
+    "diminishing_returns": [
+      {
+        "site_count": 1,
+        "risk_weighted_coverage": 0.02370812774414704
+      },
+      {
+        "site_count": 2,
+        "risk_weighted_coverage": 0.02370812774414704
+      },
+      {
+        "site_count": 3,
+        "risk_weighted_coverage": 0.03045339421896763
+      },
+      {
+        "site_count": 5,
+        "risk_weighted_coverage": 0.06352473719198293
+      },
+      {
+        "site_count": 10,
+        "risk_weighted_coverage": 0.10149601787480876
+      }
+    ],
+    "weather_erosion": [
+      {
+        "weather_scenario": "within-assumed-envelope",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 17,
+        "risk_weighted_coverage": 0.10149601787480876,
+        "median_travel_seconds": 630.9441199825261,
+        "median_ttfrp_seconds": 1530.944119982526,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 4,
+          "communications": 6,
+          "data_freshness": 12,
+          "incident_confidence": 7,
+          "manned_aircraft_conflict": 6,
+          "range": 1263,
+          "site_available": 326,
+          "temporary_restriction": 6
+        }
+      },
+      {
+        "weather_scenario": "wind-outside-assumed-envelope",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 0,
+        "risk_weighted_coverage": 0.0,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 1378,
+          "site_available": 360,
+          "wind": 62
+        }
+      },
+      {
+        "weather_scenario": "visibility-unknown",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 0,
+        "risk_weighted_coverage": 0.0,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 1378,
+          "site_available": 360,
+          "visibility": 62
+        }
+      }
+    ],
+    "bottleneck_test": [
+      {
+        "ttfrp_scenario": "balanced-non-travel",
+        "non_travel_seconds": 900.0,
+        "feasible_incidents": 17,
+        "median_travel_share": 0.4121274654947743,
+        "travel_dominates_fraction": 0.17647058823529413
+      },
+      {
+        "ttfrp_scenario": "low-non-travel",
+        "non_travel_seconds": 300.0,
+        "feasible_incidents": 17,
+        "median_travel_share": 0.6777465010406521,
+        "travel_dominates_fraction": 0.8823529411764706
+      },
+      {
+        "ttfrp_scenario": "high-non-travel",
+        "non_travel_seconds": 2400.0,
+        "feasible_incidents": 17,
+        "median_travel_share": 0.20816751975822095,
+        "travel_dominates_fraction": 0.0
+      }
+    ],
+    "profile_sensitivity": [
+      {
+        "profile_id": "assumed-conservative-envelope-v1",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 9,
+        "risk_weighted_coverage": 0.06569824495234944,
+        "median_travel_seconds": 849.0728429058827,
+        "median_ttfrp_seconds": 1749.0728429058827,
+        "p90_ttfrp_seconds": 1838.9851761316563,
+        "pair_exclusions": {
+          "airspace": 2,
+          "communications": 4,
+          "data_freshness": 8,
+          "incident_confidence": 3,
+          "manned_aircraft_conflict": 3,
+          "range": 1344,
+          "site_available": 342,
+          "temporary_restriction": 4
+        }
+      },
+      {
+        "profile_id": "assumed-reference-envelope-v1",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 17,
+        "risk_weighted_coverage": 0.10149601787480876,
+        "median_travel_seconds": 630.9441199825261,
+        "median_ttfrp_seconds": 1530.944119982526,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 4,
+          "communications": 6,
+          "data_freshness": 12,
+          "incident_confidence": 7,
+          "manned_aircraft_conflict": 6,
+          "range": 1263,
+          "site_available": 326,
+          "temporary_restriction": 6
+        }
+      },
+      {
+        "profile_id": "assumed-optimistic-envelope-v1",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 25,
+        "risk_weighted_coverage": 0.1401475396514452,
+        "median_travel_seconds": 650.4512970124476,
+        "median_ttfrp_seconds": 1550.4512970124476,
+        "p90_ttfrp_seconds": 1834.1647009592346,
+        "pair_exclusions": {
+          "airspace": 9,
+          "communications": 8,
+          "data_freshness": 18,
+          "incident_confidence": 15,
+          "manned_aircraft_conflict": 9,
+          "range": 1173,
+          "site_available": 310,
+          "temporary_restriction": 8
+        }
+      }
+    ],
+    "alternative_comparison": {
+      "dock_only": {
+        "covered_incidents": 17,
+        "risk_weighted_coverage": 0.10149601787480876,
+        "median_ttfrp_seconds": 1530.944119982526,
+        "p90_ttfrp_seconds": 1809.7048350319892
+      },
+      "camera_only": {
+        "covered_incidents": 59,
+        "risk_weighted_coverage": 0.312742345408657,
+        "median_ttfrp_seconds": 360.0,
+        "p90_ttfrp_seconds": 360.0
+      },
+      "hybrid_best_available_picture": {
+        "covered_incidents": 59,
+        "risk_weighted_coverage": 0.312742345408657,
+        "median_ttfrp_seconds": 360.0,
+        "p90_ttfrp_seconds": 360.0
+      },
+      "warning": "Camera radius/latency and picture equivalence are ASSUMED; this is not a cost or operational comparison."
+    }
+  },
+  "interpretation": {
+    "A_01_travel_materiality": "CONDITION_DEPENDENT",
+    "limitations": [
+      "All incidents, sites, timings and performance values are synthetic/assumed.",
+      "No numerical threshold is used to declare material operational improvement.",
+      "A gate pass means GO_SIMULATION, never authorization or safety to fly.",
+      "The camera alternative ignores cost, line of sight, smoke and image equivalence."
+    ]
+  },
+  "decision": {
+    "gate": "SYNTHETIC MODEL",
+    "status": "MODEL_RUN_COMPLETE_NOT_OPERATIONAL_VALIDATION",
+    "allowed_claim": "The deterministic falsification harness executed.",
+    "prohibited_claim": "The results predict Madrid response or authorize operations."
+  }
+}

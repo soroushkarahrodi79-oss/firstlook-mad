@@ -22,7 +22,7 @@ class FakeResponse:
     def read(self, size: int = -1) -> bytes:
         return self._body.read(size)
 
-    def __enter__(self) -> "FakeResponse":
+    def __enter__(self) -> FakeResponse:
         return self
 
     def __exit__(self, *args: object) -> None:
