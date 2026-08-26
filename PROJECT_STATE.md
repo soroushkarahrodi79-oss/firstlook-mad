@@ -54,7 +54,7 @@ Catálogo de fuentes en docs/DATA_SOURCES.md. Feasibility real = Phase 0B.
 Sin tests aún (no hay código de aplicación). Suite empieza en Phase 0C.
 
 ## Last verified commit
-(rellenar tras el primer push — ver `git log --oneline -1`).
+`d006d2b` — Phase 0A documentation set (this commit adds the pointer on top).
 
 ## Next 3 actions
 1. Recibir veredicto humano del gate PROJECT DEFINITION REVIEW (PASS/CONDITIONS/FAIL).
