@@ -365,19 +365,20 @@
         "model": "F_ENERGY",
         "site_count": 5,
         "incident_count": 180,
-        "covered_incidents": 11,
-        "risk_weighted_coverage": 0.06352473719198293,
-        "median_travel_seconds": 794.6875124010123,
-        "median_ttfrp_seconds": 1694.6875124010123,
+        "covered_incidents": 10,
+        "risk_weighted_coverage": 0.05409306702514962,
+        "median_travel_seconds": 795.8768676326349,
+        "median_ttfrp_seconds": 1695.876867632635,
         "p90_ttfrp_seconds": 1809.7048350319892,
         "pair_exclusions": {
-          "airspace": 3,
+          "airspace": 2,
           "communications": 8,
-          "data_freshness": 8,
+          "data_freshness": 6,
           "incident_confidence": 4,
-          "manned_aircraft_conflict": 5,
-          "range": 812,
-          "temporary_restriction": 5
+          "manned_aircraft_conflict": 4,
+          "range": 652,
+          "temporary_restriction": 4,
+          "uas_available": 170
         }
       },
       {
@@ -461,14 +462,15 @@
         "median_ttfrp_seconds": 1530.944119982526,
         "p90_ttfrp_seconds": 1809.7048350319892,
         "pair_exclusions": {
-          "airspace": 4,
+          "airspace": 3,
           "communications": 6,
-          "data_freshness": 12,
+          "data_freshness": 10,
           "incident_confidence": 7,
-          "manned_aircraft_conflict": 6,
-          "range": 1263,
+          "manned_aircraft_conflict": 5,
+          "range": 1105,
           "site_available": 326,
-          "temporary_restriction": 6
+          "temporary_restriction": 5,
+          "uas_available": 163
         }
       }
     ],
@@ -487,7 +489,7 @@
       },
       {
         "site_count": 5,
-        "risk_weighted_coverage": 0.06352473719198293
+        "risk_weighted_coverage": 0.05409306702514962
       },
       {
         "site_count": 10,
@@ -506,14 +508,15 @@
         "median_ttfrp_seconds": 1530.944119982526,
         "p90_ttfrp_seconds": 1809.7048350319892,
         "pair_exclusions": {
-          "airspace": 4,
+          "airspace": 3,
           "communications": 6,
-          "data_freshness": 12,
+          "data_freshness": 10,
           "incident_confidence": 7,
-          "manned_aircraft_conflict": 6,
-          "range": 1263,
+          "manned_aircraft_conflict": 5,
+          "range": 1105,
           "site_available": 326,
-          "temporary_restriction": 6
+          "temporary_restriction": 5,
+          "uas_available": 163
         }
       },
       {
@@ -527,9 +530,10 @@
         "median_ttfrp_seconds": null,
         "p90_ttfrp_seconds": null,
         "pair_exclusions": {
-          "range": 1378,
+          "range": 1204,
           "site_available": 360,
-          "wind": 62
+          "uas_available": 180,
+          "wind": 56
         }
       },
       {
@@ -543,9 +547,10 @@
         "median_ttfrp_seconds": null,
         "p90_ttfrp_seconds": null,
         "pair_exclusions": {
-          "range": 1378,
+          "range": 1204,
           "site_available": 360,
-          "visibility": 62
+          "uas_available": 180,
+          "visibility": 56
         }
       }
     ],
@@ -586,12 +591,13 @@
         "pair_exclusions": {
           "airspace": 2,
           "communications": 4,
-          "data_freshness": 8,
+          "data_freshness": 6,
           "incident_confidence": 3,
-          "manned_aircraft_conflict": 3,
-          "range": 1344,
+          "manned_aircraft_conflict": 2,
+          "range": 1176,
           "site_available": 342,
-          "temporary_restriction": 4
+          "temporary_restriction": 4,
+          "uas_available": 171
         }
       },
       {
@@ -605,14 +611,15 @@
         "median_ttfrp_seconds": 1530.944119982526,
         "p90_ttfrp_seconds": 1809.7048350319892,
         "pair_exclusions": {
-          "airspace": 4,
+          "airspace": 3,
           "communications": 6,
-          "data_freshness": 12,
+          "data_freshness": 10,
           "incident_confidence": 7,
-          "manned_aircraft_conflict": 6,
-          "range": 1263,
+          "manned_aircraft_conflict": 5,
+          "range": 1105,
           "site_available": 326,
-          "temporary_restriction": 6
+          "temporary_restriction": 5,
+          "uas_available": 163
         }
       },
       {
@@ -620,20 +627,21 @@
         "model": "F_ENERGY",
         "site_count": 10,
         "incident_count": 180,
-        "covered_incidents": 25,
-        "risk_weighted_coverage": 0.1401475396514452,
-        "median_travel_seconds": 650.4512970124476,
-        "median_ttfrp_seconds": 1550.4512970124476,
-        "p90_ttfrp_seconds": 1834.1647009592346,
+        "covered_incidents": 23,
+        "risk_weighted_coverage": 0.13480354394764277,
+        "median_travel_seconds": 597.7996671481932,
+        "median_ttfrp_seconds": 1497.7996671481933,
+        "p90_ttfrp_seconds": 1812.1941051584713,
         "pair_exclusions": {
-          "airspace": 9,
+          "airspace": 7,
           "communications": 8,
-          "data_freshness": 18,
-          "incident_confidence": 15,
-          "manned_aircraft_conflict": 9,
-          "range": 1173,
-          "site_available": 310,
-          "temporary_restriction": 8
+          "data_freshness": 15,
+          "incident_confidence": 14,
+          "manned_aircraft_conflict": 8,
+          "range": 1040,
+          "site_available": 314,
+          "temporary_restriction": 7,
+          "uas_available": 157
         }
       }
     ],

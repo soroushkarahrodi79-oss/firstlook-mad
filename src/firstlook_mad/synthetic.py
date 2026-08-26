@@ -74,6 +74,7 @@ def generate_inputs(config: SyntheticConfig) -> tuple[list[Incident], list[Candi
                     ),
                 ),
                 assumed_available=index % 7 != 0,
+                uas_available=index % 8 != 0,
                 communications_available=index % 9 != 0,
             )
         )

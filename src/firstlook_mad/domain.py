@@ -81,6 +81,7 @@ class CandidateSite(FrozenModel):
     site_id: str = Field(min_length=1)
     point: ProjectedPoint
     assumed_available: bool | None
+    uas_available: bool | None
     communications_available: bool | None
     nature: EvidenceNature = EvidenceNature.SYNTHETIC
 

@@ -92,6 +92,7 @@ def assess_gate(
         checks.extend(
             [
                 _known_boolean("site_available", site.assumed_available, fail_when=False),
+                _known_boolean("uas_available", site.uas_available, fail_when=False),
                 _threshold(
                     "battery",
                     battery_fraction,

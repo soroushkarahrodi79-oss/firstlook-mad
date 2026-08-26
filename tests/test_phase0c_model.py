@@ -58,6 +58,7 @@ def site(*, easting_m: float = 451_000.0, available: bool | None = True) -> Cand
         site_id="site",
         point=point(easting_m),
         assumed_available=available,
+        uas_available=True,
         communications_available=True,
     )
 
