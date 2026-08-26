@@ -1,6 +1,6 @@
 # DATA SOURCES — FIRSTLOOK-MAD
 
-> **Fase:** 0A (catálogo de intención) · **v0.1.0**
+> **Fase:** 0B (auditoría de factibilidad en curso) · **v0.2.0**
 >
 > **AVISO:** en Phase 0A esto es un **catálogo de candidatas**, no un registro de
 > datos descargados. La investigación real de accesibilidad, esquema y licencia
@@ -51,4 +51,4 @@ Cada dataset que entre al proyecto **debe** registrar en el manifest:
 
 `DATA_FEASIBILITY_REPORT.md` con veredicto por fuente:
 `DATA READY` / `DATA PARTIAL` / `DATA BLOCKED`, y un **manifest** inicial de
-datasets accesibles con su esquema real. **No se inicia en esta sesión.**
+datasets accesibles con su esquema real.

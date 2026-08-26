@@ -28,11 +28,9 @@ escribir lógica, evitando stack-inflation y afirmaciones no verificadas.
    Madrid. Estado `NOT_VERIFIED`; se confirma en ADR de 0C con tests geométricos.
    Regla firme: nunca calcular distancias en EPSG:4326.
 
-5. **Licencia (recomendación, no vinculante aún):** para el **código**, licencia
-   permisiva **Apache-2.0** (incluye concesión explícita de patentes, apropiada
-   para un proyecto safety-adjacent) o **MIT** (más simple). Los **datos de
-   terceros** conservan su propia licencia y no se relicencian. Se crea `LICENSE`
-   con Apache-2.0 como opción por defecto revisable; cambiarla es trivial en 0A.
+5. **Licencia:** para el **código**, licencia **Apache-2.0**, confirmada por el
+   responsable al cerrar el gate de 0A. Los **datos de terceros** conservan su
+   propia licencia y no se relicencian.
 
 6. **Sin `SAFE_TO_FLY`.** Enum de estados de zona: UNKNOWN / POTENTIALLY_ALLOWED /
    RESTRICTED / REQUIRES_AUTHORIZATION / TEMPORARILY_RESTRICTED / NOT_EVALUATED.
@@ -44,4 +42,4 @@ escribir lógica, evitando stack-inflation y afirmaciones no verificadas.
 - Reproducibilidad y auditabilidad priorizadas sobre rapidez de features.
 - Algunas decisiones (type checker, CRS definitivo, magnitud de thresholds de
   validación) quedan explícitamente abiertas y trazadas, no ocultas.
-- La recomendación de licencia debe confirmarla la persona responsable del repo.
+- La licencia Apache-2.0 fue confirmada por la persona responsable del repo.

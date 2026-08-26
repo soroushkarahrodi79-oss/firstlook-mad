@@ -42,9 +42,9 @@ personas. Ver `docs/PRODUCT_CONTRACT.md`.
 
 ## 5. Estado actual
 
-**Phase 0A — Definición.** Documentación fundacional creada; **sin lógica de
-aplicación todavía**. Próximo gate: PROJECT DEFINITION REVIEW → Phase 0B (Data
-Feasibility). Ver `PROJECT_STATE.md`.
+**Phase 0B — Data Feasibility.** Phase 0A fue aprobada con condiciones; se audita
+si las fuentes permiten probar o falsar las hipótesis antes de escribir lógica de
+simulación. Ver `PROJECT_STATE.md`.
 
 ## 6. Metodología
 
@@ -92,5 +92,5 @@ y seeds fijas, sin credenciales privadas. Ver `docs/ARCHITECTURE.md`.
 
 ## 14. Licencia
 
-Código: ver `LICENSE` (recomendación provisional Apache-2.0, ver ADR-0001). Datos
+Código: ver `LICENSE` (Apache-2.0, confirmada para Phase 0B; ver ADR-0001). Datos
 de terceros: su propia licencia. Citación: `CITATION.cff`.
