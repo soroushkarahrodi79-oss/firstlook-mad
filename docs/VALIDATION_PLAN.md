@@ -1,6 +1,6 @@
 # VALIDATION PLAN — FIRSTLOOK-MAD
 
-> **Fase:** 0A · **v0.1.0**
+> **Fase:** actualizado al cierre de 0C · **v0.2.0**
 >
 > La primera gran decisión del proyecto es **BUILD / REPOSITION / KILL**. No
 > estamos obligados a demostrar que funciona; queremos **descubrir** si funciona.
@@ -41,6 +41,13 @@ Marcados `PROVISIONAL` — se confirman cuando exista baseline y calidad de dato
 | MADRID REAL DATA MVP | 0D | MVP operativo mínimo / no |
 | BASELINE | 0E | VERIFIED / PARTIAL / PROXY / NO_BASELINE |
 | GO/REPOSITION/KILL | 0F | BUILD / REPOSITION / KILL |
+
+Estado de gates a 2026-08-27:
+
+- 0A: `PASS WITH CONDITIONS`.
+- 0B: `DATA PARTIAL`.
+- 0C: `SYNTHETIC MODEL — PASS` técnico; señal científica
+  `CONDITION_DEPENDENT / EARLY REPOSITION SIGNAL`.
 
 Formato de cada gate (§40 brief): **Evidence · What passed · What failed ·
 Missing evidence · Risks · Verdict**. Ante `FAIL`, no se continúa.

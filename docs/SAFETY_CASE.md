@@ -1,6 +1,6 @@
 # SAFETY CASE — FIRSTLOOK-MAD
 
-> **Fase:** 0A · **v0.1.0** · **Clasificación actual:** `RESEARCH / SIMULATION
+> **Fase:** revisado al cierre de 0C · **v0.2.0** · **Clasificación actual:** `RESEARCH / SIMULATION
 > PROTOTYPE ONLY` — **NO** operacional, **NO** certificado, **NO** autorizado.
 
 Este documento se crea desde el inicio (§26 brief) porque el sistema es
@@ -41,7 +41,11 @@ Distinguimos tres cosas y hoy somos solo la primera:
   **Evidence:** arquitectura `decision/` separa evidencia/valoración/recomendación;
   UI futura lo refleja (`CONOPS §6`).
 - **Claim:** los gates no ocultan restricciones críticas.
-  **Evidence:** regla first-failure-wins y tests dedicados (a implementar 0C).
+  **Evidence:** `safety.py` conserva todos los checks, prioriza el primer no-PASS
+  y tiene tests para fallo, desconocido y autorización.
+- **Claim:** el output sintético no se presenta como evidencia real.
+  **Evidence:** modelos/config/output etiquetados `SYNTHETIC`/`ASSUMED` y
+  separación serializada `evidence`/`interpretation`/`decision`.
 
 ## 4. Privacidad por diseño (data protection)
 
@@ -61,3 +65,6 @@ MISSING`). Provenance obligatoria para todo dato.
 
 Este safety case se revisa en cada gate de fase y tras cada red-team. Cambios de
 clasificación (p. ej. de *prototype* a *validated simulation*) requieren un ADR.
+
+Revisión 0C: **sin cambio de clasificación**. El gate técnico `PASS` no convierte
+el prototipo en simulación validada ni autoriza usos operacionales.

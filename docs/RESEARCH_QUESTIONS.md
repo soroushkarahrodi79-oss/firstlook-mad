@@ -1,6 +1,6 @@
 # RESEARCH QUESTIONS — FIRSTLOOK-MAD
 
-> **Fase:** 0A · **Versión:** 0.1.0 · **Fecha:** 2026-08-26
+> **Fase:** evidencia sintética añadida en 0C · **Versión:** 0.2.0 · **Fecha:** 2026-08-27
 
 Preguntas de investigación formales. Cada una tiene: enunciado, por qué importa,
 cómo se mediría, y su **test de falsación más barato**. Ninguna respuesta se
@@ -68,3 +68,17 @@ FIRSTLOOK-MAD no se evalúa en aislamiento. Se compara conceptualmente con: cám
 fijas, torres de vigilancia, satélite, movilización terrestre, drones desplegados
 manualmente, unidades móviles de drones, docks fijos, e **híbridos**. Un resultado
 donde un híbrido gana **no es un fracaso** (ver `PRODUCT_CONTRACT.md §6`).
+
+## Estado tras Phase 0C
+
+| Pregunta | Evidencia 0C | Estado |
+|---|---|---|
+| RQ1 | Cobertura A→F sintética, sin threshold empírico | `TESTING` |
+| RQ2 | Solo sitios sintéticos; factibilidad real sigue parcial | `TESTING` |
+| RQ3 | Distribuciones TTFRP asumidas y test de cuello de botella | `CONDITION_DEPENDENT` |
+| RQ4 | Sin baseline TTFRP público | `BLOCKED` |
+| RQ5 | Dos escenarios adversariales erosionan a cero | `TESTING` |
+| RQ6 | No hay saturación temprana, pero cobertura F sigue baja | `TESTING` |
+
+La cámara proxy domina bajo sus supuestos; es una señal para estudiar
+`REPOSITION`, no una respuesta concluyente a la comparación transversal.
