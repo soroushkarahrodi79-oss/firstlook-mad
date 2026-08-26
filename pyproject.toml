@@ -1,6 +1,6 @@
 [project]
 name = "firstlook-mad"
-version = "0.1.0"
+version = "0.2.0"
 description = "Research/simulation prototype: distributed UAS first-response and decision support for wildfire in the Community of Madrid (TTFRP). NOT an operational system."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -28,12 +28,15 @@ dependencies = [
 dev = [
     "pytest>=8",
     "ruff>=0.6",
+    "mypy>=1.11",
     "pre-commit>=3",
-    # type checker (mypy vs pyright) to be decided in a Phase 0C ADR
 ]
 
 [project.urls]
 Repository = "https://github.com/soroushkarahrodi79-oss/firstlook-mad"
+
+[project.scripts]
+firstlook = "firstlook_mad.cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -49,7 +52,14 @@ src = ["src", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM", "PL", "RUF"]
+ignore = ["PLR0913"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+pythonpath = ["."]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "scripts"]
