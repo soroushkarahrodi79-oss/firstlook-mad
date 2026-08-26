@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: >-
+  If you use FIRSTLOOK-MAD in academic work, please cite it. This is a research /
+  simulation prototype and NOT an operational or certified system.
+title: >-
+  FIRSTLOOK-MAD — Distributed UAS first-response and decision-support simulation
+  prototype for wildfire in the Community of Madrid
+abstract: >-
+  A reproducible, auditable research and simulation prototype (digital twin) that
+  evaluates whether a distributed network of potential UAS deployment points could
+  reduce the Time To First Reliable Picture (TTFRP) for wildfire incidents, under
+  GIS, territorial risk, flight restrictions and existing emergency resources. The
+  prototype does not control drones, dispatch resources, or connect to operational
+  emergency systems.
+type: software
+authors:
+  - name: FIRSTLOOK-MAD contributors
+version: 0.1.0
+date-released: "2026-08-26"
+license: Apache-2.0
+keywords:
+  - wildfire
+  - UAS
+  - drones
+  - decision support
+  - facility location
+  - GIS
+  - simulation
+  - reproducibility
+  - Comunidad de Madrid
+repository-code: "https://github.com/soroushkarahrodi79-oss/firstlook-mad"

@@ -1,0 +1,55 @@
+[project]
+name = "firstlook-mad"
+version = "0.1.0"
+description = "Research/simulation prototype: distributed UAS first-response and decision support for wildfire in the Community of Madrid (TTFRP). NOT an operational system."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+authors = [{ name = "FIRSTLOOK-MAD contributors" }]
+keywords = ["wildfire", "uas", "gis", "decision-support", "simulation", "facility-location"]
+
+# Core dependencies are DECLARED here (see docs/ARCHITECTURE.md §5 for the
+# per-dependency justification) but are only INSTALLED starting in Phase 0C,
+# after the definition (0A) and data-feasibility (0B) gates pass.
+# Deferred deps (OR-Tools, NetworkX, Rasterio) are intentionally NOT listed yet;
+# each is added in the phase that requires it.
+dependencies = [
+    "pydantic>=2",
+    "pandas>=2",
+    "geopandas>=1",
+    "shapely>=2",
+    "pyproj>=3",
+    "duckdb>=1",
+    "pyarrow>=16",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+    "pre-commit>=3",
+    # type checker (mypy vs pyright) to be decided in a Phase 0C ADR
+]
+
+[project.urls]
+Repository = "https://github.com/soroushkarahrodi79-oss/firstlook-mad"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/firstlook_mad"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "PL", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

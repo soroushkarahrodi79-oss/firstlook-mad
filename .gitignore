@@ -1,0 +1,53 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.env
+.env.*
+
+# --- uv ---
+# uv.lock IS versioned (reproducibility). Do not ignore it.
+
+# --- Tooling caches ---
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# --- Data: raw/external/interim/processed NOT versioned (large / third-party) ---
+data/raw/*
+data/external/*
+data/interim/*
+data/processed/*
+# keep folder structure + small synthetic fixtures
+!data/**/.gitkeep
+!data/synthetic/**
+!data/**/README.md
+
+# --- Outputs are regenerable; do not version generated artifacts ---
+outputs/maps/*
+outputs/tables/*
+outputs/figures/*
+outputs/reports/*
+!outputs/**/.gitkeep
+
+# --- Secrets / credentials (never commit) ---
+*.pem
+*.key
+*_secret*
+*credentials*
+secrets.*
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
