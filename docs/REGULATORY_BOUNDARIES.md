@@ -1,12 +1,10 @@
 # REGULATORY BOUNDARIES — FIRSTLOOK-MAD
 
-> **Fase:** 0A · **v0.1.0** · **Estado:** `RESEARCH / SIMULATION PROTOTYPE ONLY`
+> **Fase:** 0B cerrada · **v0.2.0** · **Estado:** `RESEARCH / SIMULATION PROTOTYPE ONLY`
 >
-> **AVISO DE VERIFICACIÓN:** este documento fija el *marco* regulatorio como
-> restricción de primer orden. **Ningún límite numérico, versión, ni condición
-> concreta debe tratarse como verdad verificada hasta Phase 0B.** Todo hecho
-> específico lleva `verification_status`. Este documento **no** es asesoramiento
-> jurídico ni operacional.
+> **AVISO DE VERIFICACIÓN:** Phase 0B contrastó el marco y los endpoints listados
+> abajo a fecha 2026-08-26. La vigencia debe revisarse de nuevo antes de cada fase
+> posterior. Este documento **no** es asesoramiento jurídico ni operacional.
 
 ---
 
@@ -36,23 +34,22 @@ El sistema debe poder representar, como mínimo:
 - **Privacidad** y **protección de datos** (RGPD/LOPDGDD).
 - **Trazabilidad**.
 
-## 3. Autoridades y marcos de referencia (a verificar en 0B)
+## 3. Autoridades y marcos de referencia
 
 | Entidad / marco | Rol | verification_status |
 |---|---|---|
-| EASA — Reglamentos (UE) 2019/947 y 2019/945 | Marco UE de UAS | `NOT_VERIFIED` (citar texto vigente en 0B) |
-| Categorías Open / Specific / Certified | Clasificación operacional | `NOT_VERIFIED` |
-| SORA (metodología) | Evaluación de riesgo en Specific | `NOT_VERIFIED` |
-| AESA (España) | Autoridad aeronáutica nacional | `NOT_VERIFIED` |
-| ENAIRE — zonificación UAS | Zonas geográficas UAS | `NOT_VERIFIED` (formato/endpoint en 0B) |
-| ENAIRE — AIP / NOTAM | Información aeronáutica dinámica | `NOT_VERIFIED` |
-| RGPD / LOPDGDD | Protección de datos | `NOT_VERIFIED` |
-| BOE | Publicación normativa nacional | `NOT_VERIFIED` |
+| EASA — Reglamentos (UE) 2019/947 y 2019/945 | Marco UE de UAS | `OFFICIAL_SOURCE_VERIFIED` — Easy Access Rules, junio 2026 |
+| Categorías Open / Specific / Certified | Clasificación operacional | `OFFICIAL_SOURCE_VERIFIED` |
+| SORA 2.5 | Evaluación de riesgo en Specific | `OFFICIAL_SOURCE_VERIFIED` — paquete AMC/GM vigente consultado |
+| AESA (España) | Autoridad aeronáutica nacional | `ROLE_VERIFIED`; condiciones concretas deben revisarse por operación |
+| ENAIRE — zonificación UAS | Zonas geográficas UAS | `PROBED_AND_OFFICIAL_DOCUMENTATION_VERIFIED` — API V2 / ED-318 |
+| ENAIRE — AIP / NOTAM | Información aeronáutica dinámica | `PROBED_PARTIAL_DOCUMENTATION`; Icaro XXI sigue siendo referencia recomendada |
+| RGPD / LOPDGDD | Protección de datos | `REFERENCE_ONLY`; análisis jurídico específico diferido |
+| BOE — RD 517/2024 | Zonas geográficas UAS en España | `OFFICIAL_SOURCE_VERIFIED` — texto consolidado consultado |
 
-> Los límites numéricos frecuentemente citados (p. ej. altura máxima en Open,
-> distancias a personas/infraestructura) **no** se transcriben aquí para evitar
-> convertir información dinámica en "verdad permanente". Se documentarán con
-> fuente, fecha de consulta y URL en `DATA_SOURCES.md` durante 0B.
+> Los límites numéricos no se transcriben para evitar convertir información
+> dinámica en "verdad permanente". Las fuentes, fecha y versión quedan fijadas en
+> `data/datasets_manifest.json` y `DATA_FEASIBILITY_REPORT.md`.
 
 ## 4. Consecuencias de diseño (vinculantes ya en 0A)
 
