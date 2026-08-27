@@ -1,0 +1,1733 @@
+{
+  "metadata": {
+    "schema_version": "1.1",
+    "phase": "0C.1",
+    "scenario_id": "phase0c-falsification-grid-v1",
+    "seed": 260827,
+    "crs": "EPSG:25830",
+    "nature": "SYNTHETIC",
+    "assumptions_note": "Every numerical performance, timing, weather and camera value is an uncalibrated experimental assumption, not a Madrid observation or vendor claim.",
+    "audit": "ROBUSTNESS_AND_FAIR_COMPARATOR",
+    "robustness_seed_count": 25
+  },
+  "evidence": {
+    "incident_count": 180,
+    "candidate_site_count": 10,
+    "selected_site_order": [
+      "SYN-SITE-003",
+      "SYN-SITE-009",
+      "SYN-SITE-006",
+      "SYN-SITE-008",
+      "SYN-SITE-004",
+      "SYN-SITE-000",
+      "SYN-SITE-005",
+      "SYN-SITE-002",
+      "SYN-SITE-001",
+      "SYN-SITE-007"
+    ],
+    "progressive_models": [
+      {
+        "model": "A_DISTANCE",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 27,
+        "risk_weighted_coverage": 0.14385191710988704,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 153
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 27,
+        "risk_weighted_coverage": 0.14385191710988704,
+        "median_travel_seconds": 1016.9657804626514,
+        "median_ttfrp_seconds": 1916.9657804626513,
+        "p90_ttfrp_seconds": 2188.009640675623,
+        "pair_exclusions": {
+          "range": 153
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 18,
+        "risk_weighted_coverage": 0.0959268174557102,
+        "median_travel_seconds": 917.9691319243077,
+        "median_ttfrp_seconds": 1817.9691319243077,
+        "p90_ttfrp_seconds": 2081.8842473305012,
+        "pair_exclusions": {
+          "range": 162
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 14,
+        "risk_weighted_coverage": 0.07214099101405055,
+        "median_travel_seconds": 986.0364759592883,
+        "median_ttfrp_seconds": 1886.0364759592885,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "manned_aircraft_conflict": 1,
+          "range": 162,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 14,
+        "risk_weighted_coverage": 0.07214099101405055,
+        "median_travel_seconds": 986.0364759592883,
+        "median_ttfrp_seconds": 1886.0364759592885,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "manned_aircraft_conflict": 1,
+          "range": 162,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 1,
+        "incident_count": 180,
+        "covered_incidents": 4,
+        "risk_weighted_coverage": 0.02370812774414704,
+        "median_travel_seconds": 585.1036239357377,
+        "median_ttfrp_seconds": 1485.1036239357377,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "data_freshness": 2,
+          "incident_confidence": 1,
+          "manned_aircraft_conflict": 1,
+          "range": 170,
+          "temporary_restriction": 2
+        }
+      },
+      {
+        "model": "A_DISTANCE",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 48,
+        "risk_weighted_coverage": 0.2653328022666605,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 264
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 48,
+        "risk_weighted_coverage": 0.2653328022666605,
+        "median_travel_seconds": 955.8992019210614,
+        "median_ttfrp_seconds": 1855.8992019210614,
+        "p90_ttfrp_seconds": 2193.1536761963143,
+        "pair_exclusions": {
+          "range": 264
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 33,
+        "risk_weighted_coverage": 0.18621004914134623,
+        "median_travel_seconds": 866.7115589405884,
+        "median_ttfrp_seconds": 1766.7115589405885,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "range": 294
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 26,
+        "risk_weighted_coverage": 0.14183833705465246,
+        "median_travel_seconds": 888.2081969862888,
+        "median_ttfrp_seconds": 1788.2081969862888,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "airspace": 2,
+          "manned_aircraft_conflict": 2,
+          "range": 301,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 26,
+        "risk_weighted_coverage": 0.14183833705465246,
+        "median_travel_seconds": 888.2081969862888,
+        "median_ttfrp_seconds": 1788.2081969862888,
+        "p90_ttfrp_seconds": 2116.2588068779614,
+        "pair_exclusions": {
+          "airspace": 2,
+          "manned_aircraft_conflict": 2,
+          "range": 301,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 2,
+        "incident_count": 180,
+        "covered_incidents": 4,
+        "risk_weighted_coverage": 0.02370812774414704,
+        "median_travel_seconds": 585.1036239357377,
+        "median_ttfrp_seconds": 1485.1036239357377,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 1,
+          "communications": 8,
+          "data_freshness": 2,
+          "incident_confidence": 1,
+          "manned_aircraft_conflict": 1,
+          "range": 337,
+          "temporary_restriction": 2
+        }
+      },
+      {
+        "model": "A_DISTANCE",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 65,
+        "risk_weighted_coverage": 0.37810533628785187,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 345
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 65,
+        "risk_weighted_coverage": 0.37810533628785187,
+        "median_travel_seconds": 958.9216405969296,
+        "median_ttfrp_seconds": 1858.9216405969296,
+        "p90_ttfrp_seconds": 2188.009640675623,
+        "pair_exclusions": {
+          "range": 345
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 43,
+        "risk_weighted_coverage": 0.25002246940872475,
+        "median_travel_seconds": 909.7048350319893,
+        "median_ttfrp_seconds": 1809.7048350319892,
+        "p90_ttfrp_seconds": 2139.4476952789164,
+        "pair_exclusions": {
+          "range": 411
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 31,
+        "risk_weighted_coverage": 0.17417216715673908,
+        "median_travel_seconds": 926.2334288166261,
+        "median_ttfrp_seconds": 1826.2334288166262,
+        "p90_ttfrp_seconds": 2157.7201204660823,
+        "pair_exclusions": {
+          "airspace": 3,
+          "manned_aircraft_conflict": 5,
+          "range": 435,
+          "temporary_restriction": 4
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 31,
+        "risk_weighted_coverage": 0.17417216715673908,
+        "median_travel_seconds": 926.2334288166261,
+        "median_ttfrp_seconds": 1826.2334288166262,
+        "p90_ttfrp_seconds": 2157.7201204660823,
+        "pair_exclusions": {
+          "airspace": 3,
+          "manned_aircraft_conflict": 5,
+          "range": 435,
+          "temporary_restriction": 4
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 3,
+        "incident_count": 180,
+        "covered_incidents": 5,
+        "risk_weighted_coverage": 0.03045339421896763,
+        "median_travel_seconds": 600.3941114403315,
+        "median_ttfrp_seconds": 1500.3941114403315,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 2,
+          "communications": 8,
+          "data_freshness": 3,
+          "incident_confidence": 2,
+          "manned_aircraft_conflict": 3,
+          "range": 504,
+          "temporary_restriction": 3
+        }
+      },
+      {
+        "model": "A_DISTANCE",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 93,
+        "risk_weighted_coverage": 0.5068563068918298,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 435
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 93,
+        "risk_weighted_coverage": 0.5068563068918298,
+        "median_travel_seconds": 956.1355911613565,
+        "median_ttfrp_seconds": 1856.1355911613564,
+        "p90_ttfrp_seconds": 2158.675395374232,
+        "pair_exclusions": {
+          "range": 435
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 64,
+        "risk_weighted_coverage": 0.3587778431665018,
+        "median_travel_seconds": 881.0249721139517,
+        "median_ttfrp_seconds": 1781.0249721139517,
+        "p90_ttfrp_seconds": 2148.833739232913,
+        "pair_exclusions": {
+          "range": 580
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 48,
+        "risk_weighted_coverage": 0.26506332667437843,
+        "median_travel_seconds": 881.0249721139517,
+        "median_ttfrp_seconds": 1781.0249721139517,
+        "p90_ttfrp_seconds": 2157.7201204660823,
+        "pair_exclusions": {
+          "airspace": 5,
+          "manned_aircraft_conflict": 7,
+          "range": 641,
+          "temporary_restriction": 7
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 48,
+        "risk_weighted_coverage": 0.26506332667437843,
+        "median_travel_seconds": 881.0249721139517,
+        "median_ttfrp_seconds": 1781.0249721139517,
+        "p90_ttfrp_seconds": 2157.7201204660823,
+        "pair_exclusions": {
+          "airspace": 5,
+          "manned_aircraft_conflict": 7,
+          "range": 641,
+          "temporary_restriction": 7
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 5,
+        "incident_count": 180,
+        "covered_incidents": 10,
+        "risk_weighted_coverage": 0.05409306702514962,
+        "median_travel_seconds": 795.8768676326349,
+        "median_ttfrp_seconds": 1695.876867632635,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 2,
+          "communications": 8,
+          "data_freshness": 6,
+          "incident_confidence": 4,
+          "manned_aircraft_conflict": 4,
+          "range": 652,
+          "temporary_restriction": 4,
+          "uas_available": 170
+        }
+      },
+      {
+        "model": "A_DISTANCE",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 101,
+        "risk_weighted_coverage": 0.5534747557084589,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 790
+        }
+      },
+      {
+        "model": "B_TRAVEL_TIME",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 101,
+        "risk_weighted_coverage": 0.5534747557084589,
+        "median_travel_seconds": 794.0239383838983,
+        "median_ttfrp_seconds": 1694.0239383838984,
+        "p90_ttfrp_seconds": 2129.378655753535,
+        "pair_exclusions": {
+          "range": 790
+        }
+      },
+      {
+        "model": "C_RELIEF",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 81,
+        "risk_weighted_coverage": 0.4474166963642729,
+        "median_travel_seconds": 797.0662228642576,
+        "median_ttfrp_seconds": 1697.0662228642577,
+        "p90_ttfrp_seconds": 2148.833739232913,
+        "pair_exclusions": {
+          "range": 990
+        }
+      },
+      {
+        "model": "D_AIRSPACE",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 58,
+        "risk_weighted_coverage": 0.31071773501225314,
+        "median_travel_seconds": 812.3289343881249,
+        "median_ttfrp_seconds": 1712.3289343881247,
+        "p90_ttfrp_seconds": 2145.5529346123126,
+        "pair_exclusions": {
+          "airspace": 16,
+          "manned_aircraft_conflict": 10,
+          "range": 1186,
+          "temporary_restriction": 8
+        }
+      },
+      {
+        "model": "E_WEATHER",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 58,
+        "risk_weighted_coverage": 0.31071773501225314,
+        "median_travel_seconds": 812.3289343881249,
+        "median_ttfrp_seconds": 1712.3289343881247,
+        "p90_ttfrp_seconds": 2145.5529346123126,
+        "pair_exclusions": {
+          "airspace": 16,
+          "manned_aircraft_conflict": 10,
+          "range": 1186,
+          "temporary_restriction": 8
+        }
+      },
+      {
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 17,
+        "risk_weighted_coverage": 0.10149601787480876,
+        "median_travel_seconds": 630.9441199825261,
+        "median_ttfrp_seconds": 1530.944119982526,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 3,
+          "communications": 6,
+          "data_freshness": 10,
+          "incident_confidence": 7,
+          "manned_aircraft_conflict": 5,
+          "range": 1105,
+          "site_available": 326,
+          "temporary_restriction": 5,
+          "uas_available": 163
+        }
+      }
+    ],
+    "diminishing_returns": [
+      {
+        "site_count": 1,
+        "risk_weighted_coverage": 0.02370812774414704
+      },
+      {
+        "site_count": 2,
+        "risk_weighted_coverage": 0.02370812774414704
+      },
+      {
+        "site_count": 3,
+        "risk_weighted_coverage": 0.03045339421896763
+      },
+      {
+        "site_count": 5,
+        "risk_weighted_coverage": 0.05409306702514962
+      },
+      {
+        "site_count": 10,
+        "risk_weighted_coverage": 0.10149601787480876
+      }
+    ],
+    "weather_erosion": [
+      {
+        "weather_scenario": "within-assumed-envelope",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 17,
+        "risk_weighted_coverage": 0.10149601787480876,
+        "median_travel_seconds": 630.9441199825261,
+        "median_ttfrp_seconds": 1530.944119982526,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 3,
+          "communications": 6,
+          "data_freshness": 10,
+          "incident_confidence": 7,
+          "manned_aircraft_conflict": 5,
+          "range": 1105,
+          "site_available": 326,
+          "temporary_restriction": 5,
+          "uas_available": 163
+        }
+      },
+      {
+        "weather_scenario": "wind-outside-assumed-envelope",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 0,
+        "risk_weighted_coverage": 0.0,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 1204,
+          "site_available": 360,
+          "uas_available": 180,
+          "wind": 56
+        }
+      },
+      {
+        "weather_scenario": "visibility-unknown",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 0,
+        "risk_weighted_coverage": 0.0,
+        "median_travel_seconds": null,
+        "median_ttfrp_seconds": null,
+        "p90_ttfrp_seconds": null,
+        "pair_exclusions": {
+          "range": 1204,
+          "site_available": 360,
+          "uas_available": 180,
+          "visibility": 56
+        }
+      }
+    ],
+    "bottleneck_test": [
+      {
+        "ttfrp_scenario": "balanced-non-travel",
+        "non_travel_seconds": 900.0,
+        "feasible_incidents": 17,
+        "median_travel_share": 0.4121274654947743,
+        "travel_dominates_fraction": 0.17647058823529413
+      },
+      {
+        "ttfrp_scenario": "low-non-travel",
+        "non_travel_seconds": 300.0,
+        "feasible_incidents": 17,
+        "median_travel_share": 0.6777465010406521,
+        "travel_dominates_fraction": 0.8823529411764706
+      },
+      {
+        "ttfrp_scenario": "high-non-travel",
+        "non_travel_seconds": 2400.0,
+        "feasible_incidents": 17,
+        "median_travel_share": 0.20816751975822095,
+        "travel_dominates_fraction": 0.0
+      }
+    ],
+    "profile_sensitivity": [
+      {
+        "profile_id": "assumed-conservative-envelope-v1",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 9,
+        "risk_weighted_coverage": 0.06569824495234944,
+        "median_travel_seconds": 849.0728429058827,
+        "median_ttfrp_seconds": 1749.0728429058827,
+        "p90_ttfrp_seconds": 1838.9851761316563,
+        "pair_exclusions": {
+          "airspace": 2,
+          "communications": 4,
+          "data_freshness": 6,
+          "incident_confidence": 3,
+          "manned_aircraft_conflict": 2,
+          "range": 1176,
+          "site_available": 342,
+          "temporary_restriction": 4,
+          "uas_available": 171
+        }
+      },
+      {
+        "profile_id": "assumed-reference-envelope-v1",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 17,
+        "risk_weighted_coverage": 0.10149601787480876,
+        "median_travel_seconds": 630.9441199825261,
+        "median_ttfrp_seconds": 1530.944119982526,
+        "p90_ttfrp_seconds": 1809.7048350319892,
+        "pair_exclusions": {
+          "airspace": 3,
+          "communications": 6,
+          "data_freshness": 10,
+          "incident_confidence": 7,
+          "manned_aircraft_conflict": 5,
+          "range": 1105,
+          "site_available": 326,
+          "temporary_restriction": 5,
+          "uas_available": 163
+        }
+      },
+      {
+        "profile_id": "assumed-optimistic-envelope-v1",
+        "model": "F_ENERGY",
+        "site_count": 10,
+        "incident_count": 180,
+        "covered_incidents": 23,
+        "risk_weighted_coverage": 0.13480354394764277,
+        "median_travel_seconds": 597.7996671481932,
+        "median_ttfrp_seconds": 1497.7996671481933,
+        "p90_ttfrp_seconds": 1812.1941051584713,
+        "pair_exclusions": {
+          "airspace": 7,
+          "communications": 8,
+          "data_freshness": 15,
+          "incident_confidence": 14,
+          "manned_aircraft_conflict": 8,
+          "range": 1040,
+          "site_available": 314,
+          "temporary_restriction": 7,
+          "uas_available": 157
+        }
+      }
+    ],
+    "alternative_comparison": {
+      "dock_only": {
+        "covered_incidents": 17,
+        "risk_weighted_coverage": 0.10149601787480876,
+        "median_ttfrp_seconds": 1530.944119982526,
+        "p90_ttfrp_seconds": 1809.7048350319892
+      },
+      "camera_only": {
+        "covered_incidents": 59,
+        "risk_weighted_coverage": 0.312742345408657,
+        "median_ttfrp_seconds": 360.0,
+        "p90_ttfrp_seconds": 360.0
+      },
+      "best_available_observation_proxy": {
+        "covered_incidents": 59,
+        "risk_weighted_coverage": 0.312742345408657,
+        "median_ttfrp_seconds": 360.0,
+        "p90_ttfrp_seconds": 360.0
+      },
+      "warning": "Camera radius/latency and picture equivalence are ASSUMED; this is not a cost or operational comparison."
+    },
+    "robustness_audit": {
+      "ablation": {
+        "method": "leave-one-factor-out from full F on a fixed incident/site cohort",
+        "full_f": {
+          "model": "F_ENERGY",
+          "site_count": 10,
+          "incident_count": 180,
+          "covered_incidents": 17,
+          "risk_weighted_coverage": 0.10149601787480876,
+          "median_travel_seconds": 630.9441199825261,
+          "median_ttfrp_seconds": 1530.944119982526,
+          "p90_ttfrp_seconds": 1809.7048350319892,
+          "pair_exclusions": {
+            "airspace": 3,
+            "communications": 6,
+            "data_freshness": 10,
+            "incident_confidence": 7,
+            "manned_aircraft_conflict": 5,
+            "range": 1105,
+            "site_available": 326,
+            "temporary_restriction": 5,
+            "uas_available": 163
+          }
+        },
+        "rows": [
+          {
+            "factor_removed": "range",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.3185716406321652,
+            "delta_pp": 21.707562275735643,
+            "marginal_effect_percentage_points": 21.707562275735643,
+            "additional_incidents_when_removed": 41,
+            "covered_incidents_delta": 41,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "reserve",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.13480354394764277,
+            "delta_pp": 3.330752607283401,
+            "marginal_effect_percentage_points": 3.330752607283401,
+            "additional_incidents_when_removed": 6,
+            "covered_incidents_delta": 6,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "site_availability",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.10455130829760001,
+            "delta_pp": 0.30552904227912486,
+            "marginal_effect_percentage_points": 0.30552904227912486,
+            "additional_incidents_when_removed": 1,
+            "covered_incidents_delta": 1,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "uas_availability",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.10149601787480876,
+            "delta_pp": 0.0,
+            "marginal_effect_percentage_points": 0.0,
+            "additional_incidents_when_removed": 0,
+            "covered_incidents_delta": 0,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "battery",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.10149601787480876,
+            "delta_pp": 0.0,
+            "marginal_effect_percentage_points": 0.0,
+            "additional_incidents_when_removed": 0,
+            "covered_incidents_delta": 0,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "communications",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.11146043901536737,
+            "delta_pp": 0.9964421140558608,
+            "marginal_effect_percentage_points": 0.9964421140558608,
+            "additional_incidents_when_removed": 2,
+            "covered_incidents_delta": 2,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "incident_confidence",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.11010711504738376,
+            "delta_pp": 0.8611097172574994,
+            "marginal_effect_percentage_points": 0.8611097172574994,
+            "additional_incidents_when_removed": 4,
+            "covered_incidents_delta": 4,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "data_freshness",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.145689521592888,
+            "delta_pp": 4.419350371807925,
+            "marginal_effect_percentage_points": 4.419350371807925,
+            "additional_incidents_when_removed": 9,
+            "covered_incidents_delta": 9,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "airspace",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.10855890511145304,
+            "delta_pp": 0.7062887236644277,
+            "marginal_effect_percentage_points": 0.7062887236644277,
+            "additional_incidents_when_removed": 1,
+            "covered_incidents_delta": 1,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "temporary_restriction",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.10449827276739966,
+            "delta_pp": 0.30022548925909,
+            "marginal_effect_percentage_points": 0.30022548925909,
+            "additional_incidents_when_removed": 2,
+            "covered_incidents_delta": 2,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "manned_aircraft_conflict",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.11213034131410797,
+            "delta_pp": 1.063432343929921,
+            "marginal_effect_percentage_points": 1.063432343929921,
+            "additional_incidents_when_removed": 2,
+            "covered_incidents_delta": 2,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          },
+          {
+            "factor_removed": "weather",
+            "coverage_with_all_factors": 0.10149601787480876,
+            "coverage_with_factor": 0.10149601787480876,
+            "coverage_without_factor": 0.10149601787480876,
+            "delta_pp": 0.0,
+            "marginal_effect_percentage_points": 0.0,
+            "additional_incidents_when_removed": 0,
+            "covered_incidents_delta": 0,
+            "removal_never_reduces_survivors": true,
+            "notes": "marginal synthetic effect under this configuration"
+          }
+        ],
+        "interaction_warning": "Marginal effects overlap and do not sum to A→F erosion; this is not first-failure attribution or a causal decomposition."
+      },
+      "fair_comparator": {
+        "factor_contract": {
+          "common_incident_factors": [
+            "alert_processing",
+            "incident_confidence",
+            "data_freshness",
+            "incident_existence_NOT_MODELED",
+            "location_uncertainty_NOT_MODELED"
+          ],
+          "uas_specific_factors": [
+            "range",
+            "reserve",
+            "site_availability",
+            "uas_availability",
+            "battery",
+            "communications",
+            "airspace",
+            "temporary_restriction",
+            "manned_aircraft_conflict",
+            "weather"
+          ],
+          "camera_specific_factors": [
+            "camera_radius",
+            "camera_availability",
+            "camera_communications",
+            "line_of_sight_NOT_MODELED",
+            "smoke_occlusion_NOT_MODELED",
+            "observation_equivalence_NOT_ESTABLISHED"
+          ]
+        },
+        "latency_contract": {
+          "shared": [
+            "alert_processing_s",
+            "verification_s",
+            "first_analysis_s"
+          ],
+          "uas_specific": [
+            "preflight_gate_s",
+            "launch_s",
+            "travel_seconds",
+            "scene_acquisition_s"
+          ],
+          "camera_specific": [
+            "architecture_specific_latency_s",
+            "picture_latency_s"
+          ],
+          "warning": "Latency components are ASSUMED and not empirically equivalent."
+        },
+        "stage_1_raw_physical_proxy": {
+          "uas": {
+            "covered_incidents": 101,
+            "risk_weighted_coverage": 0.5534747557084589
+          },
+          "camera": {
+            "covered_incidents": 65,
+            "risk_weighted_coverage": 0.3509684368598127
+          },
+          "status": "PHYSICAL_PROXY_ONLY"
+        },
+        "stage_2_after_shared_incident_gates": {
+          "uas": {
+            "covered_incidents": 51,
+            "risk_weighted_coverage": 0.2763099538333207
+          },
+          "camera": {
+            "covered_incidents": 33,
+            "risk_weighted_coverage": 0.17631953825808075
+          }
+        },
+        "stage_3_after_architecture_specific_gates": {
+          "dock_only": {
+            "covered_incidents": 17,
+            "risk_weighted_coverage": 0.10149601787480876,
+            "median_latency_seconds": 1530.944119982526,
+            "p90_latency_seconds": 1809.7048350319892
+          },
+          "camera_optimistic_upper_bound": {
+            "covered_incidents": 27,
+            "risk_weighted_coverage": 0.13863790394373884,
+            "median_latency_seconds": 750.0,
+            "p90_latency_seconds": 750.0
+          },
+          "best_available_observation_proxy": {
+            "covered_incidents": 28,
+            "risk_weighted_coverage": 0.14538317041855942,
+            "median_latency_seconds": 750.0,
+            "p90_latency_seconds": 750.0
+          }
+        },
+        "camera_visibility_treatment": {
+          "CAMERA_OPTIMISTIC_NO_LOS_PENALTY": "reported as an upper bound",
+          "CAMERA_UNKNOWN_LOS": "NOT_COMPARABLE_UNDER_MISSING_LOS_EVIDENCE",
+          "unknown_visibility_policy": "DO_NOT_SCORE_AS_ZERO; DECLARE_INCOMPARABLE"
+        },
+        "comparison_status": "INCOMPARABLE",
+        "prohibited_inference": "No economic, operational-equivalence, or architecture-dominance claim is supported."
+      },
+      "multi_seed": {
+        "seed_count": 25,
+        "seeds": [
+          260803,
+          260804,
+          260805,
+          260806,
+          260807,
+          260808,
+          260809,
+          260810,
+          260811,
+          260812,
+          260813,
+          260814,
+          260815,
+          260816,
+          260817,
+          260818,
+          260819,
+          260820,
+          260821,
+          260822,
+          260823,
+          260824,
+          260825,
+          260826,
+          260827
+        ],
+        "runs": [
+          {
+            "seed": 260803,
+            "a_coverage": 0.592806498318505,
+            "f_coverage": 0.04972357686427473,
+            "a_to_f_erosion_percentage_points": 54.30829214542302,
+            "camera_optimistic_coverage": 0.13477594929653483,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260804,
+            "a_coverage": 0.6398276640319175,
+            "f_coverage": 0.03747158500395327,
+            "a_to_f_erosion_percentage_points": 60.23560790279642,
+            "camera_optimistic_coverage": 0.1432651529187784,
+            "a01_crossover_lower_seconds": 480,
+            "a01_crossover_upper_seconds": 600,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260805,
+            "a_coverage": 0.59514014392527,
+            "f_coverage": 0.054563744289898325,
+            "a_to_f_erosion_percentage_points": 54.05763996353718,
+            "camera_optimistic_coverage": 0.13681995058093707,
+            "a01_crossover_lower_seconds": 360,
+            "a01_crossover_upper_seconds": 480,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260806,
+            "a_coverage": 0.5350261740783901,
+            "f_coverage": 0.037068978109311874,
+            "a_to_f_erosion_percentage_points": 49.79571959690783,
+            "camera_optimistic_coverage": 0.1270591779803858,
+            "a01_crossover_lower_seconds": 480,
+            "a01_crossover_upper_seconds": 600,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260807,
+            "a_coverage": 0.6351178795021085,
+            "f_coverage": 0.06391420810294891,
+            "a_to_f_erosion_percentage_points": 57.12036713991596,
+            "camera_optimistic_coverage": 0.13321472684717184,
+            "a01_crossover_lower_seconds": 480,
+            "a01_crossover_upper_seconds": 600,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260808,
+            "a_coverage": 0.7108989301768798,
+            "f_coverage": 0.054476658493068854,
+            "a_to_f_erosion_percentage_points": 65.6422271683811,
+            "camera_optimistic_coverage": 0.15961031236195705,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260809,
+            "a_coverage": 0.6733478554763249,
+            "f_coverage": 0.053907116009285924,
+            "a_to_f_erosion_percentage_points": 61.9440739467039,
+            "camera_optimistic_coverage": 0.138930150841054,
+            "a01_crossover_lower_seconds": 720,
+            "a01_crossover_upper_seconds": 840,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260810,
+            "a_coverage": 0.5434271718032107,
+            "f_coverage": 0.062010255980352535,
+            "a_to_f_erosion_percentage_points": 48.14169158228581,
+            "camera_optimistic_coverage": 0.10162388516431241,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260811,
+            "a_coverage": 0.5096851588139836,
+            "f_coverage": 0.04883104943036148,
+            "a_to_f_erosion_percentage_points": 46.08541093836221,
+            "camera_optimistic_coverage": 0.1482574838433199,
+            "a01_crossover_lower_seconds": 360,
+            "a01_crossover_upper_seconds": 480,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260812,
+            "a_coverage": 0.5491532496632039,
+            "f_coverage": 0.06564067131950065,
+            "a_to_f_erosion_percentage_points": 48.35125783437032,
+            "camera_optimistic_coverage": 0.10206036185550395,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260813,
+            "a_coverage": 0.6815805844976417,
+            "f_coverage": 0.06826828568288014,
+            "a_to_f_erosion_percentage_points": 61.331229881476155,
+            "camera_optimistic_coverage": 0.12945174914342247,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260814,
+            "a_coverage": 0.49206532129495434,
+            "f_coverage": 0.03433720907057945,
+            "a_to_f_erosion_percentage_points": 45.77281122243749,
+            "camera_optimistic_coverage": 0.1148242132135254,
+            "a01_crossover_lower_seconds": 480,
+            "a01_crossover_upper_seconds": 600,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260815,
+            "a_coverage": 0.5756302026339452,
+            "f_coverage": 0.010046252435564642,
+            "a_to_f_erosion_percentage_points": 56.558395019838045,
+            "camera_optimistic_coverage": 0.07317144229125436,
+            "a01_crossover_lower_seconds": 480,
+            "a01_crossover_upper_seconds": 600,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260816,
+            "a_coverage": 0.7635473850215126,
+            "f_coverage": 0.03603054424615749,
+            "a_to_f_erosion_percentage_points": 72.75168407753551,
+            "camera_optimistic_coverage": 0.15736149794463813,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260817,
+            "a_coverage": 0.6344883354026825,
+            "f_coverage": 0.04685221915757249,
+            "a_to_f_erosion_percentage_points": 58.76361162451099,
+            "camera_optimistic_coverage": 0.1589339603010767,
+            "a01_crossover_lower_seconds": 720,
+            "a01_crossover_upper_seconds": 840,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260818,
+            "a_coverage": 0.6076209324098307,
+            "f_coverage": 0.044308504157001445,
+            "a_to_f_erosion_percentage_points": 56.33124282528292,
+            "camera_optimistic_coverage": 0.13445898124555838,
+            "a01_crossover_lower_seconds": 480,
+            "a01_crossover_upper_seconds": 600,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260819,
+            "a_coverage": 0.6197264290651819,
+            "f_coverage": 0.07606079185447016,
+            "a_to_f_erosion_percentage_points": 54.36656372107118,
+            "camera_optimistic_coverage": 0.1326993707701741,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260820,
+            "a_coverage": 0.5719530610204951,
+            "f_coverage": 0.06068847506611061,
+            "a_to_f_erosion_percentage_points": 51.12645859543845,
+            "camera_optimistic_coverage": 0.1548071365399014,
+            "a01_crossover_lower_seconds": 360,
+            "a01_crossover_upper_seconds": 480,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260821,
+            "a_coverage": 0.6899501149805044,
+            "f_coverage": 0.07869805546125967,
+            "a_to_f_erosion_percentage_points": 61.12520595192448,
+            "camera_optimistic_coverage": 0.105324695462682,
+            "a01_crossover_lower_seconds": 720,
+            "a01_crossover_upper_seconds": 840,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260822,
+            "a_coverage": 0.5871576878223003,
+            "f_coverage": 0.07655503382408967,
+            "a_to_f_erosion_percentage_points": 51.060265399821056,
+            "camera_optimistic_coverage": 0.1548600386067021,
+            "a01_crossover_lower_seconds": 720,
+            "a01_crossover_upper_seconds": 840,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260823,
+            "a_coverage": 0.53501277719086,
+            "f_coverage": 0.0790175617903502,
+            "a_to_f_erosion_percentage_points": 45.599521540050986,
+            "camera_optimistic_coverage": 0.14102951118247073,
+            "a01_crossover_lower_seconds": 480,
+            "a01_crossover_upper_seconds": 600,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260824,
+            "a_coverage": 0.5417877138511196,
+            "f_coverage": 0.04797179015266985,
+            "a_to_f_erosion_percentage_points": 49.381592369844974,
+            "camera_optimistic_coverage": 0.13059279588910183,
+            "a01_crossover_lower_seconds": 720,
+            "a01_crossover_upper_seconds": 840,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260825,
+            "a_coverage": 0.5389068265745169,
+            "f_coverage": 0.018370712718172897,
+            "a_to_f_erosion_percentage_points": 52.053611385634404,
+            "camera_optimistic_coverage": 0.12657325657284407,
+            "a01_crossover_lower_seconds": 360,
+            "a01_crossover_upper_seconds": 480,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260826,
+            "a_coverage": 0.5673965374447071,
+            "f_coverage": 0.044469506758868044,
+            "a_to_f_erosion_percentage_points": 52.292703068583904,
+            "camera_optimistic_coverage": 0.15563908196557366,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          },
+          {
+            "seed": 260827,
+            "a_coverage": 0.5534747557084589,
+            "f_coverage": 0.10149601787480876,
+            "a_to_f_erosion_percentage_points": 45.19787378336502,
+            "camera_optimistic_coverage": 0.13863790394373884,
+            "a01_crossover_lower_seconds": 600,
+            "a01_crossover_upper_seconds": 720,
+            "comparison_status": "INCOMPARABLE"
+          }
+        ],
+        "summary": {
+          "a_coverage": {
+            "median": 0.5871576878223003,
+            "minimum": 0.49206532129495434,
+            "maximum": 0.7635473850215126,
+            "p10": 0.53501277719086,
+            "p90": 0.6899501149805044
+          },
+          "f_coverage": {
+            "median": 0.053907116009285924,
+            "minimum": 0.010046252435564642,
+            "maximum": 0.10149601787480876,
+            "p10": 0.03433720907057945,
+            "p90": 0.07869805546125967
+          },
+          "a_to_f_erosion_percentage_points": {
+            "median": 54.05763996353718,
+            "minimum": 45.19787378336502,
+            "maximum": 72.75168407753551,
+            "p10": 45.77281122243749,
+            "p90": 61.9440739467039
+          },
+          "camera_optimistic_coverage": {
+            "median": 0.13477594929653483,
+            "minimum": 0.07317144229125436,
+            "maximum": 0.15961031236195705,
+            "p10": 0.10206036185550395,
+            "p90": 0.15736149794463813
+          },
+          "a01_crossover_lower_seconds": {
+            "median": 600.0,
+            "minimum": 360.0,
+            "maximum": 720.0,
+            "p10": 360.0,
+            "p90": 720.0
+          },
+          "a01_crossover_upper_seconds": {
+            "median": 720.0,
+            "minimum": 480.0,
+            "maximum": 840.0,
+            "p10": 480.0,
+            "p90": 840.0
+          }
+        },
+        "all_comparisons_incomparable": true
+      },
+      "a01_sensitivity": {
+        "cohort": "fixed full-F survivors; membership is not recomputed during latency sweep",
+        "survivor_bias_warning": "Results characterize only synthetic incidents already surviving every F gate.",
+        "sweep": [
+          {
+            "non_travel_seconds": 0,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 1.0,
+            "travel_dominates_fraction": 1.0,
+            "median_ttfrp_seconds": 630.9441199825261,
+            "p90_ttfrp_seconds": 909.7048350319893
+          },
+          {
+            "non_travel_seconds": 120,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.8402011590385816,
+            "travel_dominates_fraction": 1.0,
+            "median_ttfrp_seconds": 750.9441199825261,
+            "p90_ttfrp_seconds": 1029.7048350319892
+          },
+          {
+            "non_travel_seconds": 240,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.7244369707613214,
+            "travel_dominates_fraction": 0.9411764705882353,
+            "median_ttfrp_seconds": 870.9441199825261,
+            "p90_ttfrp_seconds": 1149.7048350319892
+          },
+          {
+            "non_travel_seconds": 360,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.6367100901649752,
+            "travel_dominates_fraction": 0.8823529411764706,
+            "median_ttfrp_seconds": 990.9441199825261,
+            "p90_ttfrp_seconds": 1269.7048350319892
+          },
+          {
+            "non_travel_seconds": 480,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.5679350640898574,
+            "travel_dominates_fraction": 0.8235294117647058,
+            "median_ttfrp_seconds": 1110.944119982526,
+            "p90_ttfrp_seconds": 1389.7048350319892
+          },
+          {
+            "non_travel_seconds": 600,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.5125692626822758,
+            "travel_dominates_fraction": 0.6470588235294118,
+            "median_ttfrp_seconds": 1230.944119982526,
+            "p90_ttfrp_seconds": 1509.7048350319892
+          },
+          {
+            "non_travel_seconds": 720,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.4670393916742368,
+            "travel_dominates_fraction": 0.47058823529411764,
+            "median_ttfrp_seconds": 1350.944119982526,
+            "p90_ttfrp_seconds": 1629.7048350319892
+          },
+          {
+            "non_travel_seconds": 840,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.42893819786303056,
+            "travel_dominates_fraction": 0.29411764705882354,
+            "median_ttfrp_seconds": 1470.944119982526,
+            "p90_ttfrp_seconds": 1749.7048350319892
+          },
+          {
+            "non_travel_seconds": 960,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.39658471473495627,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 1590.944119982526,
+            "p90_ttfrp_seconds": 1869.7048350319892
+          },
+          {
+            "non_travel_seconds": 1080,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.36876956565300917,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 1710.944119982526,
+            "p90_ttfrp_seconds": 1989.7048350319892
+          },
+          {
+            "non_travel_seconds": 1200,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.34460042395425355,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 1830.944119982526,
+            "p90_ttfrp_seconds": 2109.704835031989
+          },
+          {
+            "non_travel_seconds": 1320,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.3234045063208562,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 1950.944119982526,
+            "p90_ttfrp_seconds": 2229.704835031989
+          },
+          {
+            "non_travel_seconds": 1440,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.30466496603870213,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 2070.944119982526,
+            "p90_ttfrp_seconds": 2349.704835031989
+          },
+          {
+            "non_travel_seconds": 1560,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.2879781890500969,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 2190.944119982526,
+            "p90_ttfrp_seconds": 2469.704835031989
+          },
+          {
+            "non_travel_seconds": 1680,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.2730243948898673,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 2310.944119982526,
+            "p90_ttfrp_seconds": 2589.704835031989
+          },
+          {
+            "non_travel_seconds": 1800,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.25954694507213166,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 2430.944119982526,
+            "p90_ttfrp_seconds": 2709.704835031989
+          },
+          {
+            "non_travel_seconds": 1920,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.24733749165263882,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 2550.944119982526,
+            "p90_ttfrp_seconds": 2829.704835031989
+          },
+          {
+            "non_travel_seconds": 2040,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.2362251292575353,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 2670.944119982526,
+            "p90_ttfrp_seconds": 2949.704835031989
+          },
+          {
+            "non_travel_seconds": 2160,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.22606834564157322,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 2790.944119982526,
+            "p90_ttfrp_seconds": 3069.704835031989
+          },
+          {
+            "non_travel_seconds": 2280,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.21674896321483272,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 2910.944119982526,
+            "p90_ttfrp_seconds": 3189.704835031989
+          },
+          {
+            "non_travel_seconds": 2400,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.20816751975822095,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3030.944119982526,
+            "p90_ttfrp_seconds": 3309.704835031989
+          },
+          {
+            "non_travel_seconds": 2520,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.20023970465906743,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3150.944119982526,
+            "p90_ttfrp_seconds": 3429.704835031989
+          },
+          {
+            "non_travel_seconds": 2640,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.1928935796023005,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3270.944119982526,
+            "p90_ttfrp_seconds": 3549.704835031989
+          },
+          {
+            "non_travel_seconds": 2760,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.18606738939295098,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3390.944119982526,
+            "p90_ttfrp_seconds": 3669.704835031989
+          },
+          {
+            "non_travel_seconds": 2880,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.17970782171994987,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3510.944119982526,
+            "p90_ttfrp_seconds": 3789.704835031989
+          },
+          {
+            "non_travel_seconds": 3000,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.17376861200099178,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3630.944119982526,
+            "p90_ttfrp_seconds": 3909.704835031989
+          },
+          {
+            "non_travel_seconds": 3120,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.1682094160297609,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3750.944119982526,
+            "p90_ttfrp_seconds": 4029.704835031989
+          },
+          {
+            "non_travel_seconds": 3240,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.16299489231205289,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3870.944119982526,
+            "p90_ttfrp_seconds": 4149.704835031989
+          },
+          {
+            "non_travel_seconds": 3360,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.15809394995620452,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 3990.944119982526,
+            "p90_ttfrp_seconds": 4269.704835031989
+          },
+          {
+            "non_travel_seconds": 3480,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.15347912828968543,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 4110.944119982526,
+            "p90_ttfrp_seconds": 4389.704835031989
+          },
+          {
+            "non_travel_seconds": 3600,
+            "fixed_f_survivors": 17,
+            "feasible_incidents": 17,
+            "median_travel_share": 0.14912608204930203,
+            "travel_dominates_fraction": 0.0,
+            "median_ttfrp_seconds": 4230.944119982526,
+            "p90_ttfrp_seconds": 4509.704835031989
+          }
+        ],
+        "crossover_interval": {
+          "status": "BRACKETED",
+          "lower_seconds": 600,
+          "upper_seconds": 720
+        }
+      },
+      "site_selection_comparison": {
+        "a_order": [
+          "SYN-SITE-003",
+          "SYN-SITE-009",
+          "SYN-SITE-006",
+          "SYN-SITE-008",
+          "SYN-SITE-004",
+          "SYN-SITE-000",
+          "SYN-SITE-005",
+          "SYN-SITE-002",
+          "SYN-SITE-001",
+          "SYN-SITE-007"
+        ],
+        "f_aware_order": [
+          "SYN-SITE-004",
+          "SYN-SITE-001",
+          "SYN-SITE-002",
+          "SYN-SITE-003",
+          "SYN-SITE-006",
+          "SYN-SITE-000",
+          "SYN-SITE-005",
+          "SYN-SITE-007",
+          "SYN-SITE-008",
+          "SYN-SITE-009"
+        ],
+        "rows": [
+          {
+            "site_count": 1,
+            "a_selected_sites": [
+              "SYN-SITE-003"
+            ],
+            "f_aware_selected_sites": [
+              "SYN-SITE-004"
+            ],
+            "a_selected_f_coverage": 0.02370812774414704,
+            "f_aware_f_coverage": 0.030130988250879724,
+            "coverage_gain_percentage_points": 0.6422860506732683,
+            "survivor_jaccard": 0.1111111111111111
+          },
+          {
+            "site_count": 2,
+            "a_selected_sites": [
+              "SYN-SITE-003",
+              "SYN-SITE-009"
+            ],
+            "f_aware_selected_sites": [
+              "SYN-SITE-004",
+              "SYN-SITE-001"
+            ],
+            "a_selected_f_coverage": 0.02370812774414704,
+            "f_aware_f_coverage": 0.05775654137238819,
+            "coverage_gain_percentage_points": 3.4048413628241154,
+            "survivor_jaccard": 0.07692307692307693
+          },
+          {
+            "site_count": 3,
+            "a_selected_sites": [
+              "SYN-SITE-003",
+              "SYN-SITE-009",
+              "SYN-SITE-006"
+            ],
+            "f_aware_selected_sites": [
+              "SYN-SITE-004",
+              "SYN-SITE-001",
+              "SYN-SITE-002"
+            ],
+            "a_selected_f_coverage": 0.03045339421896763,
+            "f_aware_f_coverage": 0.07753393910053887,
+            "coverage_gain_percentage_points": 4.708054488157123,
+            "survivor_jaccard": 0.058823529411764705
+          },
+          {
+            "site_count": 5,
+            "a_selected_sites": [
+              "SYN-SITE-003",
+              "SYN-SITE-009",
+              "SYN-SITE-006",
+              "SYN-SITE-008",
+              "SYN-SITE-004"
+            ],
+            "f_aware_selected_sites": [
+              "SYN-SITE-004",
+              "SYN-SITE-001",
+              "SYN-SITE-002",
+              "SYN-SITE-003",
+              "SYN-SITE-006"
+            ],
+            "a_selected_f_coverage": 0.05409306702514962,
+            "f_aware_f_coverage": 0.10149601787480876,
+            "coverage_gain_percentage_points": 4.740295084965914,
+            "survivor_jaccard": 0.5882352941176471
+          },
+          {
+            "site_count": 10,
+            "a_selected_sites": [
+              "SYN-SITE-003",
+              "SYN-SITE-009",
+              "SYN-SITE-006",
+              "SYN-SITE-008",
+              "SYN-SITE-004",
+              "SYN-SITE-000",
+              "SYN-SITE-005",
+              "SYN-SITE-002",
+              "SYN-SITE-001",
+              "SYN-SITE-007"
+            ],
+            "f_aware_selected_sites": [
+              "SYN-SITE-004",
+              "SYN-SITE-001",
+              "SYN-SITE-002",
+              "SYN-SITE-003",
+              "SYN-SITE-006",
+              "SYN-SITE-000",
+              "SYN-SITE-005",
+              "SYN-SITE-007",
+              "SYN-SITE-008",
+              "SYN-SITE-009"
+            ],
+            "a_selected_f_coverage": 0.10149601787480876,
+            "f_aware_f_coverage": 0.10149601787480876,
+            "coverage_gain_percentage_points": 0.0,
+            "survivor_jaccard": 1.0
+          }
+        ],
+        "warning": "Both optimizers use synthetic incidents and candidate sites."
+      },
+      "sample_size_sensitivity": {
+        "rows": [
+          {
+            "incident_count": 90,
+            "sites_unchanged": true,
+            "a_coverage": 0.5288596552716202,
+            "f_coverage": 0.0870236651930718
+          },
+          {
+            "incident_count": 180,
+            "sites_unchanged": true,
+            "a_coverage": 0.5534747557084589,
+            "f_coverage": 0.10149601787480876
+          },
+          {
+            "incident_count": 360,
+            "sites_unchanged": true,
+            "a_coverage": 0.5539395255150977,
+            "f_coverage": 0.0782799588926033
+          }
+        ],
+        "all_sites_unchanged": true
+      },
+      "randomness_invariants": {
+        "site_stream_independent_of_incident_count": true,
+        "deterministic_tie_breaking": "lexicographic site_id",
+        "seed_ordering": "sorted unique integers"
+      }
+    }
+  },
+  "interpretation": {
+    "phase_0c_human_gate": "PASS WITH CONDITIONS — ROBUSTNESS AUDIT REQUIRED",
+    "robustness_verdict": "CONDITION_DEPENDENT_STRONG",
+    "A_01_status": "STRONGLY_CONDITION_DEPENDENT",
+    "biggest_correction": "The original camera-versus-dock result is not a fair architecture ranking; under unknown line of sight it is an optimistic camera upper bound and the architectures remain incomparable.",
+    "limitations": [
+      "Every UAS profile, latency, camera property, incident and site is ASSUMED/SYNTHETIC.",
+      "Leave-one-out effects overlap and are not causal or additive.",
+      "The A-01 sweep uses a fixed F-survivor cohort and is subject to survivor bias.",
+      "No result represents real Madrid coverage, cost, authorization, or safety."
+    ]
+  },
+  "decision": {
+    "gate": "SYNTHETIC MODEL ROBUSTNESS AUDIT",
+    "status": "CONDITION_DEPENDENT_STRONG",
+    "A_01_status": "STRONGLY_CONDITION_DEPENDENT",
+    "allowed_claim": "The negative reposition signal and travel-time crossover are condition-dependent within the declared synthetic experiment.",
+    "prohibited_claim": "NO SUPPORT FOR BUILD; no architecture winner or Madrid operational coverage claim.",
+    "phase_0d": "STOP_PENDING_REVIEW_OF_DRAFT_PR_2"
+  }
+}

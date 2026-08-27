@@ -22,6 +22,8 @@ FEASIBILITY_STATUSES = {
     "NOT_NEEDED",
     "UNKNOWN",
 }
+HTTP_SUCCESS_MIN = 200
+HTTP_REDIRECT_MIN = 300
 
 REQUIRED_MANIFEST_FIELDS = {
     "dataset_id",
@@ -138,7 +140,7 @@ def fetch_probe(
                 result: dict[str, Any] = {
                     "probe_id": spec["probe_id"],
                     "url": spec["url"],
-                    "ok": 200 <= response.status < 300,
+                    "ok": HTTP_SUCCESS_MIN <= response.status < HTTP_REDIRECT_MIN,
                     "http_status": response.status,
                     "content_type": content_type,
                     "bytes_read": len(body),

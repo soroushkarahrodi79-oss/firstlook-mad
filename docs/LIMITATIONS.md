@@ -1,6 +1,6 @@
 # LIMITATIONS — FIRSTLOOK-MAD
 
-> **Fase:** 0B cerrada · **v0.2.0** · **Estado:** `RESEARCH / SIMULATION PROTOTYPE ONLY`
+> **Fase:** 0C cerrada · **v0.3.0** · **Estado:** `RESEARCH / SIMULATION PROTOTYPE ONLY`
 
 Limitaciones conocidas y declaradas. Publicarlas es parte de la integridad
 científica del proyecto (§35 brief). Esta lista crece con cada fase.
@@ -36,6 +36,16 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
   pesos revisables.
 - La coordinación con aeronaves tripuladas y NOTAM se modela de forma conservadora
   y simplificada.
+- Los 180 incidentes y 10 sitios de 0C son uniformes/sintéticos; no representan
+  la distribución territorial ni operativa de Madrid.
+- Los tres perfiles UAS, cadenas TTFRP, escenarios meteo y proxy de cámara son
+  `ASSUMED`, no calibrados.
+- La selección greedy optimiza cobertura geométrica A; no garantiza optimalidad
+  bajo F.
+- Las medianas A→F pueden cambiar por selección del subconjunto superviviente y
+  no deben compararse sin su cobertura asociada.
+- No se modelan líneas de visión, humo, calidad equivalente de imagen, costes,
+  colas ni incidentes simultáneos.
 
 ## 4. Limitaciones de comparación / baseline
 

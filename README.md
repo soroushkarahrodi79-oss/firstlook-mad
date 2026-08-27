@@ -42,9 +42,9 @@ personas. Ver `docs/PRODUCT_CONTRACT.md`.
 
 ## 5. Estado actual
 
-**Phase 0B — Data Feasibility, cerrada con `DATA PARTIAL`.** Hay evidencia
-suficiente para un modelo sintético de falsación, no para claims de desempeño
-real ni operaciones. Ver `DATA_FEASIBILITY_REPORT.md` y `PROJECT_STATE.md`.
+**Phase 0C — Synthetic Model, cerrada con `PASS` técnico.** La evidencia es
+`CONDITION_DEPENDENT` y produce una señal temprana de `REPOSITION`, no soporte
+para `BUILD`. Ver `SYNTHETIC_MODEL_REPORT.md` y `PROJECT_STATE.md`.
 
 ## 6. Metodología
 
@@ -59,8 +59,15 @@ auditable. Sin ML salvo necesidad demostrada. Ver `docs/ARCHITECTURE.md`.
 
 ## 8. Quickstart
 
-_No disponible aún_ — el código de aplicación empieza en Phase 0C. Cuando exista:
-`git clone … && uv sync && firstlook simulate --scenario madrid-demo` (conceptual).
+```powershell
+uv sync --extra dev
+uv run firstlook validate-config --config configs/phase0c_synthetic.json
+uv run firstlook simulate --config configs/phase0c_synthetic.json `
+  --output outputs/reports/phase0c_synthetic_results.json
+uv run pytest -q
+```
+
+El resultado es íntegramente sintético y no representa desempeño real de Madrid.
 
 ## 9. Datos
 
@@ -87,10 +94,10 @@ Ver `docs/VALIDATION_PLAN.md` y `PROJECT_STATE.md`. Elementos operacionales
 
 ## 13. Reproducibilidad
 
-Objetivo: `git clone` + `uv sync` reproduce un escenario demo con datos sintéticos
-y seeds fijas, sin credenciales privadas. Ver `docs/ARCHITECTURE.md`.
+`git clone` + `uv sync --extra dev` reproduce el escenario 0C con seed fija,
+configuración versionada y sin credenciales privadas. Ver `docs/ARCHITECTURE.md`.
 
 ## 14. Licencia
 
-Código: ver `LICENSE` (Apache-2.0, confirmada para Phase 0B; ver ADR-0001). Datos
+Código: ver `LICENSE` (Apache-2.0, confirmada; ver ADR-0001). Datos
 de terceros: su propia licencia. Citación: `CITATION.cff`.

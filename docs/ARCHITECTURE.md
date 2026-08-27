@@ -1,6 +1,6 @@
-# ARCHITECTURE — FIRSTLOOK-MAD (Phase 0 proposal)
+# ARCHITECTURE — FIRSTLOOK-MAD (Phase 0)
 
-> **Fase:** 0A (propuesta) · **v0.1.0** · **Estado:** `RESEARCH / SIMULATION ONLY`
+> **Fase:** 0C implementada · **v0.2.0** · **Estado:** `RESEARCH / SIMULATION ONLY`
 >
 > Propuesta de arquitectura de **Phase 0**. Principio: *core → datos → simulación
 > → tests → outputs*. **No** empezar por frontend. **No** sobrearquitectar.
@@ -23,18 +23,17 @@
 
 | Módulo | Responsabilidad | Depende de |
 |---|---|---|
-| `domain/` | Entidades y enums: `Incident`, `CandidateDockSite`, `UASPerformanceProfile`, `FlightSafetyGate`, estados, invariantes | Pydantic |
-| `data/` | Carga, manifest, provenance, lectura sintéticos/fixtures | pandas, DuckDB, Pydantic |
-| `geo/` | CRS centralizado, distancias, geometría, validación geométrica | GeoPandas, Shapely, PyProj |
-| `airspace/` | Estados de zona (UNKNOWN…), providers abstractos + sintético | domain, geo |
-| `simulation/` | TTFRP, modelos de cobertura A→F, escenarios, Monte Carlo | domain, geo, numpy |
-| `optimization/` | Facility location (greedy / p-median / MCLP) | OR-Tools *(diferido)*, networkx si aplica |
-| `decision/` | Evidence→Assessment→Recommendation (sin decisión oficial) | domain, simulation |
-| `validation/` | Métricas, gates, sensitivity analysis, red-team harness | todo lo anterior |
-| `cli/` | Comandos reproducibles | Typer/argparse *(a decidir)* |
+| `domain.py` | Entidades, enums, invariantes y configuración | Pydantic |
+| `geo.py` | Distancia métrica sobre puntos ya proyectados | domain, stdlib |
+| `safety.py` | Gate conservador y causas de exclusión | domain |
+| `simulation.py` | TTFRP y modelos progresivos A→F | domain, geo, safety |
+| `synthetic.py` | Fixtures deterministas con seed fija | domain, stdlib |
+| `validation.py` | Greedy, métricas y falsificación | simulation, synthetic |
+| `cli.py` | `simulate` y `validate-config` | synthetic, validation, argparse |
 
-Flujo de dependencias: `domain` ← `geo`/`data` ← `airspace`/`simulation` ←
-`optimization`/`decision` ← `validation` ← `cli`. Sin ciclos.
+Flujo implementado: `domain` ← `geo`/`safety` ← `simulation` ← `validation` ←
+`cli`. Sin ciclos. Ingesta real, optimización no trivial y adapters operacionales
+no existen todavía.
 
 ## 3. Modelos de cobertura (progresivos, comparables, §9 brief)
 
@@ -52,7 +51,7 @@ Cada modelo es comparable con los anteriores; las simplificaciones nunca se ocul
 ## 4. Flight Safety Gate (determinista, first-failure-wins)
 
 Factores: `site_available`, `uas_available`, `battery`, `range`, `wind`,
-`precipitation`, `visibility`, `temperature`, `airspace`, `uas_geo_zone`,
+`precipitation`, `visibility`, `temperature`, `airspace`,
 `temporary_restriction`, `manned_aircraft_conflict`, `communications`,
 `incident_confidence`, `data_freshness`.
 Salidas: `GO_SIMULATION` / `NO_GO` / `UNKNOWN` / `REQUIRES_HUMAN_REVIEW`.
@@ -65,7 +64,7 @@ Objetivo del brief: Python moderno, pequeño, reproducible. Justificación:
 
 | Dependencia | Por qué es necesaria | Alternativa descartada |
 |---|---|---|
-| **Python 3.12+** | Base del brief; tipado moderno | (runtime local es 3.11 — fijar `requires-python` y verificar en 0C) |
+| **Python 3.12+** | Base del brief; tipado moderno | Verificado en 3.12.13 y entorno uv 3.14.5 |
 | **uv** | Resolución/lock reproducible y rápido | pip/poetry (menos reproducible/rápido) |
 | **Pydantic** | Validación de dominio, invariantes, esquemas serializables | dataclasses (sin validación) |
 | **pandas** | Tablas analíticas, KPIs | — |
@@ -73,7 +72,7 @@ Objetivo del brief: Python moderno, pequeño, reproducible. Justificación:
 | **DuckDB + Parquet** | Analítica local sin servidor, columnar, reproducible | SQLite (menos analítico), BD operacional (out of scope) |
 | **pytest** | Tests deterministas | unittest (más verboso) |
 | **Ruff** | Lint + formato rápido, único tool | flake8+black+isort (3 herramientas) |
-| **mypy o pyright** | Type checking (decidir uno en ADR) | ninguno (inaceptable en safety-adjacent) |
+| **mypy** | Type checking estricto; decisión ADR-0002 | pyright (otro runtime/toolchain) |
 | **pre-commit** | Calidad antes del commit | hooks manuales |
 
 ### Dependencias **diferidas** (no instalar hasta que su fase lo exija)
@@ -83,7 +82,6 @@ Objetivo del brief: Python moderno, pequeño, reproducible. Justificación:
 | **OR-Tools** | Se implemente facility location no trivial (valorar antes de algo más pesado) | 0C/0D |
 | **NetworkX** | Se necesite modelado de grafos/rutas | 0C+ |
 | **Rasterio** | Se requieran rasters (MDT, riesgo raster) reales | 0D |
-| **numpy** | Requerido transitivamente; explícito al implementar simulación | 0C |
 | Streamlit / Dash | Solo tras MVP CLI demostrado | post-0D |
 
 **No** se añade: React/Next.js, Docker, Kubernetes, cloud, BD operacional, auth,
@@ -91,8 +89,7 @@ LLM/agents/vector DB, ML. Justificación en `SYSTEM_BOUNDARIES.md`.
 
 ## 6. CRS y geometría
 
-- Un CRS proyectado adecuado para Madrid (candidato a documentar/verificar:
-  ETRS89 / UTM zona 30N — `NOT_VERIFIED`, se fija en ADR de 0C).
+- CRS analítico fijado en ADR-0002: ETRS89 / UTM zona 30N (`EPSG:25830`).
 - Todas las transformaciones centralizadas en `geo/`.
 - Tests obligatorios: CRS incorrecto, geometría vacía/ inválida, coordenadas
   intercambiadas, punto fuera del territorio esperado.
@@ -105,6 +102,6 @@ LLM/agents/vector DB, ML. Justificación en `SYSTEM_BOUNDARIES.md`.
 
 ## 8. Qué NO se construye aún
 
-Nada de aplicación importante en 0A. En esta fase solo: documentación, estructura
-de carpetas y scaffolding técnico mínimo (`pyproject.toml`, gitkeeps). El código de
-dominio empieza en Phase 0C, tras los gates de definición (0A) y datos (0B).
+Phase 0C implementa solo dominio, gate, geometría métrica, simulación sintética,
+falsación y CLI. Siguen diferidos datos reales de Madrid, optimización no trivial,
+rasters, dashboard, ML y cualquier componente operacional.

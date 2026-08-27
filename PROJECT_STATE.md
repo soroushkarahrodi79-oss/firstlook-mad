@@ -8,20 +8,22 @@
 ---
 
 ## Current phase
-**Phase 0B — Data Feasibility, cerrada. STOP antes de 0C.**
+**Phase 0C.1 — robustness audit complete. STOP antes de 0D.**
 
 ## Current gate
-**DATA FEASIBILITY — DATA PARTIAL** (2026-08-26).
+**SYNTHETIC MODEL — PASS** técnico; revisión 0C.1:
+**`CONDITION_DEPENDENT_STRONG`** (2026-08-27).
 
-Hay datos suficientes para un modelo sintético de sensibilidad/falsación en 0C,
-pero no para un baseline TTFRP extremo a extremo, sitios desplegables, permiso
-BVLOS ni claims de desempeño real de Madrid. La entrada en 0C requiere decisión
-humana explícita sobre estas condiciones.
+Lectura científica: **PASS WITH CONDITIONS — ROBUSTNESS AUDIT REQUIRED**. La
+erosión A→F sobrevive 25 seeds, A-01 es `STRONGLY_CONDITION_DEPENDENT` y el
+comparador de cámaras/docks es `INCOMPARABLE`, no una victoria de cámara. No hay
+soporte para `BUILD`. La entrada en 0D requiere revisión del PR #2 y decisión
+humana explícita.
 
-Gate anterior: **PROJECT DEFINITION REVIEW — PASS WITH CONDITIONS** (decisión
-humana, 2026-08-26). Condiciones vinculantes: priorizar falsación; no asumir
-infraestructura operacional, autorización BVLOS ni baseline INFOMA; no fijar aún
-un threshold numérico de TTFRP; aceptar resultados negativos.
+Gate anterior: **DATA FEASIBILITY — DATA PARTIAL** (2026-08-26). Gate de
+definición previo: **PASS WITH CONDITIONS**. Condiciones vinculantes: priorizar
+falsación; no asumir infraestructura operacional, autorización BVLOS ni baseline
+INFOMA; no fijar threshold numérico de TTFRP; aceptar resultados negativos.
 
 ## Completed
 - Repository audit (repo vacío, rama correcta, sin commits previos).
@@ -31,7 +33,7 @@ un threshold numérico de TTFRP; aceptar resultados negativos.
   REGULATORY_BOUNDARIES, DATA_SOURCES, ASSUMPTIONS, LIMITATIONS, VALIDATION_PLAN,
   ARCHITECTURE, SAFETY_CASE, THREAT_MODEL, ADR-0001.
 - Repo meta: README, LICENSE (Apache-2.0 confirmada), CONTRIBUTING, SECURITY,
-  CITATION.cff, .gitignore, pyproject.toml (deps declaradas, NO instaladas),
+  CITATION.cff, .gitignore, pyproject.toml (deps bloqueadas/instaladas en 0C),
   .pre-commit-config.yaml.
 - Estructura de carpetas + gitkeeps + READMEs de data/raw y data/synthetic.
 - Gate de Phase 0A cerrado: PROJECT DEFINITION REVIEW — PASS WITH CONDITIONS.
@@ -40,25 +42,41 @@ un threshold numérico de TTFRP; aceptar resultados negativos.
 - Manifest de procedencia y probes de metadatos reproducibles (7/7 accesibles).
 - `DATA_FEASIBILITY_REPORT.md`, observabilidad TTFRP y red-team de alternativas.
 - Gate de Phase 0B cerrado: **DATA PARTIAL**.
+- ADR-0002: CRS `EPSG:25830`, mypy estricto y CLI argparse.
+- Entorno reproducible `uv.lock`; Python 3.12+ verificado.
+- Dominio validado, geometría métrica, gate first-failure-wins y modelos A→F.
+- Fixtures deterministas: 180 incidentes, 10 sitios, 3 perfiles UAS, 3 cadenas
+  TTFRP y 3 escenarios meteo, todos `SYNTHETIC`/`ASSUMED`.
+- Tests de cuello de botella, erosión meteo, perfiles, rendimientos decrecientes
+  y alternativa cámaras/híbrido.
+- `SYNTHETIC_MODEL_REPORT.md` y resultado JSON regenerable.
+- Gate de Phase 0C cerrado: **PASS técnico**, señal `REPOSITION` temprana.
+- Phase 0C.1: ablación F, comparador simétrico por etapas, 25 seeds, sweep A-01
+  0–3.600 s, sensibilidad 90/180/360 y greedy F-aware.
+- Resultado 0C.1: `CONDITION_DEPENDENT_STRONG`; cámara como upper bound optimista
+  y `INCOMPARABLE` cuando LOS es desconocido.
 
 ## In progress
-- Ninguno. Stop point previo a Phase 0C.
+- Ninguno. Stop point previo a Phase 0D.
 
 ## Decisions (ver docs/adr/0001)
 - Alcance Phase 0 = investigación + simulación; sin control real, sin dispatch.
 - Stack: Python 3.12+, uv, Pydantic, pandas, GeoPandas/Shapely/PyProj,
   DuckDB/Parquet, pytest, Ruff, pre-commit. OR-Tools/NetworkX/Rasterio diferidos.
 - Sin `SAFE_TO_FLY`; gates first-failure-wins.
-- Licencia código: Apache-2.0 (confirmada por el responsable para Phase 0B).
+- Licencia código: Apache-2.0 (confirmada por el responsable).
 - Phase 0C solo se justifica como simulación sintética de falsación, no como
   predictor de Madrid.
 - Comparar una alternativa híbrida cámaras/torres + UAS con la red de docks.
 - No fijar threshold numérico TTFRP sin baseline observable.
+- CRS analítico: ETRS89 / UTM 30N (`EPSG:25830`); nunca distancia en 4326.
+- Type checker: mypy estricto. CLI: argparse. Sin OR-Tools/NetworkX/Rasterio.
+- `GO_SIMULATION` no significa permiso ni seguridad operacional.
 
 ## Assumptions (ver docs/ASSUMPTIONS.md)
-A-01 tránsito material en TTFRP · A-02 infraestructura reutilizable · A-04 meteo
-no anula viabilidad · A-07 baseline defendible · A-08 coordinación modelable:
-todas `TESTING`. A-01 es la más debilitada; ninguna está `SUPPORTED`.
+A-01, A-02, A-03, A-04, A-06, A-07, A-08 y A-09 están `TESTING`.
+A-01 = `STRONGLY_CONDITION_DEPENDENT`; A-04 permanece `TESTING`; A-06 muestra alta
+sensibilidad. Ninguna está `SUPPORTED`.
 
 ## Known blockers
 - `NO_PUBLIC_TTFRP_BASELINE`: faltan clocks públicos end-to-end.
@@ -66,27 +84,33 @@ todas `TESTING`. A-01 es la más debilitada; ninguna está `SUPPORTED`.
   INFOMA con coordenadas, aptitud y disponibilidad.
 - Histórico EFFIS completo requiere solicitud humana.
 - Falta perfil UAS verificable y meteo histórica local de visibilidad/ráfagas.
-- Type checker y CRS analítico definitivo quedan diferidos a una eventual 0C.
+- Línea de visión, equivalencia/calidad de imagen y costes de cámaras/híbrido.
+- Distribución real de incidentes, sitios y restricciones históricas.
 
 ## Data status
 `DATA PARTIAL`: 19 fuentes — 5 `READY`, 9 `PARTIAL`, 1 `BLOCKED`,
 4 `REFERENCE_ONLY`. Siete probes oficiales responden. No se descargaron ni
 cachearon datasets masivos; `data/raw/` permanece inmutable.
 
+Datos 0C: únicamente `SYNTHETIC`/`ASSUMED`, seed `260827`, configuración y output
+versionados. Ninguna cifra es una observación de Madrid.
+
 ## Test status
-`python -m unittest discover -s tests -v` — **7 tests, OK** con Python 3.12.13.
-`python -m compileall -q scripts tests` — **OK**. Probe live — **7/7**.
+`uv run pytest -q` — **25 passed**. `uv run ruff check .` y
+`uv run ruff format --check .` — **PASS**. `uv run mypy` — **PASS**.
+CLI determinista — output byte-for-byte reproducible. Phase 0B probes — 7/7.
 
 ## Last verified commit
-`f935b2c` — informe y veredicto de factibilidad (este commit añade el pointer).
+`c890563` — implementación 0C.1 y 25 tests de invariantes; documentación final
+se añade en el commit siguiente.
 
 ## Next 3 actions
-1. Obtener decisión humana sobre entrada condicionada en Phase 0C.
-2. Si se aprueba, fijar perfiles UAS sintéticos y rangos TTFRP explícitamente
-   `ASSUMED`, junto con kill tests de dominancia.
-3. Modelar en paralelo red de docks y alternativa híbrida cámaras/torres + UAS.
+1. Revisar el Draft PR #2 con la evidencia de 0C.1; no entrar aún en 0D.
+2. Decidir humanamente si procede un test real-data limitado y adversarial.
+3. Si se autoriza después, comparar arquitecturas con gates comunes y evidencia
+   LOS/calidad/coste; no construir un sistema operacional.
 
 ## Do not do yet
 Dashboard · ML · hardware · control de drones · dispatch real · integración 112/
-INFOMA · descargas masivas · BVLOS · computer vision en vivo · cualquier trabajo
-de Phase 0C sin decisión humana explícita.
+INFOMA · descargas masivas · BVLOS · computer vision en vivo · optimización pesada
+· cualquier trabajo de Phase 0D sin decisión humana explícita.
