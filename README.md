@@ -42,9 +42,9 @@ personas. Ver `docs/PRODUCT_CONTRACT.md`.
 
 ## 5. Estado actual
 
-**Phase 0A — Definición.** Documentación fundacional creada; **sin lógica de
-aplicación todavía**. Próximo gate: PROJECT DEFINITION REVIEW → Phase 0B (Data
-Feasibility). Ver `PROJECT_STATE.md`.
+**Phase 0B — Data Feasibility, cerrada con `DATA PARTIAL`.** Hay evidencia
+suficiente para un modelo sintético de falsación, no para claims de desempeño
+real ni operaciones. Ver `DATA_FEASIBILITY_REPORT.md` y `PROJECT_STATE.md`.
 
 ## 6. Metodología
 
@@ -64,10 +64,10 @@ _No disponible aún_ — el código de aplicación empieza en Phase 0C. Cuando e
 
 ## 9. Datos
 
-Catálogo de fuentes oficiales candidatas (INFOMA, ENAIRE, AESA/EASA, EFFIS,
-AEMET, IGN, datos abiertos CM…) en `docs/DATA_SOURCES.md`. **Ningún dato real
-verificado todavía** (eso ocurre en Phase 0B). Datos de terceros conservan su
-licencia.
+Manifest de 19 fuentes (INFOMA, ENAIRE, EASA/BOE, EFFIS, AEMET, IGN, INE y
+otras) en `data/datasets_manifest.json`: 5 `READY`, 9 `PARTIAL`, 1 `BLOCKED` y
+4 `REFERENCE_ONLY`. No se descargaron datasets masivos. Datos de terceros
+conservan su licencia.
 
 ## 10. Seguridad
 
@@ -92,5 +92,5 @@ y seeds fijas, sin credenciales privadas. Ver `docs/ARCHITECTURE.md`.
 
 ## 14. Licencia
 
-Código: ver `LICENSE` (recomendación provisional Apache-2.0, ver ADR-0001). Datos
+Código: ver `LICENSE` (Apache-2.0, confirmada para Phase 0B; ver ADR-0001). Datos
 de terceros: su propia licencia. Citación: `CITATION.cff`.

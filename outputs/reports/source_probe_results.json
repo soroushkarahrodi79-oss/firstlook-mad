@@ -1,0 +1,270 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-26T23:00:00+02:00",
+  "purpose": "Bounded metadata-only feasibility checks; never operational use.",
+  "results": [
+    {
+      "probe_id": "enaire_uas_service",
+      "url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer?f=pjson",
+      "ok": true,
+      "http_status": 200,
+      "content_type": "text/plain; charset=UTF-8",
+      "bytes_read": 4771,
+      "truncated": false,
+      "sha256": "eb0d26424bdc486eecb182c4560f886b9535ec84e26180a8471e68c4eb336ef5",
+      "body_summary": {
+        "top_level_keys": [
+          "advancedEditingCapabilities",
+          "allowGeometryUpdates",
+          "allowTrueCurvesUpdates",
+          "allowUpdateWithoutMValues",
+          "capabilities",
+          "cimVersion",
+          "copyrightText",
+          "currentVersion",
+          "datesInUnknownTimezone",
+          "datumTransformations",
+          "description",
+          "documentInfo",
+          "enableZDefaults",
+          "extractChangesCapabilities",
+          "fullExtent",
+          "hasArchivedData",
+          "hasBranchVersionedData",
+          "hasVersionedData",
+          "initialExtent",
+          "layers",
+          "maxRecordCount",
+          "maxRecordCountFactor",
+          "onlyAllowTrueCurveUpdatesByTrueCurveClients",
+          "referenceScale",
+          "relationships",
+          "returnServiceEditsHaveSR",
+          "serviceDescription",
+          "serviceItemId",
+          "spatialReference",
+          "supportedExportFormats"
+        ],
+        "layers": [
+          {
+            "id": 0,
+            "name": "ZGUAS_Infraestructuras"
+          },
+          {
+            "id": 2,
+            "name": "ZGUAS_Aero"
+          },
+          {
+            "id": 3,
+            "name": "ZGUAS_Urbano"
+          }
+        ]
+      }
+    },
+    {
+      "probe_id": "enaire_uas_aero_schema",
+      "url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer/2?f=pjson",
+      "ok": true,
+      "http_status": 200,
+      "content_type": "text/plain; charset=UTF-8",
+      "bytes_read": 17228,
+      "truncated": false,
+      "sha256": "50947e2fb624bda044ac1191ba56a0a1abd4fe6f83767f3ba848cdedcb7bd461",
+      "body_summary": {
+        "top_level_keys": [
+          "advancedEditingCapabilities",
+          "advancedQueryAnalyticCapabilities",
+          "advancedQueryCapabilities",
+          "allowGeometryUpdates",
+          "allowTrueCurvesUpdates",
+          "archivingInfo",
+          "bigIntegerRestrictedTo53Bits",
+          "canScaleSymbols",
+          "capabilities",
+          "cimVersion",
+          "copyrightText",
+          "currentVersion",
+          "dateFieldsTimeReference",
+          "datesInUnknownTimezone",
+          "defaultVisibility",
+          "description",
+          "displayField",
+          "drawingInfo",
+          "editFieldsInfo",
+          "extent",
+          "fields",
+          "geometryField",
+          "geometryProperties",
+          "geometryType",
+          "globalIdField",
+          "hasAttachments",
+          "hasGeometryProperties",
+          "hasM",
+          "hasMetadata",
+          "hasZ"
+        ],
+        "fields": [
+          "identifier",
+          "country",
+          "regulationExemption",
+          "type",
+          "name",
+          "reasons",
+          "message",
+          "variant",
+          "otherReasonInfo",
+          "restrictionConditions",
+          "region",
+          "extendedProperties",
+          "issued",
+          "validFrom",
+          "validTo",
+          "provider",
+          "description",
+          "otherGeoid",
+          "technicalLimitation",
+          "originator",
+          "purpose",
+          "intervalBefore",
+          "service",
+          "contactName",
+          "siteURL",
+          "email",
+          "phone",
+          "lower",
+          "lowerReference",
+          "upper",
+          "upperReference",
+          "uom",
+          "creationDateTime",
+          "updateDateTime",
+          "startDateTime",
+          "endDateTime",
+          "day",
+          "startTime",
+          "startEvent",
+          "endTime",
+          "endEvent",
+          "name_authority",
+          "GFID",
+          "limitedApplicability",
+          "OBJECTID",
+          "Shape__Area",
+          "Shape__Length"
+        ]
+      }
+    },
+    {
+      "probe_id": "enaire_notam_service",
+      "url": "https://servais.enaire.es/insignias/rest/services/NOTAM/NOTAM_APP_V3/FeatureServer?f=pjson",
+      "ok": true,
+      "http_status": 200,
+      "content_type": "text/plain; charset=UTF-8",
+      "bytes_read": 4029,
+      "truncated": false,
+      "sha256": "af2401c68f2e7750629a4d20c31db58bc1a5da7243cdc2f1efce3cad91dc49ae",
+      "body_summary": {
+        "top_level_keys": [
+          "advancedEditingCapabilities",
+          "allowGeometryUpdates",
+          "allowTrueCurvesUpdates",
+          "allowUpdateWithoutMValues",
+          "capabilities",
+          "cimVersion",
+          "copyrightText",
+          "currentVersion",
+          "datesInUnknownTimezone",
+          "description",
+          "documentInfo",
+          "enableZDefaults",
+          "extractChangesCapabilities",
+          "fullExtent",
+          "hasArchivedData",
+          "hasBranchVersionedData",
+          "hasVersionedData",
+          "initialExtent",
+          "layers",
+          "maxRecordCount",
+          "maxRecordCountFactor",
+          "onlyAllowTrueCurveUpdatesByTrueCurveClients",
+          "referenceScale",
+          "relationships",
+          "returnServiceEditsHaveSR",
+          "serviceDescription",
+          "serviceItemId",
+          "spatialReference",
+          "supportedExportFormats",
+          "supportedQueryFormats"
+        ],
+        "layers": [
+          {
+            "id": 0,
+            "name": "Puntos"
+          },
+          {
+            "id": 1,
+            "name": "Áreas"
+          }
+        ]
+      }
+    },
+    {
+      "probe_id": "aemet_openapi",
+      "url": "https://opendata.aemet.es/AEMET_OpenData_specification.json",
+      "ok": true,
+      "http_status": 200,
+      "content_type": "application/json",
+      "bytes_read": 168949,
+      "truncated": false,
+      "sha256": "11e81d8ddea0673c9a9cbc06c7c7a941767a1b5d88f74e26a9a0eb88aa9cbd53",
+      "body_summary": {
+        "top_level_keys": [
+          "components",
+          "info",
+          "openapi",
+          "paths",
+          "servers",
+          "tags"
+        ]
+      }
+    },
+    {
+      "probe_id": "effis_wms_capabilities",
+      "url": "https://maps.effis.emergency.copernicus.eu/effis?service=WMS&request=GetCapabilities",
+      "ok": true,
+      "http_status": 200,
+      "content_type": "application/vnd.ogc.wms_xml; charset=UTF-8",
+      "bytes_read": 98635,
+      "truncated": false,
+      "sha256": "5a5ebc3ff9e7661c13b4c74900307ccfd6bd322291398690812d54aaa5f007ec",
+      "body_summary": {}
+    },
+    {
+      "probe_id": "ign_ogc_collections",
+      "url": "https://api-features.idee.es/collections?f=json",
+      "ok": true,
+      "http_status": 200,
+      "content_type": "application/json",
+      "bytes_read": 271094,
+      "truncated": false,
+      "sha256": "0e71aa5f01cd5b3b2475172e3ce98c50f5deb830f72e1a7d0095c5e2794ef225",
+      "body_summary": {
+        "top_level_keys": [
+          "collections",
+          "links"
+        ]
+      }
+    },
+    {
+      "probe_id": "egif_public_search",
+      "url": "https://servicio.mapa.gob.es/incendios/Search/Publico",
+      "ok": true,
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes_read": 66586,
+      "truncated": false,
+      "sha256": "bc44cc177f710957decaf63e89231d1edb393e0a2e5b03cd268580fbafe13d7b",
+      "body_summary": {}
+    }
+  ]
+}

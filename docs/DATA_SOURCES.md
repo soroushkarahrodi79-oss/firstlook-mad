@@ -1,11 +1,10 @@
 # DATA SOURCES — FIRSTLOOK-MAD
 
-> **Fase:** 0A (catálogo de intención) · **v0.1.0**
+> **Fase:** 0B cerrada · **v0.3.0** · **Gate:** `DATA PARTIAL`
 >
-> **AVISO:** en Phase 0A esto es un **catálogo de candidatas**, no un registro de
-> datos descargados. La investigación real de accesibilidad, esquema y licencia
-> ocurre en **Phase 0B**. Ninguna fila está verificada todavía
-> (`verification_status = NOT_VERIFIED`). No se ha copiado ni cacheado ningún dato.
+> **AVISO:** el registro canónico es `data/datasets_manifest.json`. La
+> verificación de 0B cubre factibilidad y metadatos, no aptitud operacional. No se
+> ha copiado ni cacheado ningún dataset masivo.
 
 ---
 
@@ -18,24 +17,23 @@ Cada dataset que entre al proyecto **debe** registrar en el manifest:
 `nature` (`REAL` / `DERIVED` / `SYNTHETIC`) · `transformation` · `created_by_script`
 · `verification_status`.
 
-## 2. Fuentes candidatas (prioridad según brief §3)
+## 2. Resultado de factibilidad
 
-| # | Fuente | Uso previsto | Naturaleza | verification_status |
-|---|---|---|---|---|
-| 1 | Comunidad de Madrid — INFOMA | Infraestructura de prevención/extinción | REAL | `NOT_VERIFIED` |
-| 2 | Agencia de Seguridad y Emergencias Madrid 112 | Contexto de recursos (solo referencia) | REAL | `NOT_VERIFIED` |
-| 3 | Comunidad de Madrid — Grupo Especial de Drones | Contexto UAS existente | REAL | `NOT_VERIFIED` |
-| 4 | ENAIRE — zonificación geográfica UAS | Airspace / geozonas | REAL | `NOT_VERIFIED` |
-| 5 | ENAIRE — AIP / NOTAM | Restricciones dinámicas | REAL | `NOT_VERIFIED` |
-| 6 | AESA | Marco regulatorio nacional | REAL | `NOT_VERIFIED` |
-| 7 | EASA | Marco regulatorio UE | REAL | `NOT_VERIFIED` |
-| 8 | BOE | Normativa publicada | REAL | `NOT_VERIFIED` |
-| 9 | Copernicus / EFFIS | Riesgo e histórico de incendios | REAL | `NOT_VERIFIED` |
-| 10 | AEMET | Meteorología | REAL | `NOT_VERIFIED` |
-| 11 | IGN | Topografía / cartografía base / MDT | REAL | `NOT_VERIFIED` |
-| 12 | IDEM / cartografía oficial CM | Cartografía regional | REAL | `NOT_VERIFIED` |
-| 13 | Datos abiertos Comunidad de Madrid | Infraestructura / uso del suelo | REAL | `NOT_VERIFIED` |
-| 14 | OpenStreetMap | Solo cuando apropiado, con naturaleza declarada | REAL (comunitario) | `NOT_VERIFIED` |
+| # | Fuente | Uso previsto | feasibility_status |
+|---|---|---|---|
+| 1 | ENAIRE — zonificación UAS V2 | Restricciones espaciales | `READY` |
+| 2 | ENAIRE — NOTAM geoespacial | Restricciones dinámicas | `PARTIAL` |
+| 3 | BOE / EASA | Referencia regulatoria | `REFERENCE_ONLY` |
+| 4 | AEMET / ERA5-Land | Erosión meteorológica | `PARTIAL` |
+| 5 | MITECO EGIF | Incidentes y primeras llegadas | `PARTIAL` |
+| 6 | EFFIS actual / histórico | Incendios/perímetros | `PARTIAL` / `BLOCKED` |
+| 7 | Comunidad de Madrid / INFOMA | Sitios y red actual | `PARTIAL` / `REFERENCE_ONLY` |
+| 8 | Ayuntamiento de Madrid | Parques del municipio | `READY` |
+| 9 | OpenStreetMap | Suplemento de sitios | `PARTIAL` |
+| 10 | IGN MDT05 / transporte | Topografía y referencia | `READY` |
+| 11 | SIOSE AR 2020 / CLC 2018 | Cobertura del suelo, no combustible | `PARTIAL` / `READY` |
+| 12 | INE Censo 2021 | Exposición | `PARTIAL` |
+| 13 | ASEM 112 | Contexto agregado | `REFERENCE_ONLY` |
 
 ## 3. Reglas de captura (vinculantes desde ya)
 
@@ -47,8 +45,13 @@ Cada dataset que entre al proyecto **debe** registrar en el manifest:
   `data/processed/`, siempre vía script trazable.
 - Datos de terceros conservan su **propia licencia** (ver `LICENSE` / §37 brief).
 
-## 4. Producto de Phase 0B
+## 4. Productos de Phase 0B
 
-`DATA_FEASIBILITY_REPORT.md` con veredicto por fuente:
-`DATA READY` / `DATA PARTIAL` / `DATA BLOCKED`, y un **manifest** inicial de
-datasets accesibles con su esquema real. **No se inicia en esta sesión.**
+- `DATA_FEASIBILITY_REPORT.md`: evidencia, cobertura de RQ/supuestos, TTFRP,
+  red-team y gate.
+- `data/datasets_manifest.json`: manifest de 19 fuentes.
+- `data/source_probes.json`: configuración reproducible de probes.
+- `outputs/reports/source_probe_results.json`: resultado 7/7 accesible.
+
+**Resultado global:** `DATA PARTIAL`. Suficiente para simulación sintética y
+falsación en 0C; insuficiente para claims sobre desempeño real de Madrid.

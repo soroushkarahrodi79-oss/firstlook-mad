@@ -1,6 +1,6 @@
 # LIMITATIONS — FIRSTLOOK-MAD
 
-> **Fase:** 0A · **v0.1.0** · **Estado:** `RESEARCH / SIMULATION PROTOTYPE ONLY`
+> **Fase:** 0B cerrada · **v0.2.0** · **Estado:** `RESEARCH / SIMULATION PROTOTYPE ONLY`
 
 Limitaciones conocidas y declaradas. Publicarlas es parte de la integridad
 científica del proyecto (§35 brief). Esta lista crece con cada fase.
@@ -13,10 +13,18 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
   despacha, no se conecta a servicios reales.
 - Phase 0 **no** aborda recomendación de recursos, computer vision, ni BVLOS real.
 
-## 2. Limitaciones de datos (Phase 0A)
+## 2. Limitaciones de datos (Phase 0B)
 
-- **Ningún dato real verificado todavía.** Todo hecho regulatorio/geográfico está
-  `NOT_VERIFIED` hasta 0B.
+- El gate es `DATA PARTIAL`: existen fuentes verificadas, pero no un baseline
+  público TTFRP extremo a extremo.
+- EGIF aporta primera respuesta parcial, no clocks completos de alerta,
+  verificación, gate, lanzamiento, adquisición y análisis.
+- La infraestructura regional publicada son directorios/conteos, no una capa
+  reutilizable de sitios aptos o autorizados para docks.
+- AEMET requiere clave; ERA5-Land es reanálisis. Visibilidad histórica y ráfaga
+  local siguen sin cubrirse de forma suficiente.
+- El histórico completo EFFIS requiere solicitud y no es una dependencia
+  reproducible hoy.
 - Los datasets sintéticos de 0C son **ilustrativos**, no representativos de Madrid.
 
 ## 3. Limitaciones de modelado
@@ -31,8 +39,9 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
 
 ## 4. Limitaciones de comparación / baseline
 
-- Sin baseline verificado, las mejoras se declaran contra un `PROXY_BASELINE` o
-  `NO_BASELINE`, y no se afirma conocer el tiempo de respuesta real de Madrid.
+- Existe `PARTIAL_OPERATIONAL_RESPONSE_BASELINE`, pero también
+  `NO_PUBLIC_TTFRP_BASELINE`. Las mejoras se declaran contra un
+  `PROXY_BASELINE`; no se afirma conocer el TTFRP real de Madrid.
 
 ## 5. Limitaciones de generalización
 

@@ -1,0 +1,47 @@
+{
+  "consulted_at": "2026-08-26T23:00:00+02:00",
+  "probes": [
+    {
+      "probe_id": "enaire_uas_service",
+      "url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer?f=pjson",
+      "accept": "application/json",
+      "max_bytes": 250000
+    },
+    {
+      "probe_id": "enaire_uas_aero_schema",
+      "url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer/2?f=pjson",
+      "accept": "application/json",
+      "max_bytes": 250000
+    },
+    {
+      "probe_id": "enaire_notam_service",
+      "url": "https://servais.enaire.es/insignias/rest/services/NOTAM/NOTAM_APP_V3/FeatureServer?f=pjson",
+      "accept": "application/json",
+      "max_bytes": 250000
+    },
+    {
+      "probe_id": "aemet_openapi",
+      "url": "https://opendata.aemet.es/AEMET_OpenData_specification.json",
+      "accept": "application/json",
+      "max_bytes": 1000000
+    },
+    {
+      "probe_id": "effis_wms_capabilities",
+      "url": "https://maps.effis.emergency.copernicus.eu/effis?service=WMS&request=GetCapabilities",
+      "accept": "application/xml,text/xml",
+      "max_bytes": 1000000
+    },
+    {
+      "probe_id": "ign_ogc_collections",
+      "url": "https://api-features.idee.es/collections?f=json",
+      "accept": "application/json",
+      "max_bytes": 500000
+    },
+    {
+      "probe_id": "egif_public_search",
+      "url": "https://servicio.mapa.gob.es/incendios/Search/Publico",
+      "accept": "text/html",
+      "max_bytes": 500000
+    }
+  ]
+}

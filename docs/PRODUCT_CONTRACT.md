@@ -1,7 +1,7 @@
 # PRODUCT CONTRACT — FIRSTLOOK-MAD
 
 > **Estado del proyecto:** `RESEARCH / SIMULATION PROTOTYPE ONLY`
-> **Fase actual:** Phase 0A — Definición
+> **Fase actual:** Phase 0B — Data Feasibility (cerrada: `DATA PARTIAL`)
 > **Versión del documento:** 0.1.0 · **Fecha:** 2026-08-26
 
 Este documento es el **contrato** de lo que el proyecto es y no es. Cualquier

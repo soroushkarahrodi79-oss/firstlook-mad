@@ -38,6 +38,7 @@ outputs/tables/*
 outputs/figures/*
 outputs/reports/*
 !outputs/**/.gitkeep
+!outputs/reports/source_probe_results.json
 
 # --- Secrets / credentials (never commit) ---
 *.pem
