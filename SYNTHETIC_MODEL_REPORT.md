@@ -192,7 +192,163 @@ permiso o seguridad.
 un test real-data mínimo orientado a refutar A-01/A-04 y comparar cámaras/híbrido;
 no un MVP operacional ni una expansión de arquitectura.
 
-## 15. Reproduction
+## 15. Phase 0C.1 Robustness Audit
+
+Phase 0C se conserva como resultado histórico, pero su lectura humana pasa a
+**PASS WITH CONDITIONS — ROBUSTNESS AUDIT REQUIRED**. La auditoría usa schema
+1.1, 25 seeds ordenadas, tamaños 90/180/360, una ablación leave-one-out, un
+comparador por etapas y un barrido agregado de 0–3.600 s en pasos de 120 s. Es
+una **robustness and parameter sensitivity audit**, no global sensitivity.
+
+### A. F-model ablation
+
+La medida es el aumento de cobertura al retirar un factor del F completo,
+manteniendo incidentes, sitios y demás gates constantes: **marginal synthetic
+effect under this configuration**.
+
+| Factor retirado | Cobertura recuperada | Incidentes adicionales |
+|---|---:|---:|
+| range | +21,71 pp | 41 |
+| data freshness | +4,42 pp | 9 |
+| reserve | +3,33 pp | 6 |
+| manned-aircraft conflict | +1,06 pp | 2 |
+| communications | +1,00 pp | 2 |
+| incident confidence | +0,86 pp | 4 |
+| airspace | +0,71 pp | 1 |
+| site availability | +0,31 pp | 1 |
+| temporary restrictions | +0,30 pp | 2 |
+| UAS availability / battery / weather | 0,00 pp | 0 |
+
+Los efectos se solapan, dependen de interacciones entre gates y **no suman** la
+erosión A→F. El resultado corrige la lectura basada en conteos de primer fallo:
+en esta configuración, range/reserve domina la recuperación marginal; confidence
+y freshness importan, pero no explican por sí solas la caída.
+
+### B. Fair architecture comparator
+
+Los factores se separan en comunes pre-observación (alert processing,
+confidence, freshness), específicos UAS (range/reserve, disponibilidad,
+batería, meteo, aire, conflictos, comunicaciones, preflight/launch) y específicos
+de cámara (radio, disponibilidad y comunicaciones). LOS, humo/oclusión, FOV,
+reconocimiento y equivalencia permanecen `UNKNOWN / NOT_MODELLED`.
+
+| Etapa | UAS | Cámara proxy |
+|---|---:|---:|
+| Raw physical reach (`PHYSICAL_PROXY_ONLY`) | 55,35% | 35,10% |
+| Tras gates comunes | 27,63% | 17,63% |
+| Tras gates específicos | 10,15% | 13,86% optimista |
+
+El contrato de latencia común incluye alert processing, verification y first
+analysis; UAS añade preflight, launch, travel y scene acquisition; cámara añade
+su latencia específica y de imagen. No se duplican componentes UAS.
+
+`CAMERA_OPTIMISTIC_NO_LOS_PENALTY` es solo un upper bound. Para
+`CAMERA_UNKNOWN_LOS`, el resultado es
+`NOT_COMPARABLE_UNDER_MISSING_LOS_EVIDENCE`; UNKNOWN no se convierte en cero.
+Por ello el veredicto del comparador es **INCOMPARABLE**. El anterior
+`camera 31,27% vs dock 10,15%` no soporta ranking. `best_available_observation_proxy`
+solo toma la primera observación entre canales independientes; no representa una
+arquitectura híbrida implementada.
+
+### C. Multi-seed robustness
+
+En 25 seeds reproducibles:
+
+| Métrica | min | p10 | mediana | p90 | max |
+|---|---:|---:|---:|---:|---:|
+| A coverage | 49,21% | 53,50% | 58,72% | 69,00% | 76,35% |
+| F coverage | 1,00% | 3,43% | 5,39% | 7,87% | 10,15% |
+| Erosión A→F | 45,20 pp | 45,77 pp | 54,06 pp | 61,94 pp | 72,75 pp |
+| Cámara optimista | 7,32% | 10,21% | 13,48% | 15,74% | 15,96% |
+
+La erosión sobrevive todas las seeds, pero el 10,15% de F era el máximo, no un
+valor central. Los tamaños 90/180/360 dan F = 8,70%/10,15%/7,83%; no invierten
+la conclusión. Los sitios permanecen idénticos al cambiar `incident_count`.
+
+### D. A-01 dense sensitivity
+
+El barrido usa el conjunto fijo de supervivientes F y cambia únicamente el total
+agregado no-vuelo. En la seed baseline, la mayoría deja de estar dominada por
+tránsito entre **600–720 s**. Entre seeds, el extremo inferior del bracket varía
+360–720 s y el superior 480–840 s (medianas 600/720 s). A-01 pasa a
+`STRONGLY_CONDITION_DEPENDENT`.
+
+No hay interpolación: son intervalos discretos de 120 s. El análisis sufre
+survivor bias y describe solo incidentes que ya superaron todos los gates F.
+
+### E. Site-selection bias
+
+El greedy F-aware es determinista y recupera frente a selección A +0,64 pp con
+1 sitio, +3,40 pp con 2, +4,71 pp con 3 y +4,74 pp con 5. Con los 10 candidatos,
+ambos conjuntos coinciden y la ganancia es 0 pp. Por tanto, la selección A sí
+perjudicaba redes pequeñas, pero no explica el 10,15% del conjunto completo.
+
+### F. What changed from original 0C interpretation
+
+- **Sobrevive:** la geometría A exagera cobertura; la erosión A→F es estable y
+  A-01 depende estructuralmente del tiempo no-vuelo.
+- **Se debilita:** no hay evidencia para afirmar ventaja de cámara o híbrido; el
+  comparador original era asimétrico.
+- **Corrección anti-dock:** la seed baseline era favorable a F frente a las otras
+  seeds y selección A perjudicaba redes pequeñas.
+- **Posible sesgo pro-dock:** cámara sigue sin penalización LOS/humo/FOV y sus
+  latencias son asumidas; tampoco existe equivalencia observacional o económica.
+- **A-04:** permanece `TESTING`; los escenarios adversos solo prueban lógica del
+  gate, nunca frecuencia meteorológica real.
+
+## 16. Gate review — Phase 0C.1
+
+### Evidence
+
+Output schema 1.1 reproducible; ablación de 12 switches; comparador en tres
+etapas; 25 seeds; barrido A-01 de 31 puntos; selección A/F-aware; tamaños
+90/180/360; invariantes automatizados.
+
+### Original interpretation
+
+`CONDITION_DEPENDENT / EARLY REPOSITION SIGNAL`, con 55,35%→10,15% y una cámara
+proxy presentada como 31,27% frente a docks.
+
+### Robustness findings
+
+La erosión A→F es robusta a seeds; range/reserve es el principal mecanismo
+marginal; el valor F puntual no es estable; F-aware ayuda solo con redes parciales.
+
+### What survived
+
+La necesidad de cuestionar dock-only y medir la cadena no-vuelo antes de diseñar
+infraestructura distribuida.
+
+### What weakened
+
+La narrativa de superioridad de cámaras/híbrido y cualquier lectura literal del
+10,15% como estimador central.
+
+### Fair comparator result
+
+`INCOMPARABLE`: cámara es un upper bound sin LOS/humo/equivalencia/coste.
+
+### A-01 result
+
+`STRONGLY_CONDITION_DEPENDENT`; crossover baseline 600–720 s y multi-seed
+360–840 s en los extremos de los brackets.
+
+### Remaining unknowns
+
+Todos los perfiles UAS y tiempos son `ASSUMED`; incidentes/sitios son
+`SYNTHETIC`; LOS, humo, FOV, calidad, coste y datos operacionales siguen ausentes.
+Los porcentajes no son cobertura real de Madrid.
+
+### Verdict
+
+`CONDITION_DEPENDENT_STRONG`. `NO SUPPORT FOR BUILD`.
+
+### Phase 0D recommendation
+
+`DO NOT PROCEED YET`: primero revisar el Draft PR #2. Una autorización posterior
+debe definir un test real-data limitado y simétrico; esta auditoría no inicia 0D.
+
+## 17. Reproduction
 
 ```powershell
 uv sync --extra dev

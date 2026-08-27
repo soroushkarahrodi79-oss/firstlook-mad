@@ -48,6 +48,9 @@ Estado de gates a 2026-08-27:
 - 0B: `DATA PARTIAL`.
 - 0C: `SYNTHETIC MODEL — PASS` técnico; señal científica
   `CONDITION_DEPENDENT / EARLY REPOSITION SIGNAL`.
+- 0C.1: `CONDITION_DEPENDENT_STRONG`; A-01
+  `STRONGLY_CONDITION_DEPENDENT`; comparador de arquitecturas `INCOMPARABLE`.
+  Recomendación: `DO NOT PROCEED YET` hasta revisión del Draft PR #2.
 
 Formato de cada gate (§40 brief): **Evidence · What passed · What failed ·
 Missing evidence · Risks · Verdict**. Ante `FAIL`, no se continúa.

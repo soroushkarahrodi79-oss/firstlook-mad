@@ -8,15 +8,17 @@
 ---
 
 ## Current phase
-**Phase 0C — Synthetic Model, cerrada. STOP antes de 0D.**
+**Phase 0C.1 — robustness audit complete. STOP antes de 0D.**
 
 ## Current gate
-**SYNTHETIC MODEL — PASS** técnico (2026-08-27).
+**SYNTHETIC MODEL — PASS** técnico; revisión 0C.1:
+**`CONDITION_DEPENDENT_STRONG`** (2026-08-27).
 
-Lectura científica: **`CONDITION_DEPENDENT / EARLY REPOSITION SIGNAL`**. El modelo
-es reproducible y conservador, pero no soporta `BUILD`: A-01 depende de tiempos
-no-vuelo, la cobertura cae al añadir restricciones y el proxy de cámaras domina
-bajo sus supuestos. La entrada en 0D requiere decisión humana explícita.
+Lectura científica: **PASS WITH CONDITIONS — ROBUSTNESS AUDIT REQUIRED**. La
+erosión A→F sobrevive 25 seeds, A-01 es `STRONGLY_CONDITION_DEPENDENT` y el
+comparador de cámaras/docks es `INCOMPARABLE`, no una victoria de cámara. No hay
+soporte para `BUILD`. La entrada en 0D requiere revisión del PR #2 y decisión
+humana explícita.
 
 Gate anterior: **DATA FEASIBILITY — DATA PARTIAL** (2026-08-26). Gate de
 definición previo: **PASS WITH CONDITIONS**. Condiciones vinculantes: priorizar
@@ -49,6 +51,10 @@ INFOMA; no fijar threshold numérico de TTFRP; aceptar resultados negativos.
   y alternativa cámaras/híbrido.
 - `SYNTHETIC_MODEL_REPORT.md` y resultado JSON regenerable.
 - Gate de Phase 0C cerrado: **PASS técnico**, señal `REPOSITION` temprana.
+- Phase 0C.1: ablación F, comparador simétrico por etapas, 25 seeds, sweep A-01
+  0–3.600 s, sensibilidad 90/180/360 y greedy F-aware.
+- Resultado 0C.1: `CONDITION_DEPENDENT_STRONG`; cámara como upper bound optimista
+  y `INCOMPARABLE` cuando LOS es desconocido.
 
 ## In progress
 - Ninguno. Stop point previo a Phase 0D.
@@ -69,7 +75,7 @@ INFOMA; no fijar threshold numérico de TTFRP; aceptar resultados negativos.
 
 ## Assumptions (ver docs/ASSUMPTIONS.md)
 A-01, A-02, A-03, A-04, A-06, A-07, A-08 y A-09 están `TESTING`.
-A-01 = `CONDITION_DEPENDENT`; A-04 es vulnerable a erosión; A-06 muestra alta
+A-01 = `STRONGLY_CONDITION_DEPENDENT`; A-04 permanece `TESTING`; A-06 muestra alta
 sensibilidad. Ninguna está `SUPPORTED`.
 
 ## Known blockers
@@ -90,19 +96,19 @@ Datos 0C: únicamente `SYNTHETIC`/`ASSUMED`, seed `260827`, configuración y out
 versionados. Ninguna cifra es una observación de Madrid.
 
 ## Test status
-`uv run pytest -q` — **17 passed**. `uv run ruff check .` y
+`uv run pytest -q` — **25 passed**. `uv run ruff check .` y
 `uv run ruff format --check .` — **PASS**. `uv run mypy` — **PASS**.
 CLI determinista — output byte-for-byte reproducible. Phase 0B probes — 7/7.
 
 ## Last verified commit
-`a4b53ff` — gate completo con disponibilidad UAS (este commit añade el pointer).
+`c890563` — implementación 0C.1 y 25 tests de invariantes; documentación final
+se añade en el commit siguiente.
 
 ## Next 3 actions
-1. Obtener decisión humana sobre una Phase 0D limitada y adversarial.
-2. Si se aprueba, adquirir un subconjunto mínimo real para refutar A-01/A-04 y
-   validar transformaciones CRS/provenance; no construir un sistema operacional.
-3. Contrastar docks con cámaras/híbrido incluyendo línea de visión, calidad y
-   costes, o `REPOSITION/KILL` si no hay evidencia suficiente.
+1. Revisar el Draft PR #2 con la evidencia de 0C.1; no entrar aún en 0D.
+2. Decidir humanamente si procede un test real-data limitado y adversarial.
+3. Si se autoriza después, comparar arquitecturas con gates comunes y evidencia
+   LOS/calidad/coste; no construir un sistema operacional.
 
 ## Do not do yet
 Dashboard · ML · hardware · control de drones · dispatch real · integración 112/

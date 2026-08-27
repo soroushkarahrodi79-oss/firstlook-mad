@@ -49,6 +49,19 @@ Identificador: `A-nn`. Estado: `OPEN` (sin verificar) / `TESTING` / `SUPPORTED` 
 
 Ningún supuesto nuevo pasa a `SUPPORTED` en 0C.
 
+## Evidencia incorporada en 0C.1
+
+- **A-01:** `STRONGLY_CONDITION_DEPENDENT`. El crossover discreto baseline es
+  600–720 s; los brackets de 25 seeds abarcan extremos 360–840 s.
+- **A-03:** la erosión A→F persiste en 25 seeds (45,20–72,75 pp), pero sigue
+  `TESTING` porque toda la geometría es sintética.
+- **A-04:** permanece `TESTING`; el 0% ante visibilidad desconocida es una regla
+  conservadora del gate UAS, no evidencia de frecuencia real ni penalización de
+  cámara.
+- **A-06:** permanece `TESTING`; todos los perfiles siguen `ASSUMED`.
+
+Ningún supuesto pasa a `SUPPORTED` en 0C.1.
+
 ## Supuestos que NO hacemos (explícito)
 
 - **No** asumimos que ninguna infraestructura acepte realmente un dock.
