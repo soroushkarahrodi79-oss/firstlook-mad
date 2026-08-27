@@ -8,6 +8,7 @@ from firstlook_mad.domain import (
     FactorCheck,
     FactorState,
     GateOutcome,
+    GatePolicy,
     GateResult,
     Incident,
     PairEvaluation,
@@ -44,6 +45,7 @@ def evaluate_pair(
     battery_fraction: float,
     max_data_age_minutes: float,
     minimum_incident_confidence: float,
+    gate_policy: GatePolicy | None = None,
 ) -> PairEvaluation:
     """Evaluate one synthetic incident/site pair with progressive constraints."""
 
@@ -66,6 +68,29 @@ def evaluate_pair(
             profile.max_sortie_distance_m / 2.0,
         )
     else:
+        if model is CoverageModel.D_AIRSPACE:
+            policy = GatePolicy(
+                reserve=False,
+                site_availability=False,
+                uas_availability=False,
+                battery=False,
+                communications=False,
+                incident_confidence=False,
+                data_freshness=False,
+                weather=False,
+            )
+        elif model is CoverageModel.E_WEATHER:
+            policy = GatePolicy(
+                reserve=False,
+                site_availability=False,
+                uas_availability=False,
+                battery=False,
+                communications=False,
+                incident_confidence=False,
+                data_freshness=False,
+            )
+        else:
+            policy = GatePolicy()
         gate = assess_gate(
             incident=incident,
             site=site,
@@ -75,9 +100,7 @@ def evaluate_pair(
             battery_fraction=battery_fraction,
             max_data_age_minutes=max_data_age_minutes,
             minimum_incident_confidence=minimum_incident_confidence,
-            include_airspace=True,
-            include_weather=model in {CoverageModel.E_WEATHER, CoverageModel.F_ENERGY},
-            include_full_operations=model is CoverageModel.F_ENERGY,
+            policy=gate_policy or policy,
         )
 
     feasible = gate.outcome is GateOutcome.GO_SIMULATION

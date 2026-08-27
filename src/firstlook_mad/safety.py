@@ -7,6 +7,7 @@ from firstlook_mad.domain import (
     FactorCheck,
     FactorState,
     GateOutcome,
+    GatePolicy,
     GateResult,
     Incident,
     UASPerformanceProfile,
@@ -81,43 +82,42 @@ def assess_gate(
     battery_fraction: float,
     max_data_age_minutes: float,
     minimum_incident_confidence: float,
-    include_airspace: bool,
-    include_weather: bool,
-    include_full_operations: bool,
+    policy: GatePolicy,
 ) -> GateResult:
     """Evaluate ordered factors; any non-pass state prevents GO_SIMULATION."""
 
     checks: list[FactorCheck] = []
-    if include_full_operations:
-        checks.extend(
-            [
-                _known_boolean("site_available", site.assumed_available, fail_when=False),
-                _known_boolean("uas_available", site.uas_available, fail_when=False),
-                _threshold(
-                    "battery",
-                    battery_fraction,
-                    passes=battery_fraction >= profile.minimum_battery_fraction,
-                    detail=(
-                        f"battery={battery_fraction:.3f}; "
-                        f"minimum={profile.minimum_battery_fraction:.3f}"
-                    ),
+    if policy.site_availability:
+        checks.append(_known_boolean("site_available", site.assumed_available, fail_when=False))
+    if policy.uas_availability:
+        checks.append(_known_boolean("uas_available", site.uas_available, fail_when=False))
+    if policy.battery:
+        checks.append(
+            _threshold(
+                "battery",
+                battery_fraction,
+                passes=battery_fraction >= profile.minimum_battery_fraction,
+                detail=(
+                    f"battery={battery_fraction:.3f}; "
+                    f"minimum={profile.minimum_battery_fraction:.3f}"
                 ),
-            ]
+            )
         )
 
-    reserve = profile.reserve_fraction if include_full_operations else 0.0
-    usable_sortie_m = profile.max_sortie_distance_m * battery_fraction * (1.0 - reserve)
-    required_sortie_m = 2.0 * effective_distance_m
-    checks.append(
-        _threshold(
-            "range",
-            required_sortie_m,
-            passes=required_sortie_m <= usable_sortie_m,
-            detail=f"required={required_sortie_m:.1f}; usable={usable_sortie_m:.1f}",
+    if policy.range:
+        reserve = profile.reserve_fraction if policy.reserve else 0.0
+        usable_sortie_m = profile.max_sortie_distance_m * battery_fraction * (1.0 - reserve)
+        required_sortie_m = 2.0 * effective_distance_m
+        checks.append(
+            _threshold(
+                "range",
+                required_sortie_m,
+                passes=required_sortie_m <= usable_sortie_m,
+                detail=f"required={required_sortie_m:.1f}; usable={usable_sortie_m:.1f}",
+            )
         )
-    )
 
-    if include_weather:
+    if policy.weather:
         checks.extend(
             [
                 _threshold(
@@ -165,52 +165,57 @@ def assess_gate(
             ]
         )
 
-    if include_airspace:
-        checks.extend(
-            [
-                _airspace_check(incident.airspace),
-                _known_boolean(
-                    "temporary_restriction",
-                    incident.temporary_restriction,
-                    fail_when=True,
-                ),
-                _known_boolean(
-                    "manned_aircraft_conflict",
-                    incident.manned_aircraft_conflict,
-                    fail_when=True,
-                ),
-            ]
+    if policy.airspace:
+        checks.append(_airspace_check(incident.airspace))
+    if policy.temporary_restriction:
+        checks.append(
+            _known_boolean(
+                "temporary_restriction",
+                incident.temporary_restriction,
+                fail_when=True,
+            )
         )
-
-    if include_full_operations:
-        checks.extend(
-            [
-                _known_boolean(
-                    "communications",
-                    site.communications_available,
-                    fail_when=False,
+    if policy.manned_aircraft_conflict:
+        checks.append(
+            _known_boolean(
+                "manned_aircraft_conflict",
+                incident.manned_aircraft_conflict,
+                fail_when=True,
+            )
+        )
+    if policy.communications:
+        checks.append(
+            _known_boolean(
+                "communications",
+                site.communications_available,
+                fail_when=False,
+            )
+        )
+    if policy.incident_confidence:
+        checks.append(
+            _threshold(
+                "incident_confidence",
+                incident.incident_confidence,
+                passes=(
+                    incident.incident_confidence is not None
+                    and incident.incident_confidence >= minimum_incident_confidence
                 ),
-                _threshold(
-                    "incident_confidence",
-                    incident.incident_confidence,
-                    passes=(
-                        incident.incident_confidence is not None
-                        and incident.incident_confidence >= minimum_incident_confidence
-                    ),
-                    detail=(
-                        f"confidence={incident.incident_confidence}; "
-                        f"minimum={minimum_incident_confidence}"
-                    ),
+                detail=(
+                    f"confidence={incident.incident_confidence}; "
+                    f"minimum={minimum_incident_confidence}"
                 ),
-                _threshold(
-                    "data_freshness",
-                    incident.data_age_minutes,
-                    passes=(
-                        incident.data_age_minutes is not None
-                        and incident.data_age_minutes <= max_data_age_minutes
-                    ),
-                    detail=(f"age={incident.data_age_minutes}; max={max_data_age_minutes} minutes"),
+            )
+        )
+    if policy.data_freshness:
+        checks.append(
+            _threshold(
+                "data_freshness",
+                incident.data_age_minutes,
+                passes=(
+                    incident.data_age_minutes is not None
+                    and incident.data_age_minutes <= max_data_age_minutes
                 ),
-            ]
+                detail=(f"age={incident.data_age_minutes}; max={max_data_age_minutes} minutes"),
+            )
         )
     return _result(checks)

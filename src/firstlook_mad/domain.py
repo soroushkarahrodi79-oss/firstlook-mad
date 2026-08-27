@@ -7,6 +7,7 @@ from enum import StrEnum
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 ANALYTICAL_CRS = "EPSG:25830"
+MIN_ROBUSTNESS_SEEDS = 2
 
 
 class FrozenModel(BaseModel):
@@ -83,6 +84,8 @@ class CandidateSite(FrozenModel):
     assumed_available: bool | None
     uas_available: bool | None
     communications_available: bool | None
+    camera_available: bool | None
+    camera_communications_available: bool | None
     nature: EvidenceNature = EvidenceNature.SYNTHETIC
 
 
@@ -140,7 +143,25 @@ class WeatherScenario(FrozenModel):
 class CameraAssumptions(FrozenModel):
     radius_m: float = Field(gt=0.0)
     picture_latency_s: float = Field(ge=0.0)
+    architecture_specific_latency_s: float = Field(ge=0.0)
     nature: EvidenceNature = EvidenceNature.ASSUMED
+
+
+class GatePolicy(FrozenModel):
+    """Switches used only for transparent synthetic ablation."""
+
+    range: bool = True
+    reserve: bool = True
+    site_availability: bool = True
+    uas_availability: bool = True
+    battery: bool = True
+    communications: bool = True
+    incident_confidence: bool = True
+    data_freshness: bool = True
+    airspace: bool = True
+    temporary_restriction: bool = True
+    manned_aircraft_conflict: bool = True
+    weather: bool = True
 
 
 class SyntheticBounds(FrozenModel):
@@ -177,6 +198,10 @@ class SyntheticConfig(FrozenModel):
     battery_fraction: float = Field(gt=0.0, le=1.0)
     max_data_age_minutes: float = Field(gt=0.0)
     minimum_incident_confidence: float = Field(ge=0.0, le=1.0)
+    robustness_seeds: tuple[int, ...]
+    sample_sizes: tuple[int, ...]
+    a01_sweep_max_seconds: int = Field(ge=0)
+    a01_sweep_step_seconds: int = Field(gt=0)
     assumptions_note: str = Field(min_length=1)
     nature: EvidenceNature = EvidenceNature.SYNTHETIC
 
@@ -192,6 +217,12 @@ class SyntheticConfig(FrozenModel):
             raise ValueError("network size exceeds site count")
         if not self.profiles or not self.ttfrp_scenarios or not self.weather_scenarios:
             raise ValueError("TTFRP and weather scenarios are required")
+        if len(set(self.robustness_seeds)) < MIN_ROBUSTNESS_SEEDS:
+            raise ValueError("at least two unique robustness seeds are required")
+        if not self.sample_sizes or any(size < 1 for size in self.sample_sizes):
+            raise ValueError("sample_sizes must contain positive values")
+        if self.a01_sweep_max_seconds % self.a01_sweep_step_seconds != 0:
+            raise ValueError("A-01 sweep max must be divisible by its step")
         profile_ids = [profile.profile_id for profile in self.profiles]
         if len(set(profile_ids)) != len(profile_ids):
             raise ValueError("profile ids must be unique")

@@ -9,6 +9,7 @@ from statistics import median
 from firstlook_mad.domain import (
     CandidateSite,
     CoverageModel,
+    GatePolicy,
     Incident,
     PairEvaluation,
     SyntheticConfig,
@@ -73,6 +74,7 @@ def evaluate_network(
     ttfrp: TTFRPAssumptions,
     weather: WeatherScenario,
     profile: UASPerformanceProfile | None = None,
+    gate_policy: GatePolicy | None = None,
 ) -> NetworkOutcome:
     selected_profile = profile or config.reference_profile
     best_by_incident: dict[str, PairEvaluation] = {}
@@ -94,6 +96,7 @@ def evaluate_network(
                 battery_fraction=config.battery_fraction,
                 max_data_age_minutes=config.max_data_age_minutes,
                 minimum_incident_confidence=config.minimum_incident_confidence,
+                gate_policy=gate_policy,
             )
             for site in sites
         ]
@@ -198,7 +201,7 @@ def _alternative_metrics(
     return {
         "dock_only": summarize(dock_times),
         "camera_only": summarize(camera_times),
-        "hybrid_best_available_picture": summarize(hybrid_times),
+        "best_available_observation_proxy": summarize(hybrid_times),
         "warning": (
             "Camera radius/latency and picture equivalence are ASSUMED; "
             "this is not a cost or operational comparison."

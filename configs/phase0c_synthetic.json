@@ -3,6 +3,10 @@
   "scenario_id": "phase0c-falsification-grid-v1",
   "crs": "EPSG:25830",
   "seed": 260827,
+  "robustness_seeds": [260803, 260804, 260805, 260806, 260807, 260808, 260809, 260810, 260811, 260812, 260813, 260814, 260815, 260816, 260817, 260818, 260819, 260820, 260821, 260822, 260823, 260824, 260825, 260826, 260827],
+  "sample_sizes": [90, 180, 360],
+  "a01_sweep_max_seconds": 3600,
+  "a01_sweep_step_seconds": 120,
   "incident_count": 180,
   "site_count": 10,
   "bounds": {
@@ -115,6 +119,7 @@
   "camera": {
     "radius_m": 15000.0,
     "picture_latency_s": 240.0,
+    "architecture_specific_latency_s": 0.0,
     "nature": "ASSUMED"
   },
   "battery_fraction": 1.0,

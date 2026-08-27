@@ -14,6 +14,22 @@ from firstlook_mad.domain import (
     ZoneState,
 )
 
+SITE_STREAM_REFERENCE_INCIDENTS = 180
+
+
+def _site_random_stream(seed: int) -> random.Random:
+    """Preserve the 0C baseline sites without coupling them to sample size."""
+
+    generator = random.Random(seed)
+    for index in range(SITE_STREAM_REFERENCE_INCIDENTS):
+        if index % 31 != 0:
+            generator.random()
+        if index % 41 != 0:
+            generator.random()
+        for _ in range(4):
+            generator.random()
+    return generator
+
 
 def load_config(path: Path) -> SyntheticConfig:
     """Load and validate a Phase 0C configuration."""
@@ -35,24 +51,27 @@ def _zone_for(index: int) -> ZoneState:
 def generate_inputs(config: SyntheticConfig) -> tuple[list[Incident], list[CandidateSite]]:
     """Generate repeatable fixtures; no values represent real Madrid assets."""
 
-    generator = random.Random(config.seed)
+    incident_generator = random.Random(config.seed)
+    site_generator = _site_random_stream(config.seed)
     bounds = config.bounds
     incidents: list[Incident] = []
     for index in range(config.incident_count):
-        confidence = None if index % 31 == 0 else generator.uniform(0.70, 1.0)
-        data_age = None if index % 41 == 0 else generator.uniform(0.0, 120.0)
+        confidence = None if index % 31 == 0 else incident_generator.uniform(0.70, 1.0)
+        data_age = None if index % 41 == 0 else incident_generator.uniform(0.0, 120.0)
         incidents.append(
             Incident(
                 incident_id=f"SYN-INC-{index:04d}",
                 point=ProjectedPoint(
-                    easting_m=generator.uniform(bounds.min_easting_m, bounds.max_easting_m),
-                    northing_m=generator.uniform(
+                    easting_m=incident_generator.uniform(
+                        bounds.min_easting_m, bounds.max_easting_m
+                    ),
+                    northing_m=incident_generator.uniform(
                         bounds.min_northing_m,
                         bounds.max_northing_m,
                     ),
                 ),
-                risk_weight=generator.uniform(0.5, 5.0),
-                terrain_multiplier=generator.uniform(1.0, 1.35),
+                risk_weight=incident_generator.uniform(0.5, 5.0),
+                terrain_multiplier=incident_generator.uniform(1.0, 1.35),
                 airspace=_zone_for(index),
                 temporary_restriction=index % 17 == 0,
                 manned_aircraft_conflict=(None if index % 23 == 0 else index % 19 == 0),
@@ -67,8 +86,8 @@ def generate_inputs(config: SyntheticConfig) -> tuple[list[Incident], list[Candi
             CandidateSite(
                 site_id=f"SYN-SITE-{index:03d}",
                 point=ProjectedPoint(
-                    easting_m=generator.uniform(bounds.min_easting_m, bounds.max_easting_m),
-                    northing_m=generator.uniform(
+                    easting_m=site_generator.uniform(bounds.min_easting_m, bounds.max_easting_m),
+                    northing_m=site_generator.uniform(
                         bounds.min_northing_m,
                         bounds.max_northing_m,
                     ),
@@ -76,6 +95,8 @@ def generate_inputs(config: SyntheticConfig) -> tuple[list[Incident], list[Candi
                 assumed_available=index % 7 != 0,
                 uas_available=index % 8 != 0,
                 communications_available=index % 9 != 0,
+                camera_available=index % 6 != 0,
+                camera_communications_available=index % 10 != 0,
             )
         )
     return incidents, sites

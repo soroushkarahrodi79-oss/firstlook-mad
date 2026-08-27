@@ -7,8 +7,8 @@ import json
 from collections.abc import Sequence
 from pathlib import Path
 
+from firstlook_mad.audit import run_audit_experiment
 from firstlook_mad.synthetic import load_config
-from firstlook_mad.validation import run_experiment
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -30,7 +30,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "validate-config":
         print(f"valid synthetic config: {config.scenario_id}")
         return 0
-    result = run_experiment(config)
+    result = run_audit_experiment(config)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(result, indent=2, ensure_ascii=False) + "\n",
