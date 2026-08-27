@@ -7,12 +7,22 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
+from firstlook_mad.audit import (
+    a01_sensitivity,
+    f_aware_site_order,
+    f_factor_ablation,
+    fair_comparator,
+    multi_seed_audit,
+    run_audit_experiment,
+    sample_size_audit,
+)
 from firstlook_mad.cli import main
 from firstlook_mad.domain import (
     CandidateSite,
     CoverageModel,
     EvidenceNature,
     GateOutcome,
+    GatePolicy,
     Incident,
     ProjectedPoint,
     TTFRPAssumptions,
@@ -60,6 +70,8 @@ def site(*, easting_m: float = 451_000.0, available: bool | None = True) -> Cand
         assumed_available=available,
         uas_available=True,
         communications_available=True,
+        camera_available=True,
+        camera_communications_available=True,
     )
 
 
@@ -128,9 +140,7 @@ class GateTests(unittest.TestCase):
             battery_fraction=1.0,
             max_data_age_minutes=60.0,
             minimum_incident_confidence=0.75,
-            include_airspace=True,
-            include_weather=True,
-            include_full_operations=True,
+            policy=GatePolicy(),
         )
         self.assertEqual(result.outcome, GateOutcome.NO_GO)
         self.assertEqual(result.primary_reason, "site_available")
@@ -148,9 +158,18 @@ class GateTests(unittest.TestCase):
                 battery_fraction=1.0,
                 max_data_age_minutes=60.0,
                 minimum_incident_confidence=0.75,
-                include_airspace=True,
-                include_weather=False,
-                include_full_operations=False,
+                policy=GatePolicy(
+                    reserve=False,
+                    site_availability=False,
+                    uas_availability=False,
+                    battery=False,
+                    communications=False,
+                    incident_confidence=False,
+                    data_freshness=False,
+                    temporary_restriction=False,
+                    manned_aircraft_conflict=False,
+                    weather=False,
+                ),
             )
             outcomes[zone] = result.outcome
         self.assertEqual(outcomes[ZoneState.UNKNOWN], GateOutcome.UNKNOWN)
@@ -266,6 +285,147 @@ class ExperimentTests(unittest.TestCase):
             self.assertEqual(first.read_bytes(), second.read_bytes())
             document = json.loads(first.read_text(encoding="utf-8"))
             self.assertEqual(document["metadata"]["seed"], self.config.seed)
+            self.assertEqual(document["metadata"]["schema_version"], "1.1")
+            audit = document["evidence"]["robustness_audit"]
+            self.assertEqual(
+                set(audit),
+                {
+                    "ablation",
+                    "fair_comparator",
+                    "multi_seed",
+                    "a01_sensitivity",
+                    "site_selection_comparison",
+                    "sample_size_sensitivity",
+                    "randomness_invariants",
+                },
+            )
+
+    def test_ablation_never_loses_a_full_f_survivor(self) -> None:
+        incidents, sites = generate_inputs(self.config)
+        result = f_factor_ablation(
+            incidents=incidents,
+            sites=sites,
+            config=self.config,
+            ttfrp=self.config.ttfrp_scenarios[0],
+            weather=self.config.weather_scenarios[0],
+        )
+        self.assertTrue(all(row["removal_never_reduces_survivors"] for row in result["rows"]))
+        range_row = next(row for row in result["rows"] if row["factor_removed"] == "range")
+        self.assertGreater(range_row["covered_incidents_delta"], 0)
+        self.assertGreater(range_row["delta_pp"], 0.0)
+
+    def test_camera_unknown_los_is_declared_incomparable(self) -> None:
+        incidents, sites = generate_inputs(self.config)
+        result = fair_comparator(
+            incidents=incidents,
+            sites=sites,
+            config=self.config,
+            ttfrp=self.config.ttfrp_scenarios[0],
+            weather=self.config.weather_scenarios[0],
+        )
+        self.assertEqual(result["comparison_status"], "INCOMPARABLE")
+        self.assertEqual(
+            result["camera_visibility_treatment"]["unknown_visibility_policy"],
+            "DO_NOT_SCORE_AS_ZERO; DECLARE_INCOMPARABLE",
+        )
+
+    def test_shared_and_specific_comparator_gates_do_not_leak(self) -> None:
+        low_confidence = incident().model_copy(update={"incident_confidence": 0.0})
+        test_site = site()
+        common = fair_comparator(
+            incidents=[low_confidence],
+            sites=[test_site],
+            config=self.config,
+            ttfrp=self.config.ttfrp_scenarios[0],
+            weather=self.config.weather_scenarios[0],
+        )
+        self.assertEqual(common["stage_1_raw_physical_proxy"]["uas"]["covered_incidents"], 1)
+        self.assertEqual(common["stage_1_raw_physical_proxy"]["camera"]["covered_incidents"], 1)
+        self.assertEqual(
+            common["stage_2_after_shared_incident_gates"]["uas"]["covered_incidents"], 0
+        )
+        self.assertEqual(
+            common["stage_2_after_shared_incident_gates"]["camera"]["covered_incidents"], 0
+        )
+
+        camera_down = test_site.model_copy(update={"camera_available": False})
+        camera_specific = fair_comparator(
+            incidents=[incident()],
+            sites=[camera_down],
+            config=self.config,
+            ttfrp=self.config.ttfrp_scenarios[0],
+            weather=self.config.weather_scenarios[0],
+        )["stage_3_after_architecture_specific_gates"]
+        self.assertEqual(camera_specific["dock_only"]["covered_incidents"], 1)
+        self.assertEqual(camera_specific["camera_optimistic_upper_bound"]["covered_incidents"], 0)
+
+        uas_down = test_site.model_copy(update={"assumed_available": False})
+        uas_specific = fair_comparator(
+            incidents=[incident()],
+            sites=[uas_down],
+            config=self.config,
+            ttfrp=self.config.ttfrp_scenarios[0],
+            weather=self.config.weather_scenarios[0],
+        )["stage_3_after_architecture_specific_gates"]
+        self.assertEqual(uas_specific["dock_only"]["covered_incidents"], 0)
+        self.assertEqual(uas_specific["camera_optimistic_upper_bound"]["covered_incidents"], 1)
+
+    def test_site_stream_is_invariant_to_incident_sample_size(self) -> None:
+        result = sample_size_audit(self.config)
+        self.assertTrue(result["all_sites_unchanged"])
+
+    def test_audit_verdict_uses_only_allowed_taxonomy(self) -> None:
+        result = run_audit_experiment(self.config)
+        self.assertIn(
+            result["decision"]["status"],
+            {
+                "CONDITION_DEPENDENT_STRONG",
+                "CONDITION_DEPENDENT_WEAK",
+                "NEGATIVE_RESULT_NOT_ROBUST",
+                "INCONCLUSIVE",
+            },
+        )
+
+    def test_multi_seed_aggregate_is_deterministic_order_invariant_and_varies(self) -> None:
+        compact = self.config.model_copy(
+            update={"incident_count": 30, "robustness_seeds": (260803, 260804, 260805)}
+        )
+        forward = multi_seed_audit(compact)
+        repeat = multi_seed_audit(compact)
+        reversed_config = compact.model_copy(update={"robustness_seeds": (260805, 260804, 260803)})
+        reversed_result = multi_seed_audit(reversed_config)
+        self.assertEqual(forward, repeat)
+        self.assertEqual(forward, reversed_result)
+        self.assertGreater(len({row["a_coverage"] for row in forward["runs"]}), 1)
+
+    def test_a01_sweep_is_monotone_and_reports_a_discrete_crossover(self) -> None:
+        incidents, sites = generate_inputs(self.config)
+        result = a01_sensitivity(
+            incidents=incidents,
+            sites=sites,
+            config=self.config,
+            ttfrp=self.config.ttfrp_scenarios[0],
+            weather=self.config.weather_scenarios[0],
+        )
+        dominance = [row["travel_dominates_fraction"] for row in result["sweep"]]
+        self.assertEqual(dominance, sorted(dominance, reverse=True))
+        crossover = result["crossover_interval"]
+        self.assertEqual(crossover["status"], "BRACKETED")
+        self.assertEqual(
+            crossover["upper_seconds"] - crossover["lower_seconds"],
+            self.config.a01_sweep_step_seconds,
+        )
+
+    def test_f_aware_selection_is_deterministic(self) -> None:
+        incidents, sites = generate_inputs(self.config)
+        arguments = {
+            "incidents": incidents,
+            "sites": sites,
+            "config": self.config,
+            "ttfrp": self.config.ttfrp_scenarios[0],
+            "weather": self.config.weather_scenarios[0],
+        }
+        self.assertEqual(f_aware_site_order(**arguments), f_aware_site_order(**arguments))
 
 
 if __name__ == "__main__":
