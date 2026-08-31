@@ -40,6 +40,7 @@ outputs/reports/*
 !outputs/**/.gitkeep
 !outputs/reports/source_probe_results.json
 !outputs/reports/phase0c_synthetic_results.json
+!outputs/reports/phase0d_acquisition_log.json
 
 # --- Secrets / credentials (never commit) ---
 *.pem

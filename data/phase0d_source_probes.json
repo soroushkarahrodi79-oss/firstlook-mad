@@ -1,0 +1,55 @@
+{
+  "consulted_at": "2026-08-31T10:00:00+02:00",
+  "purpose": "Phase 0D bounded acquisition attempts for the sources prioritised in docs/PHASE_0D_PROTOCOL.md. Each probe requests a single small metadata or bounded-extract endpoint; none downloads a bulk dataset.",
+  "probes": [
+    {
+      "probe_id": "enaire_uas_zones_madrid_bbox",
+      "priority_assumption": "A-03",
+      "url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer/2/query?f=geojson&where=1%3D1&outFields=*&geometry=-4.0,40.25,-3.4,40.65&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&resultRecordCount=50",
+      "accept": "application/json",
+      "max_bytes": 2000000
+    },
+    {
+      "probe_id": "aemet_madrid_station_inventory",
+      "priority_assumption": "A-04",
+      "url": "https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones",
+      "accept": "application/json",
+      "max_bytes": 500000
+    },
+    {
+      "probe_id": "effis_current_fires_madrid_bbox",
+      "priority_assumption": "A-04",
+      "url": "https://maps.effis.emergency.copernicus.eu/effis?service=WFS&request=GetFeature&typeName=ms:modis.ba.poly&outputFormat=application/json&bbox=-4.6,39.9,-3.0,41.2,EPSG:4326&maxFeatures=50",
+      "accept": "application/json",
+      "max_bytes": 2000000
+    },
+    {
+      "probe_id": "ign_mdt05_madrid_capabilities",
+      "priority_assumption": "A-03",
+      "url": "https://api-features.idee.es/collections?f=json",
+      "accept": "application/json",
+      "max_bytes": 500000
+    },
+    {
+      "probe_id": "osm_overpass_madrid_fire_stations",
+      "priority_assumption": "A-02",
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3Bnode%5B%22amenity%22%3D%22fire_station%22%5D%2840.30%2C-3.90%2C40.55%2C-3.55%29%3Bout%20body%3B",
+      "accept": "application/json",
+      "max_bytes": 500000
+    },
+    {
+      "probe_id": "madrid_city_open_data_fire_stations",
+      "priority_assumption": "A-02",
+      "url": "https://datos.madrid.es/egob/catalogo/211642-0-bomberos-parques.json",
+      "accept": "application/json",
+      "max_bytes": 200000
+    },
+    {
+      "probe_id": "egif_public_search_madrid",
+      "priority_assumption": "A-01",
+      "url": "https://servicio.mapa.gob.es/incendios/Search/Publico",
+      "accept": "text/html",
+      "max_bytes": 500000
+    }
+  ]
+}
