@@ -1,6 +1,6 @@
 # ASSUMPTIONS — FIRSTLOOK-MAD
 
-> **Fase:** 0C cerrada · **v0.3.0**
+> **Fase:** 0D — `FAIL (BLOCKED: EXECUTION ENVIRONMENT EGRESS)` · **v0.4.0**
 >
 > Registro explícito de supuestos. Cada supuesto es **falsable** y tiene un plan
 > para verificarlo o refutarlo. Un supuesto **no** es un hecho: se marca como tal
@@ -61,6 +61,41 @@ Ningún supuesto nuevo pasa a `SUPPORTED` en 0C.
 - **A-06:** permanece `TESTING`; todos los perfiles siguen `ASSUMED`.
 
 Ningún supuesto pasa a `SUPPORTED` en 0C.1.
+
+## Evidencia incorporada en 0D
+
+Phase 0D (2026-08-31) fue autorizada por el propietario del proyecto e
+intentó falsación adversarial con datos reales de Madrid siguiendo
+`docs/PHASE_0D_PROTOCOL.md`. La adquisición acotada (0D.1) se ejecutó de
+inmediato tras el pre-registro contra las 7 fuentes ya validadas como
+accesibles en 0B más 7 extractos adicionales pequeños. **Las 7 fuentes
+fallaron el 100% de las veces**, bloqueadas por la política de salida de red
+del entorno de ejecución de esta sesión (`Tunnel connection failed: 403
+Forbidden` en el proxy, antes de alcanzar el servidor de destino — ver
+`PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §5). No se obtuvo ningún byte de
+dato externo nuevo.
+
+Por tanto, para A-01 a A-04:
+
+- **A-01:** sin cambios. Permanece `STRONGLY_CONDITION_DEPENDENT` (estado de
+  0C.1). No se pudo consultar EGIF; resultado clasificado como
+  `BASELINE_NOT_OBSERVABLE` según la regla de missing-data del protocolo
+  (nunca se convierte en soporte).
+- **A-02:** sin cambios. Permanece `TESTING`. No se pudo consultar el
+  directorio regional, `datos.madrid.es` ni OpenStreetMap/Overpass.
+- **A-03:** sin cambios. Permanece `TESTING`. No se pudo sustituir ninguna
+  geometría sintética por geometría real de Madrid (ENAIRE/IGN
+  inalcanzables).
+- **A-04:** sin cambios. Permanece `TESTING`. No se pudo consultar
+  AEMET/ERA5-Land; resultado clasificado como
+  `WEATHER_EVIDENCE_NOT_OBSERVABLE`.
+
+**Ningún supuesto pasa a `SUPPORTED` ni a `REFUTED` en 0D.** La ausencia de
+evidencia real no se trata como soporte implícito de ningún supuesto ni como
+refutación: es, explícitamente, ausencia de evidencia por un bloqueador de
+entorno de ejecución, no un hallazgo sobre Madrid. Ver §15 del informe de 0D
+para la acción humana mínima requerida antes de poder reintentar esta
+evaluación.
 
 ## Supuestos que NO hacemos (explícito)
 
