@@ -4,6 +4,12 @@
   "phase": "0B",
   "consulted_date": "2026-08-26",
   "manifest_note": "Metadata feasibility inventory only. No entry implies operational availability, site permission, BVLOS authorisation, or fitness for flight decisions.",
+  "phase0d_reattempt": {
+    "consulted_date": "2026-08-31",
+    "outcome": "NETWORK_EGRESS_BLOCKED",
+    "detail": "Phase 0D re-probed the 7 endpoints validated in 0B (data/phase0d_source_probes.json, scripts/acquire_phase0d_sources.py) from this execution environment. All 7 attempts failed identically with 'Tunnel connection failed: 403 Forbidden' at the outbound proxy, before reaching the destination server. This is an execution-environment egress policy restriction, not a change in source availability or licensing observed in 0B. See PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md §5 and outputs/reports/phase0d_acquisition_log.json.",
+    "feasibility_status_unaffected": true
+  },
   "datasets": [
     {
       "dataset_id": "enaire_uas_geographical_zones_v2",

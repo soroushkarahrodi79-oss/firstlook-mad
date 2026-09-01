@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "phase": "0D",
+  "generated_at": "2026-08-31T17:49:53.494896+00:00",
+  "config_consulted_at": "2026-08-31T10:00:00+02:00",
+  "purpose": "Phase 0D bounded acquisition attempts for the sources prioritised in docs/PHASE_0D_PROTOCOL.md. Each probe requests a single small metadata or bounded-extract endpoint; none downloads a bulk dataset.",
+  "summary": {
+    "attempted": 7,
+    "acquired": 0,
+    "network_egress_blocked": 7,
+    "other_failures": 0
+  },
+  "results": [
+    {
+      "probe_id": "enaire_uas_zones_madrid_bbox",
+      "priority_assumption": "A-03",
+      "url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer/2/query?f=geojson&where=1%3D1&outFields=*&geometry=-4.0,40.25,-3.4,40.65&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&resultRecordCount=50",
+      "attempted_at": "2026-08-31T17:49:50.316071+00:00",
+      "outcome": "NETWORK_EGRESS_BLOCKED",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "probe_id": "aemet_madrid_station_inventory",
+      "priority_assumption": "A-04",
+      "url": "https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones",
+      "attempted_at": "2026-08-31T17:49:50.790560+00:00",
+      "outcome": "NETWORK_EGRESS_BLOCKED",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "probe_id": "effis_current_fires_madrid_bbox",
+      "priority_assumption": "A-04",
+      "url": "https://maps.effis.emergency.copernicus.eu/effis?service=WFS&request=GetFeature&typeName=ms:modis.ba.poly&outputFormat=application/json&bbox=-4.6,39.9,-3.0,41.2,EPSG:4326&maxFeatures=50",
+      "attempted_at": "2026-08-31T17:49:51.262327+00:00",
+      "outcome": "NETWORK_EGRESS_BLOCKED",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "probe_id": "ign_mdt05_madrid_capabilities",
+      "priority_assumption": "A-03",
+      "url": "https://api-features.idee.es/collections?f=json",
+      "attempted_at": "2026-08-31T17:49:51.727760+00:00",
+      "outcome": "NETWORK_EGRESS_BLOCKED",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "probe_id": "osm_overpass_madrid_fire_stations",
+      "priority_assumption": "A-02",
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3Bnode%5B%22amenity%22%3D%22fire_station%22%5D%2840.30%2C-3.90%2C40.55%2C-3.55%29%3Bout%20body%3B",
+      "attempted_at": "2026-08-31T17:49:52.149832+00:00",
+      "outcome": "NETWORK_EGRESS_BLOCKED",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "probe_id": "madrid_city_open_data_fire_stations",
+      "priority_assumption": "A-02",
+      "url": "https://datos.madrid.es/egob/catalogo/211642-0-bomberos-parques.json",
+      "attempted_at": "2026-08-31T17:49:52.610428+00:00",
+      "outcome": "NETWORK_EGRESS_BLOCKED",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "probe_id": "egif_public_search_madrid",
+      "priority_assumption": "A-01",
+      "url": "https://servicio.mapa.gob.es/incendios/Search/Publico",
+      "attempted_at": "2026-08-31T17:49:53.044896+00:00",
+      "outcome": "NETWORK_EGRESS_BLOCKED",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+    }
+  ]
+}
