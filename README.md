@@ -42,9 +42,15 @@ personas. Ver `docs/PRODUCT_CONTRACT.md`.
 
 ## 5. Estado actual
 
-**Phase 0C — Synthetic Model, cerrada con `PASS` técnico.** La evidencia es
-`CONDITION_DEPENDENT` y produce una señal temprana de `REPOSITION`, no soporte
-para `BUILD`. Ver `SYNTHETIC_MODEL_REPORT.md` y `PROJECT_STATE.md`.
+**Phase 0D — falsación con datos reales, ejecutada y cerrada.** Gate: `MADRID
+REAL DATA MVP — FAIL (BLOCKED: EXECUTION ENVIRONMENT EGRESS)`. Señal
+estratégica: `INSUFFICIENT EVIDENCE`. No se obtuvo evidencia real nueva de
+Madrid, así que la última lectura científica válida sigue siendo la de Phase
+0C.1: `CONDITION_DEPENDENT_STRONG`, sin soporte para `BUILD`. Phase 0E **no**
+está autorizada. Próximo paso legítimo: reintentar la adquisición de datos
+reales ya definida en Phase 0D desde un entorno con salida de red permitida,
+o aportar los pequeños extractos reales especificados con procedencia. Ver
+`PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` y `PROJECT_STATE.md`.
 
 ## 6. Metodología
 
