@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "phase": "0D",
+  "generated_at": "2026-09-02T14:12:02.548235+00:00",
+  "config_consulted_at": "2026-08-31T10:00:00+02:00",
+  "purpose": "Phase 0D bounded acquisition attempts for the sources prioritised in docs/PHASE_0D_PROTOCOL.md. Each probe requests a single small metadata or bounded-extract endpoint; none downloads a bulk dataset.",
+  "summary": {
+    "attempted": 7,
+    "acquired": 5,
+    "network_egress_blocked": 0,
+    "other_failures": 2
+  },
+  "results": [
+    {
+      "probe_id": "enaire_uas_zones_madrid_bbox",
+      "priority_assumption": "A-03",
+      "url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer/2/query?f=geojson&where=1%3D1&outFields=*&geometry=-4.0,40.25,-3.4,40.65&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&resultRecordCount=50",
+      "attempted_at": "2026-09-02T14:11:59.219853+00:00",
+      "outcome": "ACQUIRED",
+      "http_status": 200,
+      "bytes_read": 268402,
+      "truncated": false,
+      "nature_if_used": "REAL",
+      "error": null
+    },
+    {
+      "probe_id": "aemet_madrid_station_inventory",
+      "priority_assumption": "A-04",
+      "url": "https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones",
+      "attempted_at": "2026-09-02T14:12:00.179668+00:00",
+      "outcome": "ACQUIRED",
+      "http_status": 200,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": "REAL",
+      "error": null
+    },
+    {
+      "probe_id": "effis_current_fires_madrid_bbox",
+      "priority_assumption": "A-04",
+      "url": "https://maps.effis.emergency.copernicus.eu/effis?service=WFS&request=GetFeature&typeName=ms:modis.ba.poly&outputFormat=application/json&bbox=-4.6,39.9,-3.0,41.2,EPSG:4326&maxFeatures=50",
+      "attempted_at": "2026-09-02T14:12:00.433597+00:00",
+      "outcome": "HTTP_ERROR",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "HTTPError: HTTP Error 502: Bad Gateway"
+    },
+    {
+      "probe_id": "ign_mdt05_madrid_capabilities",
+      "priority_assumption": "A-03",
+      "url": "https://api-features.idee.es/collections?f=json",
+      "attempted_at": "2026-09-02T14:12:00.819625+00:00",
+      "outcome": "ACQUIRED",
+      "http_status": 200,
+      "bytes_read": 271094,
+      "truncated": false,
+      "nature_if_used": "REAL",
+      "error": null
+    },
+    {
+      "probe_id": "osm_overpass_madrid_fire_stations",
+      "priority_assumption": "A-02",
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3Bnode%5B%22amenity%22%3D%22fire_station%22%5D%2840.30%2C-3.90%2C40.55%2C-3.55%29%3Bout%20body%3B",
+      "attempted_at": "2026-09-02T14:12:01.136787+00:00",
+      "outcome": "OTHER_ERROR",
+      "http_status": null,
+      "bytes_read": 0,
+      "truncated": false,
+      "nature_if_used": null,
+      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1081)>"
+    },
+    {
+      "probe_id": "madrid_city_open_data_fire_stations",
+      "priority_assumption": "A-02",
+      "url": "https://datos.madrid.es/egob/catalogo/211642-0-bomberos-parques.json",
+      "attempted_at": "2026-09-02T14:12:01.430614+00:00",
+      "outcome": "ACQUIRED",
+      "http_status": 200,
+      "bytes_read": 16273,
+      "truncated": false,
+      "nature_if_used": "REAL",
+      "error": null
+    },
+    {
+      "probe_id": "egif_public_search_madrid",
+      "priority_assumption": "A-01",
+      "url": "https://servicio.mapa.gob.es/incendios/Search/Publico",
+      "attempted_at": "2026-09-02T14:12:02.217958+00:00",
+      "outcome": "ACQUIRED",
+      "http_status": 200,
+      "bytes_read": 66586,
+      "truncated": false,
+      "nature_if_used": "REAL",
+      "error": null
+    }
+  ]
+}
