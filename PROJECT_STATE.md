@@ -151,14 +151,16 @@ probes — 7/7 (2026-08-26). Phase 0D re-probe — 0/7 (2026-08-31, bloqueador d
 entorno, ver Known blockers).
 
 ## Last verified commit
-Rama `claude/phase-0d-real-data-falsification-3zo56o` — commits de Phase 0D:
-protocolo pre-registrado, adquisición acotada bloqueada + tests, informe de
-gate, y esta actualización de documentación. Ver `git log` para el hash exacto
-más reciente; PR draft abierto para revisión humana.
+Phase 0D quedó fusionada en `main` vía PR #3 (merge commit
+`9c302aa338676b789b75d614306d2a05e3b78f33`): protocolo pre-registrado,
+adquisición acotada bloqueada + tests, informe de gate, y la actualización de
+documentación asociada. Ver `git log` en `main` para el hash exacto más
+reciente. No hay trabajo en curso ni PR abierto.
 
 ## Next 3 actions
-1. Revisar el Draft PR de Phase 0D: gate `FAIL (BLOCKED: EXECUTION
-   ENVIRONMENT EGRESS)`, señal `INSUFFICIENT EVIDENCE`.
+1. Phase 0D ya está fusionada en `main` y cerrada con gate `FAIL (BLOCKED:
+   EXECUTION ENVIRONMENT EGRESS)`, señal `INSUFFICIENT EVIDENCE`. No queda
+   revisión de PR pendiente.
 2. Decidir humanamente cómo desbloquear el acceso de red (allowlist de los 7
    dominios) o depositar manualmente los extractos pequeños ya especificados
    en `data/raw/`, y reintentar 0D.1–0D.6 con datos reales genuinos.
