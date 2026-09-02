@@ -278,3 +278,144 @@ las siguientes acciones humanas (no técnicas de este agente):
 
 Ninguna de estas acciones fue ni debe ser realizada por este agente sin
 autorización e insumo humano explícito (credenciales, entorno, o archivos).
+
+## 16. Adenda — reintento local (2026-09-02) y endurecimiento 0D.1
+
+> Esta adenda documenta un evento posterior al gate original de esta fase
+> (§13, fechado 2026-08-31). No reescribe ni invalida ese gate: describe lo
+> que ocurrió después y qué se corrigió. Ver desviación metodológica
+> completa en `docs/PHASE_0D_PROTOCOL.md` §7.1–§7.2.
+
+### 16.1 Qué demuestra el reintento local — y qué no
+
+El propietario del proyecto ejecutó `scripts/acquire_phase0d_sources.py`
+localmente en su máquina Windows el 2026-09-02 (CPython 3.14.5), sin ningún
+cambio de código respecto a la versión que produjo el gate `FAIL (BLOCKED:
+EXECUTION ENVIRONMENT EGRESS)` de 2026-08-31. Resultado, preservado sin
+modificar en
+[`outputs/reports/phase0d_acquisition_log_local_2026-09-02.json`](outputs/reports/phase0d_acquisition_log_local_2026-09-02.json):
+34 tests previos en verde, 7 probes intentados, 5 clasificados `ACQUIRED`
+por la lógica *pre-endurecimiento*, 0 `NETWORK_EGRESS_BLOCKED`, 2 otros
+fallos.
+
+**Esto demuestra únicamente** que, desde ese entorno local concreto en esa
+fecha concreta, el bloqueador de salida de red de §5 no estaba presente.
+**No demuestra**: que los datos reales de Madrid apoyen ningún supuesto
+A-01–A-04; que el acceso de red esté "resuelto" de forma permanente o para
+cualquier otro entorno; ni que Phase 0D haya avanzado de 0D.1
+(procedencia/adquisición) a 0D.2 (normalización) — no se ha normalizado
+ningún byte todavía.
+
+### 16.2 El defecto de clasificación descubierto y su corrección
+
+De los 7 probes, el de AEMET (`aemet_madrid_station_inventory`) devolvió
+HTTP 200 con **0 bytes** de cuerpo. La implementación anterior lo
+clasificaba como `ACQUIRED` con `nature_if_used: REAL` — un HTTP exitoso
+vacío se contaba como evidencia adquirida. Esto es un defecto de
+procedencia/ingeniería, detectado *después* de ver el resultado, y se
+registra como desviación metodológica fechada en
+`docs/PHASE_0D_PROTOCOL.md` §7.1: **no** es un ajuste de threshold
+científico, **no** cambia ningún supuesto de estado, y **no** es un intento
+de rescatar la hipótesis del proyecto — de hecho hace la clasificación más
+estricta, no más favorable.
+
+Corrección aplicada en `scripts/acquire_phase0d_sources.py`:
+
+- Nuevo resultado explícito `EMPTY_RESPONSE` (HTTP exitoso, 0 bytes) —
+  distinto de `ACQUIRED`, y con `nature_if_used: null`, igual que cualquier
+  otro no-`ACQUIRED`.
+- `ACQUIRED` ahora requiere HTTP exitoso **y** cuerpo no vacío. Solo en ese
+  caso se calcula SHA-256 y se persiste el byte exacto recibido.
+- Cubierto por tests explícitos en `tests/test_phase0d_acquisition.py`
+  (HTTP 200 + cuerpo vacío → `EMPTY_RESPONSE`, nunca `ACQUIRED`).
+
+El log local del 2026-09-02 **se preserva sin modificar** precisamente
+porque es la evidencia de que este defecto existió y de cuándo se corrigió
+— no se reescribe el pasado.
+
+### 16.3 Contrato de evidencia cruda (raw evidence)
+
+Antes de este endurecimiento, el script leía el cuerpo de la respuesta en
+memoria y lo descartaba: no había ningún artefacto persistido más allá del
+log de intentos. Ahora, y solo para probes `ACQUIRED` (HTTP exitoso, cuerpo
+no vacío), `persist_raw_response()` guarda el byte exacto recibido, sin
+transformar ni normalizar, bajo una ruta determinista y específica de la
+fuente:
+
+```
+data/raw/phase0d/<probe_id>/<YYYYMMDD>.raw
+data/raw/phase0d/<probe_id>/<YYYYMMDD>.raw.provenance.json
+```
+
+`data/raw/` permanece **inmutable** (regla vinculante de
+`docs/DATA_SOURCES.md` §3): si la ruta determinista del día ya existe con
+contenido *distinto* del recién recibido, el archivo existente nunca se
+sobrescribe — se usa una ruta determinista específica de esa ejecución
+(derivada de su propio timestamp) en su lugar; si incluso esa ruta de
+respaldo ya tuviera contenido distinto, la función falla explícitamente en
+vez de arriesgar la evidencia. Un reintento el mismo día con bytes
+idénticos es idempotente: no reescribe el archivo ni su provenance
+original.
+
+Cada archivo persistido tiene una entrada de provenance con, como mínimo:
+`probe_id`, `source_url`, `acquired_at_utc`, `http_status`, `content_type`,
+`byte_count`, `sha256`, `local_raw_path`, `truncated`, `evidence_nature:
+"REAL"` y `config_consulted_at`. Un `truncated: true` identifica
+explícitamente una respuesta acotada por `max_bytes`, para que nunca se
+confunda con un dataset completo. No se ha ejecutado ninguna adquisición
+real bajo este contrato todavía en esta tarea — ver §16.6.
+
+### 16.4 AEMET permanece consciente de credenciales
+
+AEMET OpenData requiere una clave de API gratuita. No se ha inventado, ni
+hard-codeado, ni committeado ninguna clave. El probe AEMET declara ahora
+`credential_env_var: "AEMET_API_KEY"` en `data/phase0d_source_probes.json`:
+si esa variable de entorno no está definida, el probe se clasifica
+honestamente `CREDENTIAL_REQUIRED` **sin intentar la petición de red**, en
+vez de arriesgarse a que una respuesta sin autenticar (como el HTTP 200/0
+bytes observado) se confunda con datos reales. Si la clave está presente,
+se envía únicamente como cabecera HTTP (`api_key`), nunca como parámetro de
+la URL — de modo que nunca aparece en la URL de provenance, en los logs ni
+en los resultados serializados. Cubierto por tests explícitos, incluido uno
+que verifica que el valor de la clave no aparece en el resultado
+serializado. No se ha solicitado ni se solicitará una clave AEMET al
+propietario como parte de esta tarea.
+
+### 16.5 EFFIS, Overpass/TLS y EGIF — sin cambios de política
+
+- **EFFIS**: el HTTP 502 observado se preserva como fallo de
+  fuente/petición (`HTTP_ERROR`). No se reintenta automáticamente hasta
+  obtener éxito, ni se sustituye silenciosamente por otro endpoint EFFIS.
+- **OSM Overpass**: el fallo de verificación TLS/certificado observado
+  (`certificate has expired`) se preserva como `OTHER_ERROR`, nunca como
+  `ACQUIRED` ni como evidencia `REAL`. No se ha desactivado la verificación
+  SSL, no se ha añadido `verify=False` ni `-k`, no se ha manipulado la
+  cadena de certificados, y no se ha sustituido silenciosamente por un
+  mirror alternativo — cambiar de endpoint alteraría el alcance de
+  adquisición pre-registrado y requiere revisión/autorización humana
+  separada.
+- **EGIF**: sin cambios de endpoint ni de scope.
+
+### 16.6 Qué NO se ha hecho en esta tarea de endurecimiento
+
+- No se ha ejecutado una nueva adquisición en vivo contra las fuentes reales
+  desde este endurecimiento: los tests nuevos usan respuestas simuladas
+  (`opener` inyectado), no tráfico de red real. `data/raw/phase0d/`
+  permanece vacío hasta que el propietario ejecute la siguiente adquisición
+  acotada.
+- No se ha ejecutado 0D.2 (normalización), 0D.3 (tests adversariales con
+  datos reales), 0D.4 (sensibilidad) ni 0D.5 (red-team ampliado).
+- Ningún supuesto A-01–A-04 cambió de estado. La lectura científica válida
+  sigue siendo la de 0C.1: `CONDITION_DEPENDENT_STRONG`, sin soporte para
+  `BUILD`.
+- No se ha entrado en Phase 0E.
+
+### 16.7 Python 3.14.5 — nota de entorno
+
+La ejecución local usó CPython 3.14.5. `pyproject.toml` declara
+`requires-python = ">=3.12"` (sin cota superior) y Ruff/mypy targetean
+semántica `py312`; no se identificó ninguna incompatibilidad verificada del
+código de este proyecto bajo 3.14.5 durante este endurecimiento, por lo que
+la configuración del proyecto **no se modifica** por esta razón. Para
+máxima reproducibilidad frente al target declarado, se recomienda —sin ser
+obligatorio— que una futura repetición se ejecute también bajo Python 3.12.

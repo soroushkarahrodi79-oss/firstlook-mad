@@ -8,12 +8,37 @@
 ---
 
 ## Current phase
-**Phase 0D — falsación adversarial con datos reales, ejecutada y cerrada.
-STOP antes de 0E.**
+**Phase 0D.1 — endurecimiento de adquisición local (procedencia), en curso.
+STOP antes de 0E. STOP antes de 0D.2 (normalización) hasta nueva
+adquisición con el script endurecido.**
 
 ## Current gate
 **MADRID REAL DATA MVP — `FAIL (BLOCKED: EXECUTION ENVIRONMENT EGRESS)`**
-(2026-08-31). Señal estratégica: **`INSUFFICIENT EVIDENCE`**.
+(2026-08-31, entorno de agente Claude Code de esa sesión). Señal
+estratégica: **`INSUFFICIENT EVIDENCE`**. Este gate **no se reabre ni se
+mejora** por el trabajo de 2026-09-02 descrito abajo — sigue siendo la
+última lectura formal de fase hasta que 0D.2–0D.6 se ejecuten sobre datos
+reales genuinos.
+
+**2026-09-02 — reintento local + endurecimiento 0D.1 (rama
+`research/phase0d-local-retry-2026-09-02`, no fusionada):** el propietario
+ejecutó el mismo script sin cambios desde su máquina Windows local (Python
+3.14.5) y obtuvo 5/7 HTTP 200 con 0/7 `NETWORK_EGRESS_BLOCKED` — confirma
+que el bloqueador de 2026-08-31 era específico de aquel entorno de agente,
+no de las fuentes ni de Madrid. Este reintento también reveló que la
+implementación clasificaba un HTTP 200/0 bytes de AEMET como `ACQUIRED`.
+Corrección aplicada (desviación metodológica fechada, ver
+`docs/PHASE_0D_PROTOCOL.md` §7.1–§7.2 y
+`PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §16): nuevo resultado
+`EMPTY_RESPONSE`, persistencia inmutable de bytes crudos con SHA-256 y
+provenance para probes genuinamente `ACQUIRED`, AEMET consciente de
+credenciales (`AEMET_API_KEY`, sin clave hard-codeada ni solicitada), sin
+tocar la política TLS de Overpass ni sustituir el endpoint 502 de EFFIS. El
+log local del 2026-09-02
+(`outputs/reports/phase0d_acquisition_log_local_2026-09-02.json`) se
+preserva sin modificar como evidencia del defecto pre-corrección. Ningún
+supuesto A-01–A-04 cambió de estado; ninguna adquisición real nueva se
+ejecutó bajo el script endurecido en esta tarea.
 
 El propietario autorizó Phase 0D el 2026-08-31. Se pre-registró el protocolo
 (`docs/PHASE_0D_PROTOCOL.md`) y se intentó de inmediato la adquisición acotada
@@ -86,9 +111,21 @@ INFOMA; no fijar threshold numérico de TTFRP; aceptar resultados negativos.
   adversarial obligatoria (§9 brief) y acción humana mínima requerida.
 - `docs/ASSUMPTIONS.md` y `docs/LIMITATIONS.md` actualizados con el bloqueador
   de 0D; ningún supuesto pasó a `SUPPORTED`/`REFUTED`.
+- **2026-09-02:** endurecimiento de adquisición 0D.1: `EMPTY_RESPONSE` y
+  `CREDENTIAL_REQUIRED` como resultados explícitos distintos de `ACQUIRED`;
+  persistencia inmutable de bytes crudos con SHA-256 + provenance
+  (`persist_raw_response` en `scripts/acquire_phase0d_sources.py`, bajo
+  `data/raw/phase0d/<probe_id>/`); AEMET consciente de `AEMET_API_KEY` sin
+  clave hard-codeada; tests nuevos en `tests/test_phase0d_acquisition.py`;
+  desviación metodológica fechada en `docs/PHASE_0D_PROTOCOL.md` §7.1–§7.2;
+  adenda en `PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §16.
 
 ## In progress
-- Ninguno. Stop point tras el cierre de Phase 0D — no se entra en Phase 0E.
+- Revisión humana del endurecimiento 0D.1 en la rama
+  `research/phase0d-local-retry-2026-09-02` (sin fusionar, sin PR abierto por
+  este agente). Pendiente: que el propietario ejecute la siguiente
+  adquisición acotada con el script endurecido y un nombre de output nuevo
+  (no sobrescribir `phase0d_acquisition_log_local_2026-09-02.json`).
 
 ## Decisions (ver docs/adr/0001)
 - Alcance Phase 0 = investigación + simulación; sin control real, sin dispatch.
@@ -119,16 +156,25 @@ A-01–A-04 y fue bloqueada antes de alcanzar cualquier fuente externa
 - Falta perfil UAS verificable y meteo histórica local de visibilidad/ráfagas.
 - Línea de visión, equivalencia/calidad de imagen y costes de cámaras/híbrido.
 - Distribución real de incidentes, sitios y restricciones históricas.
-- **Nuevo en 0D:** `EXECUTION_ENVIRONMENT_EGRESS_BLOCKED` — este entorno de
-  ejecución de agente bloquea la salida de red hacia `servais.enaire.es`,
-  `opendata.aemet.es`, `maps.effis.emergency.copernicus.eu`,
-  `api-features.idee.es`, `overpass-api.de`, `datos.madrid.es` y
-  `servicio.mapa.gob.es` (403 en el túnel del proxy, confirmado también con
-  un dominio de control no registrado en el proyecto). No es un hallazgo
-  sobre disponibilidad de datos en Madrid — Phase 0B ya probó 7/7 accesibles.
-  Acción humana mínima: ejecutar `scripts/acquire_phase0d_sources.py` desde
-  un entorno con esos dominios permitidos, o depositar manualmente los
-  extractos en `data/raw/` con procedencia.
+- **De 0D (2026-08-31), específico de aquel entorno de agente:**
+  `EXECUTION_ENVIRONMENT_EGRESS_BLOCKED` — 403 en el túnel del proxy hacia
+  los 7 dominios registrados, confirmado también con un dominio de control
+  no registrado. **Actualización 2026-09-02:** el reintento local del
+  propietario (Windows, Python 3.14.5, mismo script) no reprodujo este
+  bloqueo — 0/7 `NETWORK_EGRESS_BLOCKED`. Esto confirma que era específico
+  de aquel entorno de agente concreto, no de las fuentes ni de Madrid; no se
+  generaliza a "resuelto para siempre" — cada entorno/ejecución debe
+  reverificarse.
+- **Nuevo, descubierto en el reintento local de 2026-09-02 y ya corregido:**
+  defecto de clasificación — HTTP 200 con 0 bytes (AEMET) se marcaba
+  `ACQUIRED`/`REAL`. Corregido con el resultado explícito `EMPTY_RESPONSE`
+  (ver `docs/PHASE_0D_PROTOCOL.md` §7.1). El log que documenta el defecto se
+  conserva sin modificar en
+  `outputs/reports/phase0d_acquisition_log_local_2026-09-02.json`.
+- **Sigue pendiente:** clave de API AEMET (`AEMET_API_KEY`, no provista ni
+  solicitada por este agente); histórico completo de EFFIS (solicitud
+  humana); el 502 de EFFIS y el fallo TLS/certificado de Overpass observados
+  el 2026-09-02 siguen sin resolver y no se han enmascarado ni sorteado.
 
 ## Data status
 `DATA PARTIAL`: 19 fuentes — 5 `READY`, 9 `PARTIAL`, 1 `BLOCKED`,
@@ -138,35 +184,55 @@ ejecución de arriba, no por cambio en las fuentes. No se descargaron ni
 cachearon datasets masivos; `data/raw/` permanece inmutable.
 
 Datos 0C: únicamente `SYNTHETIC`/`ASSUMED`, seed `260827`, configuración y output
-versionados. Ninguna cifra es una observación de Madrid. Datos 0D: ningún dato
-`REAL` nuevo de Madrid se obtuvo; el único artefacto nuevo es el log de
-intentos de adquisición (`REAL` sobre el propio entorno de ejecución, no sobre
-Madrid) en `outputs/reports/phase0d_acquisition_log.json`.
+versionados. Ninguna cifra es una observación de Madrid. Datos 0D (2026-08-31):
+ningún dato `REAL` nuevo de Madrid se obtuvo; el único artefacto nuevo fue el
+log de intentos de adquisición (`REAL` sobre el propio entorno de ejecución,
+no sobre Madrid) en `outputs/reports/phase0d_acquisition_log.json`. Reintento
+local (2026-09-02): 4 respuestas HTTP 200 con cuerpo no vacío (ENAIRE, IGN,
+Madrid Open Data, EGIF) fueron clasificadas `ACQUIRED` por la lógica
+*pre-endurecimiento*, pero **ningún byte fue persistido** (el script aún no
+tenía persistencia de evidencia cruda) — no hay ningún archivo `REAL` de
+Madrid en `data/raw/` todavía. `data/raw/phase0d/` es el nuevo destino
+determinista para la próxima adquisición ejecutada con el script endurecido.
 
 ## Test status
-`uv run pytest -q` — **34 passed** (25 de 0C.1 + 9 nuevos de 0D). `uv run ruff
-check .` y `uv run ruff format --check .` — **PASS**. `uv run mypy` —
-**PASS**. CLI determinista — output byte-for-byte reproducible. Phase 0B
-probes — 7/7 (2026-08-26). Phase 0D re-probe — 0/7 (2026-08-31, bloqueador de
-entorno, ver Known blockers).
+Antes del endurecimiento 0D.1: `uv run pytest -q` — **34 passed** (25 de 0C.1
++ 9 de 0D), `ruff check`/`ruff format --check`/`mypy` — **PASS**. Tras el
+endurecimiento 0D.1 (2026-09-02): tests ampliados en
+`tests/test_phase0d_acquisition.py` (cuerpo vacío → `EMPTY_RESPONSE`,
+persistencia inmutable de bytes crudos, SHA-256, provenance, no-overwrite,
+credencial AEMET ausente/no filtrada, TLS/certificado y errores HTTP
+preservados como no-`REAL`) — ver resultado exacto en el reporte de esta
+sesión. CLI determinista — output byte-for-byte reproducible salvo
+timestamps. Phase 0B probes — 7/7 (2026-08-26). Phase 0D re-probe agente
+Claude Code — 0/7 (2026-08-31, bloqueador de entorno). Reintento local
+propietario — 5/7 HTTP 200, 0/7 bloqueados por red (2026-09-02, ver Current
+gate).
 
 ## Last verified commit
 Phase 0D quedó fusionada en `main` vía PR #3 (merge commit
-`9c302aa338676b789b75d614306d2a05e3b78f33`): protocolo pre-registrado,
-adquisición acotada bloqueada + tests, informe de gate, y la actualización de
-documentación asociada. Ver `git log` en `main` para el hash exacto más
-reciente. No hay trabajo en curso ni PR abierto.
+`9c302aa338676b789b75d614306d2a05e3b78f33`) y housekeeping posterior vía PR #4
+(`803abb3`): protocolo pre-registrado, adquisición acotada bloqueada + tests,
+informe de gate, y la actualización de documentación asociada. El
+endurecimiento 0D.1 (2026-09-02) vive sin commitear/sin PR en la rama
+`research/phase0d-local-retry-2026-09-02`, creada sobre ese estado de `main`.
+No se ha abierto PR ni fusionado nada para este trabajo todavía.
 
 ## Next 3 actions
-1. Phase 0D ya está fusionada en `main` y cerrada con gate `FAIL (BLOCKED:
-   EXECUTION ENVIRONMENT EGRESS)`, señal `INSUFFICIENT EVIDENCE`. No queda
-   revisión de PR pendiente.
-2. Decidir humanamente cómo desbloquear el acceso de red (allowlist de los 7
-   dominios) o depositar manualmente los extractos pequeños ya especificados
-   en `data/raw/`, y reintentar 0D.1–0D.6 con datos reales genuinos.
-3. No entrar en Phase 0E hasta que exista evidencia real con la que
-   confrontar la lectura de 0C.1 (`CONDITION_DEPENDENT_STRONG`, sin soporte
-   para `BUILD`).
+1. El propietario revisa el endurecimiento 0D.1 en la rama
+   `research/phase0d-local-retry-2026-09-02` (script, tests, provenance,
+   AEMET credential-aware). No se ha abierto PR ni se ha fusionado nada
+   automáticamente.
+2. Si se aprueba, el propietario ejecuta la siguiente adquisición acotada
+   localmente con el script endurecido, usando un **nombre de output
+   nuevo** (no sobrescribir `phase0d_acquisition_log_local_2026-09-02.json`)
+   — por ejemplo `--output outputs/reports/phase0d_acquisition_log_local_<fecha>.json`.
+   Esta ejecución persistirá bytes crudos reales en `data/raw/phase0d/` con
+   provenance completa, y clasificará AEMET honestamente según si
+   `AEMET_API_KEY` está definida.
+3. No entrar en Phase 0E ni ejecutar 0D.2 (normalización) hasta que exista
+   evidencia real persistida con la que confrontar la lectura de 0C.1
+   (`CONDITION_DEPENDENT_STRONG`, sin soporte para `BUILD`).
 
 ## Do not do yet
 Dashboard · ML · hardware · control de drones · dispatch real · integración 112/

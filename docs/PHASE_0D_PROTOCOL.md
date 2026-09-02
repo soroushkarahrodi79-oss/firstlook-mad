@@ -144,6 +144,59 @@ Cualquier cambio de threshold, alcance o clasificación **después** de ver
 evidencia se registra aquí con fecha, motivo y quién lo autorizó. Estado
 inicial: sin desviaciones.
 
+### 7.1 — 2026-09-02 — corrección de clasificación de adquisición (HTTP 200 + 0 bytes)
+
+**Motivo:** la ejecución local del propietario el 2026-09-02 (ver
+`outputs/reports/phase0d_acquisition_log_local_2026-09-02.json`, preservado
+sin modificar como evidencia del defecto) mostró que el probe AEMET
+(`aemet_madrid_station_inventory`) devolvió HTTP 200 con **0 bytes** de
+cuerpo, y que `scripts/acquire_phase0d_sources.py` lo clasificaba como
+`ACQUIRED` / `nature_if_used: REAL`. Un HTTP 200 con cuerpo vacío no puede
+constituir evidencia `REAL` adquirida: no hay bytes que persistir, verificar
+o normalizar.
+
+**Naturaleza de la corrección:** es una corrección de
+provenance/clasificación de ingeniería, **no** un ajuste de threshold
+científico ni un intento de rescatar la hipótesis del proyecto. No cambia
+ningún umbral de decisión de §4, no mueve ningún supuesto A-01–A-04 de
+estado, y no reinterpreta ningún resultado de 0C.1.
+
+**Corrección aplicada:** se añade el resultado explícito `EMPTY_RESPONSE`,
+distinto de `ACQUIRED`, `HTTP_ERROR`, `OTHER_ERROR` y
+`NETWORK_EGRESS_BLOCKED`. Solo un HTTP exitoso con cuerpo no vacío puede
+producir `nature_if_used: REAL`, calcular SHA-256 y persistirse en
+`data/raw/phase0d/`. Cubierto por tests nuevos en
+`tests/test_phase0d_acquisition.py` (ver también §9 vinculante: `data/raw/`
+permanece inmutable).
+
+**Autorizado por:** propietario del proyecto, instrucción de auditoría de
+Phase 0D.1 — endurecimiento de adquisición local (2026-09-02).
+
+### 7.2 — 2026-09-02 — fin (local, no generalizable) del bloqueador `EXECUTION_ENVIRONMENT_EGRESS_BLOCKED`
+
+**Motivo:** el mismo script, sin cambios de lógica de red, ejecutado el
+2026-09-02 desde el entorno local Windows del propietario alcanzó 5/7
+fuentes con HTTP 200 (4 con cuerpo no vacío antes de esta corrección, 1 —
+AEMET — con cuerpo vacío) y 0/7 fallos `NETWORK_EGRESS_BLOCKED`, frente a
+0/7 accesibles y 7/7 `NETWORK_EGRESS_BLOCKED` el 2026-08-31 en el entorno de
+ejecución de agente Claude Code (ver
+`PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §5). Esto confirma que aquel
+bloqueador era específico del entorno de agente de esa sesión, no de las
+fuentes registradas ni de Madrid — exactamente como se advertía ya en §12 de
+ese informe.
+
+**No se actualiza ningún supuesto científico por este hallazgo.** Que un
+entorno local pueda alcanzar la mayoría de las fuentes no es, por sí mismo,
+evidencia científica sobre A-01–A-04; solo elimina un bloqueador de
+infraestructura de ejecución para ese entorno concreto en esa fecha. No se
+generaliza a "el acceso de red está resuelto para siempre" — cada ejecución
+futura debe volver a verificarse. Ver
+`PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §16 (adenda 2026-09-02) para el
+detalle completo, incluida la lista honesta de qué sigue sin observarse.
+
+**Autorizado por:** propietario del proyecto (instrucción de Phase 0D.1,
+2026-09-02).
+
 ## 8. Preguntas adversariales obligatorias
 
 Ver §9 del brief del propietario — se responden explícitamente en
