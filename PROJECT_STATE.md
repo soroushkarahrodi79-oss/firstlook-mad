@@ -8,9 +8,29 @@
 ---
 
 ## Current phase
-**Phase 0D.1 — endurecimiento de adquisición local (procedencia), en curso.
-STOP antes de 0E. STOP antes de 0D.2 (normalización) hasta nueva
-adquisición con el script endurecido.**
+**Phase 0D.1 — adquisición local acotada (procedencia). 0D.1D cerrado
+(2026-09-07): insumo real reproducible adquirido y verificado por contenido.
+STOP antes de 0E. STOP antes de 0D.2 (normalización). Ningún supuesto pasó a
+`SUPPORTED`/`REFUTED`; ninguna decisión `BUILD/REPOSITION/KILL`.**
+
+## Phase 0D.1 acquisition gate (2026-09-07)
+**`0D.1 REAL INPUT AVAILABLE`.** La regla de adquisición pre-registrada declara
+`REAL INPUT AVAILABLE` cuando al menos un supuesto prioritario tiene insumo real
+genuino, verificado por integridad y semánticamente utilizable — satisfecho por
+A-02. **No** se degrada a `PARTIAL REAL INPUT` por que A-01/A-03/A-04 sigan
+incompletos (eso sería un cambio de threshold posterior a los resultados).
+Insumo real por supuesto (nivel de adquisición, no de decisión científica):
+**A-01 `PARTIAL_REAL_INPUT`** (interfaz EGIF, sin baseline TTFRP), **A-02
+`USABLE_REAL_INPUT`** (parques de bomberos reales), **A-03 `PARTIAL_REAL_INPUT`**
+(muestras acotadas ENAIRE + IGN MDT05 `GetCoverage` + metadatos IGN; no capas
+completas), **A-04 `PARTIAL_REAL_INPUT`** (inventario de estaciones AEMET real,
+no observaciones meteo). `0D.1 REAL INPUT AVAILABLE` **no** significa Phase 0D
+`PASS` científico, `SUPPORTED`, `MADRID VALIDATED`, `BUILD` ni `SAFE_TO_FLY`: no
+sustituye el gate científico de §13 del informe de falsación (sigue
+`FAIL, BLOCKED: EXECUTION ENVIRONMENT EGRESS`, 2026-08-31) ni la lectura
+`CONDITION_DEPENDENT_STRONG` de 0C.1 (sin soporte para `BUILD`). Ver
+`PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §17 y
+`docs/PHASE_0D_PROTOCOL.md` §7.3.
 
 ## Current gate
 **MADRID REAL DATA MVP — `FAIL (BLOCKED: EXECUTION ENVIRONMENT EGRESS)`**
@@ -119,6 +139,19 @@ INFOMA; no fijar threshold numérico de TTFRP; aceptar resultados negativos.
   clave hard-codeada; tests nuevos en `tests/test_phase0d_acquisition.py`;
   desviación metodológica fechada en `docs/PHASE_0D_PROTOCOL.md` §7.1–§7.2;
   adenda en `PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §16.
+- **2026-09-07 (0D.1D):** cierre de adquisición acotada. IGN MDT05:
+  `GetCoverage` real único y acotado (`scripts/acquire_phase0d_ign_mdt_coverage.py`,
+  cobertura `Elevacion25830_5`, EPSG:25830, ventana ~100 m × 100 m, TLS
+  verificado) → GeoTIFF genuino de 1.256 B (20×20, 5 m, elevaciones 648–654 m)
+  clasificado `REAL_SOURCE_DATA` tras inspeccionar contenido. AEMET segundo
+  salto de 167.915 B (`ISO-8859-15`, 926 estaciones, 23 Madrid) reclasificado
+  a `REAL_SOURCE_DATA` vía override por SHA-256 de contenido en
+  `scripts/provenance_ledger.py` (`ARTIFACT_CLASSIFICATIONS`). Ledger
+  payload-free regenerado (16 entradas) bajo `outputs/provenance/phase0d/`;
+  integridad SHA-256 reverificada (0 discrepancias), 0 secretos, 0 payload.
+  Tests nuevos `tests/test_phase0d_ign_mdt_coverage.py` + caso de override en
+  `tests/test_provenance_ledger.py`. Desviación en
+  `docs/PHASE_0D_PROTOCOL.md` §7.3; adenda en el informe §17. Sin commit/PR.
 
 ## In progress
 - Revisión humana del endurecimiento 0D.1 en la rama

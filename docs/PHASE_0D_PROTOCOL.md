@@ -197,6 +197,56 @@ detalle completo, incluida la lista honesta de qué sigue sin observarse.
 **Autorizado por:** propietario del proyecto (instrucción de Phase 0D.1,
 2026-09-02).
 
+### 7.3 — 2026-09-07 — 0D.1D: primer GetCoverage acotado MDT05 + reclasificación AEMET
+
+**Motivo:** Phase 0D.1C dejó IGN MDT05 probado solo a nivel de *metadatos*
+(`GetCapabilities` + `DescribeCoverage`, ver `scripts/acquire_phase0d_ign_mdt.py`,
+cuyo docstring garantiza que nunca descarga un ráster). Para cerrar la cadena
+`metadatos → payload real de terreno acotado` se requería un `GetCoverage`
+real, y para el segundo salto de AEMET había que resolver una clasificación
+que la lógica de adquisición no pudo confirmar en su momento.
+
+**Cambio de alcance (no de threshold científico):** se añade un único
+`GetCoverage` acotado sobre la cobertura ya verificada `Elevacion25830_5`
+(EPSG:25830, 5 m), en un módulo separado
+`scripts/acquire_phase0d_ign_mdt_coverage.py` que preserva intacta la garantía
+"solo metadatos" del módulo de descubrimiento. La petición es **una sola**,
+sin paginación ni recorrido de tiles, con una ventana fija de ~100 m × 100 m
+(malla 20 × 20 de posts de 5 m) centrada en Madrid, muy dentro del extent
+reportado por el `DescribeCoverage` de 0D.1C. Verificación TLS **activada**
+(nunca se desactiva). Los bytes exactos se persisten inmutables con SHA-256 en
+`data/raw/phase0d/` (gitignored) y se clasifican **solo tras inspeccionar el
+contenido real**: número mágico GeoTIFF ⇒ `REAL_SOURCE_DATA`; una
+`ServiceException` XML o cualquier otro cuerpo se clasifica honestamente como
+no-ráster. El resultado observado el 2026-09-07 fue un GeoTIFF real de 1.256
+bytes (20 × 20, int16, ETRS89/UTM 30N, posts de 5 m, elevaciones 648–654 m,
+plausibles para el centro de Madrid) — `REAL_SOURCE_DATA`. Esto **no** es
+terreno completo de Madrid: es una muestra acotada que prueba reproducibilidad
+de la cadena, nada más.
+
+**Reclasificación de clasificación tras ver evidencia (AEMET segundo salto):**
+el artefacto AEMET de 167.915 bytes (SHA-256
+`fe21a467…95ff0f8e`, 926 estaciones, 23 en Madrid) llega en `ISO-8859-15`;
+el clasificador de adquisición decodifica como UTF-8 y por eso no pudo
+confirmarlo, dejándolo por defecto en `NOT_USABLE_FOR_TARGET_TEST`. Verificado
+fuera de banda como registros de estación AEMET genuinos, se reclasifica a
+`REAL_SOURCE_DATA` mediante un *override por SHA-256 de contenido* en
+`scripts/provenance_ledger.py` (`ARTIFACT_CLASSIFICATIONS`), fijado a un hash
+exacto y curado a mano — el ledger sigue **registrando** la clasificación, no
+la infiere de los bytes. El artefacto previo de 57 bytes ("datos expirados")
+del mismo `probe_id` conserva `NOT_USABLE_FOR_TARGET_TEST`.
+
+**Qué NO cambia:** ningún supuesto A-01–A-04 pasa a `SUPPORTED`/`REFUTED`;
+no se ejecuta 0D.2 (normalización); `inventario AEMET ≠ observaciones
+meteorológicas históricas`, `muestra MDT05 ≠ terreno completo de Madrid`,
+`muestra ENAIRE ≠ capa completa de geozonas`, `interfaz EGIF ≠ baseline TTFRP
+observable`. A nivel de *insumo* (no de decisión científica): A-01
+`PARTIAL_REAL_INPUT`, A-02 `USABLE_REAL_INPUT`, A-03 `PARTIAL_REAL_INPUT`,
+A-04 `PARTIAL_REAL_INPUT`.
+
+**Autorizado por:** propietario del proyecto (instrucción de Phase 0D.1D,
+2026-09-07).
+
 ## 8. Preguntas adversariales obligatorias
 
 Ver §9 del brief del propietario — se responden explícitamente en

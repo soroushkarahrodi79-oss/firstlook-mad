@@ -52,6 +52,13 @@ reales ya definida en Phase 0D desde un entorno con salida de red permitida,
 o aportar los pequeños extractos reales especificados con procedencia. Ver
 `PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` y `PROJECT_STATE.md`.
 
+**Adenda 0D.1 (2026-09-07):** ese reintento se ejecutó localmente y adquirió
+insumo real acotado y verificado por contenido. Subgate de *adquisición*:
+`0D.1 REAL INPUT AVAILABLE` (A-02 con insumo real utilizable; A-01/A-03/A-04
+parciales). Esto **no** cambia lo anterior a nivel científico: sigue sin
+`PASS`, sin `SUPPORTED`, sin `BUILD` y sin autorización de Phase 0E; la lectura
+válida sigue siendo `CONDITION_DEPENDENT_STRONG`. Detalle en el informe §17.
+
 ## 6. Metodología
 
 Fases con gates (0A definición → 0B datos → 0C modelo sintético → 0D MVP Madrid →

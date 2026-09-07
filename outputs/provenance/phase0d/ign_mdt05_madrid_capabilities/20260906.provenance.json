@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "ign_mdt05_madrid_capabilities",
+  "source_url": "https://api-features.idee.es/collections?f=json",
+  "acquired_at_utc": "2026-09-06T17:37:58.854379+00:00",
+  "http_status": 200,
+  "content_type": "application/json",
+  "byte_count": 271094,
+  "sha256": "0e71aa5f01cd5b3b2475172e3ce98c50f5deb830f72e1a7d0095c5e2794ef225",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/ign_mdt05_madrid_capabilities/20260906.raw",
+  "assumption": "A-03",
+  "evidence_classification": "REAL_METADATA"
+}

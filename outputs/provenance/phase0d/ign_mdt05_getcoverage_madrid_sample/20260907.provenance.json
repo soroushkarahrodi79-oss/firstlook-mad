@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "ign_mdt05_getcoverage_madrid_sample",
+  "source_url": "https://servicios.idee.es/wcs-inspire/mdt?service=WCS&version=2.0.1&request=GetCoverage&coverageId=Elevacion25830_5&subset=x(440000,440100)&subset=y(4474000,4474100)&format=image/tiff",
+  "acquired_at_utc": "2026-09-07T09:10:28.545106+00:00",
+  "http_status": 200,
+  "content_type": "image/tiff",
+  "byte_count": 1256,
+  "sha256": "3d7fe2a109695383ec44415dbc9963146e64e178d0c94e5e6b0f7f7d09f6906f",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/ign_mdt05_getcoverage_madrid_sample/20260907.raw",
+  "assumption": "A-03",
+  "evidence_classification": "REAL_SOURCE_DATA"
+}

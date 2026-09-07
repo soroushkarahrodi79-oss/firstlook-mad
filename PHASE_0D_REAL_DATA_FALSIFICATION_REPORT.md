@@ -419,3 +419,103 @@ código de este proyecto bajo 3.14.5 durante este endurecimiento, por lo que
 la configuración del proyecto **no se modifica** por esta razón. Para
 máxima reproducibilidad frente al target declarado, se recomienda —sin ser
 obligatorio— que una futura repetición se ejecute también bajo Python 3.12.
+
+## 17. Adenda — 0D.1D: cierre de adquisición acotada (2026-09-07)
+
+> Esta adenda documenta la adquisición local de 2026-09-07 (Windows, Python
+> 3.12.10) bajo el script endurecido y sus derivados. **No** reabre ni mejora
+> el gate original de §13 (`FAIL, BLOCKED: EXECUTION ENVIRONMENT EGRESS`,
+> 2026-08-31): ese sigue siendo la última lectura formal de fase. Aquí se
+> registra qué se adquirió después, con qué naturaleza, y qué explícitamente
+> **no** se concluye. Ningún supuesto A-01–A-04 pasa a `SUPPORTED`/`REFUTED`;
+> no se ejecuta 0D.2.
+
+### 17.1 Evidencia real acotada aceptada (verificada por contenido)
+
+Cada artefacto se persistió inmutable en `data/raw/phase0d/` (gitignored) con
+sidecar SHA-256, y su copia payload-free vive en
+`outputs/provenance/phase0d/` (committable, sin bytes crudos, sin
+credenciales). Integridad reverificada esta sesión: 16 entradas de ledger,
+0 discrepancias de hash, 0 marcadores de secreto, 0 campos de payload.
+
+| Fuente | Supuesto | Clasificación de artefacto | SHA-256 (prefijo) | Naturaleza |
+|---|---|---|---|---|
+| AEMET inventario de estaciones (2º salto, 167.915 B, 926 estaciones, 23 Madrid) | A-04 | `REAL_SOURCE_DATA` | `fe21a467…` | `REAL` |
+| Madrid Open Data — parques de bomberos (16.273 B) | A-02 | `REAL_SOURCE_DATA` | `5c395787…` | `REAL` |
+| ENAIRE geozonas UAS (bbox acotado, 268.402 B) | A-03 | `REAL_BOUNDED_SAMPLE` | `36f6e58e…` | `REAL` |
+| IGN MDT05 `GetCapabilities`/`DescribeCoverage` | A-03 | `REAL_METADATA` | — | `REAL` |
+| **IGN MDT05 `GetCoverage` muestra Madrid (1.256 B GeoTIFF, 20×20, 5 m)** | A-03 | `REAL_SOURCE_DATA` | `3d7fe2a1…` | `REAL` |
+| EGIF interfaz de búsqueda pública | A-01 | `REAL_METADATA` | — | `REAL` |
+
+**El GetCoverage MDT05** (nuevo en 0D.1D) prueba de forma reproducible la
+cadena `metadatos → payload real de terreno acotado`: petición única, sin
+paginación ni recorrido de tiles, ventana fija ~100 m × 100 m centrada en
+Madrid, TLS verificado, formato `image/tiff`. El cuerpo es un GeoTIFF genuino
+(ETRS89/UTM 30N, posts de 5 m, elevaciones 648–654 m, coherentes con el centro
+de Madrid a ~650 m). Ver desviación metodológica fechada en
+`docs/PHASE_0D_PROTOCOL.md` §7.3.
+
+### 17.2 Qué NO demuestra (anti-overclaim, vinculante)
+
+- `inventario AEMET ≠ observaciones meteorológicas históricas` — A-04 no tiene
+  aún la meteo de días de fuego que su test requiere.
+- `muestra MDT05 ≠ terreno completo de Madrid` — es un recorte de 100 m, no un
+  MDT de la ciudad.
+- `muestra ENAIRE ≠ capa completa de geozonas de Madrid`.
+- `interfaz EGIF ≠ baseline TTFRP observable` — sigue `BASELINE_NOT_OBSERVABLE`.
+- Ninguna cifra de 0C.1 se contrastó con esta evidencia: no se ha normalizado
+  ni un byte (0D.2 no ejecutado). La lectura científica válida sigue siendo
+  `CONDITION_DEPENDENT_STRONG`, sin soporte para `BUILD`.
+
+### 17.3 Estado de insumo por supuesto (nivel de adquisición, no de decisión)
+
+| Supuesto | Insumo real | Justificación |
+|---|---|---|
+| A-01 | `PARTIAL_REAL_INPUT` | Solo interfaz EGIF (metadatos); sin baseline TTFRP. |
+| A-02 | `USABLE_REAL_INPUT` | Parques de bomberos reales, trazables (`REAL_SOURCE_DATA`). |
+| A-03 | `PARTIAL_REAL_INPUT` | Muestras reales acotadas (ENAIRE bbox + MDT05 GetCoverage) + metadatos IGN; no capas completas. |
+| A-04 | `PARTIAL_REAL_INPUT` | Inventario de estaciones real, pero no las observaciones meteorológicas del test. |
+
+### 17.4 Gate de Phase 0D.1
+
+**`0D.1 REAL INPUT AVAILABLE`.** La regla de adquisición pre-registrada para
+0D.1 declara `REAL INPUT AVAILABLE` cuando **al menos un** supuesto prioritario
+dispone de insumo real genuino, verificado por integridad y semánticamente
+utilizable. Esa condición **se cumple** con A-02 (parques de bomberos reales,
+`REAL_SOURCE_DATA`, `USABLE_REAL_INPUT`). El gate se evalúa por esa regla, no
+por la completitud de todos los supuestos; degradarlo a `PARTIAL REAL INPUT`
+por el mero hecho de que A-01/A-03/A-04 sigan incompletos sería un cambio de
+threshold **posterior** a observar los resultados, y no se hace.
+
+**Limitación explícita del gate (por supuesto, nivel de insumo):**
+
+- A-01 = `PARTIAL_REAL_INPUT` (interfaz EGIF; sin baseline TTFRP observable).
+- A-02 = `USABLE_REAL_INPUT` (parques de bomberos reales y trazables).
+- A-03 = `PARTIAL_REAL_INPUT` (muestras acotadas ENAIRE + MDT05 GetCoverage +
+  metadatos IGN; no capas completas).
+- A-04 = `PARTIAL_REAL_INPUT` (inventario de estaciones AEMET real; no las
+  observaciones meteorológicas del test).
+
+Todo se adquirió con TLS verificado, procedencia SHA-256 y evidencia cruda
+inmutable gitignored; **no** es `STILL BLOCKED` (la red funcionó y se
+persistieron bytes reales verificados por contenido).
+
+**`0D.1 REAL INPUT AVAILABLE` NO significa** —y este límite es vinculante—
+ninguna de las siguientes: Phase 0D **PASS científico**, `SUPPORTED`,
+`MADRID VALIDATED`, `BUILD`, ni `SAFE_TO_FLY`. Es un subgate de *adquisición*:
+**no** sustituye el gate científico de §13 (que sigue
+`FAIL, BLOCKED: EXECUTION ENVIRONMENT EGRESS`, 2026-08-31, como última lectura
+formal de fase), **no** cambia la lectura `CONDITION_DEPENDENT_STRONG` de 0C.1,
+y **no** habilita la decisión `BUILD/REPOSITION/KILL` de 0F. La interpretación
+científica a nivel de proyecto permanece **no resuelta / insuficiente para
+`BUILD`**.
+
+### 17.5 Calidad de ingeniería (0D.1D, Python 3.12.10)
+
+- `pytest` → 72 passed.
+- `ruff check .` → All checks passed.
+- `ruff format --check .` → 50 files already formatted.
+- `mypy` (estricto) → sin errores en 18 archivos fuente.
+- Ningún test ni regla existente se debilitó. `data/raw/` permanece inmutable
+  y gitignored; ninguna clave, cookie, token ni valor anti-forgery aparece en
+  los artefactos de procedencia committables.

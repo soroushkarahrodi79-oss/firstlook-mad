@@ -102,6 +102,24 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
 - Detalle técnico completo:
   `PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §5 y §15.
 
+### 7.1 Transición de estado — adquisición local acotada (2026-09-07)
+
+- El bloqueo de egress de 2026-08-31 **permanece** como resultado histórico
+  válido de aquel entorno; esta subsección lo **complementa**, no lo sustituye.
+- Una repetición local posterior (Windows, Python 3.12.10, red permitida) sí
+  obtuvo bytes reales acotados con TLS verificado y procedencia SHA-256. Subgate
+  de adquisición: **`0D.1 REAL INPUT AVAILABLE`** (al menos un supuesto
+  prioritario —A-02— con insumo real utilizable). Insumo por supuesto: A-02
+  `USABLE_REAL_INPUT`; A-01/A-03/A-04 `PARTIAL_REAL_INPUT` (siguen incompletos:
+  sin baseline TTFRP para A-01, sin observaciones meteo para A-04, sin capas
+  completas para A-03).
+- **Límite vinculante:** `0D.1 REAL INPUT AVAILABLE` es un gate de *adquisición*.
+  **No** es Phase 0D `PASS`, `SUPPORTED`, `MADRID VALIDATED`, `BUILD` ni
+  `SAFE_TO_FLY`; no cambia ningún supuesto de estado, no ejecuta 0D.2 y no
+  autoriza Phase 0E. La evidencia cruda sigue gitignored; solo se publica
+  procedencia payload-free. Ver `PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md`
+  §17 y `docs/PHASE_0D_PROTOCOL.md` §7.3.
+
 ## 8. Lo que estas limitaciones implican
 
 Ningún output del proyecto debe leerse como recomendación operacional,

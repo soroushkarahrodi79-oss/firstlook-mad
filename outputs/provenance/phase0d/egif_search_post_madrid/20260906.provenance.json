@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "egif_search_post_madrid",
+  "source_url": "https://servicio.mapa.gob.es/incendios/Search/Publico",
+  "acquired_at_utc": "2026-09-06T18:25:12.128813+00:00",
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "byte_count": 67745,
+  "sha256": "da0c188264ecea9ec1803a825c19a64014223f59c00e18b54b9741f8a68e27ae",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/egif_search_post_madrid/20260906.raw",
+  "assumption": "A-01",
+  "evidence_classification": "REAL_METADATA"
+}
