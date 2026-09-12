@@ -151,14 +151,18 @@ INFOMA; no fijar threshold numérico de TTFRP; aceptar resultados negativos.
   integridad SHA-256 reverificada (0 discrepancias), 0 secretos, 0 payload.
   Tests nuevos `tests/test_phase0d_ign_mdt_coverage.py` + caso de override en
   `tests/test_provenance_ledger.py`. Desviación en
-  `docs/PHASE_0D_PROTOCOL.md` §7.3; adenda en el informe §17. Sin commit/PR.
+  `docs/PHASE_0D_PROTOCOL.md` §7.3; adenda en el informe §17. Empaquetado en
+  **PR #5** (abierto, borrador «Do not merge»; pendiente de revisión/fusión
+  humana).
 
 ## In progress
-- Revisión humana del endurecimiento 0D.1 en la rama
-  `research/phase0d-local-retry-2026-09-02` (sin fusionar, sin PR abierto por
-  este agente). Pendiente: que el propietario ejecute la siguiente
-  adquisición acotada con el script endurecido y un nombre de output nuevo
-  (no sobrescribir `phase0d_acquisition_log_local_2026-09-02.json`).
+- **PR #5 abierto** (borrador, «Do not merge»): «Phase 0D.1 — bounded real-data
+  acquisition and provenance closure», rama
+  `research/phase0d-local-retry-2026-09-02` (HEAD `7bc39c9`; 4 commits por
+  delante de `main`, 0 por detrás). Pendiente: **revisión y fusión humana**.
+  Empaqueta el cierre 0D.1 (adquisición acotada verificada por contenido +
+  provenance payload-free + tests); **no** inicia 0D.2. Este agente **no**
+  fusiona.
 
 ## Decisions (ver docs/adr/0001)
 - Alcance Phase 0 = investigación + simulación; sin control real, sin dispatch.
@@ -247,25 +251,26 @@ Phase 0D quedó fusionada en `main` vía PR #3 (merge commit
 `9c302aa338676b789b75d614306d2a05e3b78f33`) y housekeeping posterior vía PR #4
 (`803abb3`): protocolo pre-registrado, adquisición acotada bloqueada + tests,
 informe de gate, y la actualización de documentación asociada. El
-endurecimiento 0D.1 (2026-09-02) vive sin commitear/sin PR en la rama
-`research/phase0d-local-retry-2026-09-02`, creada sobre ese estado de `main`.
-No se ha abierto PR ni fusionado nada para este trabajo todavía.
+endurecimiento y cierre 0D.1 (2026-09-02 → 2026-09-07) vive en 4 commits
+(`9480db8`, `67ab295`, `e93907c`, `7bc39c9`) en la rama
+`research/phase0d-local-retry-2026-09-02`, creada sobre ese estado de `main`, y
+empaquetado en **PR #5** (abierto, pendiente de fusión humana). Nada de este
+trabajo se ha fusionado en `main` todavía.
 
 ## Next 3 actions
-1. El propietario revisa el endurecimiento 0D.1 en la rama
-   `research/phase0d-local-retry-2026-09-02` (script, tests, provenance,
-   AEMET credential-aware). No se ha abierto PR ni se ha fusionado nada
-   automáticamente.
-2. Si se aprueba, el propietario ejecuta la siguiente adquisición acotada
-   localmente con el script endurecido, usando un **nombre de output
-   nuevo** (no sobrescribir `phase0d_acquisition_log_local_2026-09-02.json`)
-   — por ejemplo `--output outputs/reports/phase0d_acquisition_log_local_<fecha>.json`.
-   Esta ejecución persistirá bytes crudos reales en `data/raw/phase0d/` con
-   provenance completa, y clasificará AEMET honestamente según si
-   `AEMET_API_KEY` está definida.
-3. No entrar en Phase 0E ni ejecutar 0D.2 (normalización) hasta que exista
-   evidencia real persistida con la que confrontar la lectura de 0C.1
-   (`CONDITION_DEPENDENT_STRONG`, sin soporte para `BUILD`).
+1. El propietario revisa y **fusiona PR #5** manualmente (cierre de adquisición
+   0D.1: script endurecido, tests, provenance payload-free, AEMET
+   credential-aware). Este agente **no** fusiona.
+2. Tras la fusión, crear la rama `research/phase0d2-real-data-normalization`
+   desde el `main` actualizado y ejecutar **Phase 0D.2** (normalización y
+   aptitud semántica) según `docs/PHASE_0D_ROADMAP.md`. Verdictos
+   pre-registrados: `NORMALIZATION_READY` / `PARTIAL_NORMALIZATION` /
+   `SEMANTICALLY_INSUFFICIENT`. Nunca promover muestras acotadas (ENAIRE/IGN) a
+   capas completas de Madrid.
+3. No entrar en Phase 0E ni cambiar el estado científico de ningún supuesto
+   (`SUPPORTED`/`REFUTED`) hasta ejecutar 0D.2–0D.6 sobre la evidencia real y
+   confrontar la lectura de 0C.1 (`CONDITION_DEPENDENT_STRONG`, sin soporte
+   para `BUILD`).
 
 ## Do not do yet
 Dashboard · ML · hardware · control de drones · dispatch real · integración 112/
