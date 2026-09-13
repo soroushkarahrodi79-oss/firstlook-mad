@@ -120,6 +120,28 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
   procedencia payload-free. Ver `PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md`
   §17 y `docs/PHASE_0D_PROTOCOL.md` §7.3.
 
+### 7.2 Limitaciones de Phase 0D.2 — normalización (2026-09-13)
+
+- Gate `PARTIAL_NORMALIZATION`: solo A-02 tiene una representación canónica
+  elegible, y únicamente dentro de su alcance declarado.
+- A-02: 13 parques del **municipio** de Madrid (Ayuntamiento). No incluye parques
+  regionales ni activos INFOMA; su envolvente (≈14,9 km × 15,6 km) es ≈1,9 % de
+  la extensión sintética de referencia de 0C.1. 11 de 13 coordenadas reproyectan
+  a eastings de metro entero, patrón compatible (no verificado) con una
+  conversión del publicador desde una malla métrica: precisión útil del orden de
+  1 m, no topográfica.
+- A-03: la muestra ENAIRE alcanzó el tope de 50 registros con
+  `exceededTransferLimit = true`, así que está incompleta incluso dentro de su
+  bbox. El ráster MDT05 cubre 100 m × 100 m. Ningún valor se extrapola.
+- A-04: el inventario AEMET no contiene observaciones; la falsación
+  meteorológica sigue `WEATHER_EVIDENCE_NOT_OBSERVABLE`.
+- A-01: sin registros de incidente; `BASELINE_NOT_OBSERVABLE`.
+- Los derivados de ENAIRE y AEMET quedan fuera de git (`data/processed/phase0d2/`)
+  por sus condiciones de uso; solo se publican hashes y recuentos.
+- El determinismo byte a byte se verificó en un único entorno (Windows, Python
+  3.12.10, pyproj 3.7.2, shapely 2.1.2); no en otras plataformas (el redondeo a
+  1 mm lo mitiga, no lo prueba).
+
 ## 8. Lo que estas limitaciones implican
 
 Ningún output del proyecto debe leerse como recomendación operacional,

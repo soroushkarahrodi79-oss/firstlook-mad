@@ -1,0 +1,4 @@
+# Phase 0D.2 tracked outputs record SHA-256 digests of their exact bytes:
+# keep LF line endings on every platform so checkouts still match them.
+outputs/canonical/** text eol=lf
+outputs/reports/phase0d2_normalization_report.json text eol=lf

@@ -1,0 +1,560 @@
+{
+  "analytical_crs": "EPSG:25830",
+  "analytical_domain_envelope": {
+    "crs": "EPSG:4326",
+    "max_x": -3.05,
+    "max_y": 41.17,
+    "min_x": -4.6,
+    "min_y": 39.88
+  },
+  "artifacts": [
+    {
+      "acquired_at_utc": "2026-09-06T17:37:58.062383+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-04",
+      "byte_count": 175,
+      "content_type": "application/json;charset=ISO-8859-15",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_WRAPPER",
+      "probe_id": "aemet_madrid_station_inventory",
+      "sha256": "832640737a29feb216812013676ab1e03d3c7578dadab3120b7a8ae453801d39",
+      "source_url": "https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T17:54:08.550690+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-04",
+      "byte_count": 57,
+      "content_type": "application/json;charset=ISO-8859-15",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "NOT_USABLE_FOR_TARGET_TEST",
+      "probe_id": "aemet_madrid_station_inventory_datos",
+      "sha256": "8bc35855e9b87612b215401289e0d3acc7a97e05c9e64c17f1010f0100f62bff",
+      "source_url": "https://opendata.aemet.es/opendata/sh/3f1a111a"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T19:11:52.722227+00:00",
+      "artifact_name": "20260906T191152Z.raw",
+      "assumption": "A-04",
+      "byte_count": 167915,
+      "content_type": "text/plain;charset=ISO-8859-15",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_SOURCE_DATA",
+      "probe_id": "aemet_madrid_station_inventory_datos",
+      "sha256": "fe21a46756675c9febdead0273901c5a2760fa190ff10d107b7ae04695ff0f8e",
+      "source_url": "https://opendata.aemet.es/opendata/sh/3f1a111a"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T18:25:11.648674+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-01",
+      "byte_count": 1010,
+      "content_type": "application/json; charset=utf-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "egif_ccaa_lookup",
+      "sha256": "3783e9d3a04a25da49dafad1ef921a9945d5aa6c220bf7b36102393ee3c6dd5b",
+      "source_url": "https://servicio.mapa.gob.es/incendios/ParteIncendioForestal/GetComunidadesAutonomasPublico"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T18:25:11.832829+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-01",
+      "byte_count": 49,
+      "content_type": "application/json; charset=utf-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "egif_provincia_lookup_madrid",
+      "sha256": "f564ff029f088442754bf125bb12891b3c0cf8bb95d7ba095bc6919ae43edf43",
+      "source_url": "https://servicio.mapa.gob.es/incendios/ParteIncendioForestal/ProvinciasByCCAAIdPublico?id=16"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T17:38:00.932574+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-01",
+      "byte_count": 66586,
+      "content_type": "text/html; charset=utf-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "egif_public_search_madrid",
+      "sha256": "33151715b497fda53dd230c1f544ee28d44c3b3ae427a4ee55867993c0e90db2",
+      "source_url": "https://servicio.mapa.gob.es/incendios/Search/Publico"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T18:25:11.483569+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-01",
+      "byte_count": 66586,
+      "content_type": "text/html; charset=utf-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "egif_search_landing_session",
+      "sha256": "a372f1e449fba13987735313f3fc8e0ee2eec9d87d5254450610f993e39f09fd",
+      "source_url": "https://servicio.mapa.gob.es/incendios/Search/Publico"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T18:25:21.023239+00:00",
+      "artifact_name": "20260906T182521Z.raw",
+      "assumption": "A-01",
+      "byte_count": 66586,
+      "content_type": "text/html; charset=utf-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "egif_search_landing_session",
+      "sha256": "fcef17c3720f9e33786c2e1b5f80c7bee4b0fde0e93d6e41ea8d2d152c3f89d6",
+      "source_url": "https://servicio.mapa.gob.es/incendios/Search/Publico"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T18:25:12.128813+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-01",
+      "byte_count": 67745,
+      "content_type": "text/html; charset=utf-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "egif_search_post_madrid",
+      "sha256": "da0c188264ecea9ec1803a825c19a64014223f59c00e18b54b9741f8a68e27ae",
+      "source_url": "https://servicio.mapa.gob.es/incendios/Search/Publico"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T18:25:21.638668+00:00",
+      "artifact_name": "20260906T182521Z.raw",
+      "assumption": "A-01",
+      "byte_count": 67745,
+      "content_type": "text/html; charset=utf-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "egif_search_post_madrid",
+      "sha256": "0643bdd267aa6f1965bd8ac479259487032d0575df9d193d6eeb37660e350a55",
+      "source_url": "https://servicio.mapa.gob.es/incendios/Search/Publico"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T17:37:56.987392+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-03",
+      "byte_count": 268402,
+      "content_type": "application/geo+json; charset=UTF-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_BOUNDED_SAMPLE",
+      "probe_id": "enaire_uas_zones_madrid_bbox",
+      "sha256": "36f6e58eddd38fe866ec42b009784d50b073effee4d96d834c1538c52d248182",
+      "source_url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer/2/query?f=geojson&where=1%3D1&outFields=*&geometry=-4.0,40.25,-3.4,40.65&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&resultRecordCount=50"
+    },
+    {
+      "acquired_at_utc": "2026-09-07T09:10:28.545106+00:00",
+      "artifact_name": "20260907.raw",
+      "assumption": "A-03",
+      "byte_count": 1256,
+      "content_type": "image/tiff",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_SOURCE_DATA",
+      "probe_id": "ign_mdt05_getcoverage_madrid_sample",
+      "sha256": "3d7fe2a109695383ec44415dbc9963146e64e178d0c94e5e6b0f7f7d09f6906f",
+      "source_url": "https://servicios.idee.es/wcs-inspire/mdt?service=WCS&version=2.0.1&request=GetCoverage&coverageId=Elevacion25830_5&subset=x(440000,440100)&subset=y(4474000,4474100)&format=image/tiff"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T17:37:58.854379+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-03",
+      "byte_count": 271094,
+      "content_type": "application/json",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "ign_mdt05_madrid_capabilities",
+      "sha256": "0e71aa5f01cd5b3b2475172e3ce98c50f5deb830f72e1a7d0095c5e2794ef225",
+      "source_url": "https://api-features.idee.es/collections?f=json"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T18:25:35.127456+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-03",
+      "byte_count": 12162,
+      "content_type": "text/xml",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "ign_wcs_mdt_capabilities",
+      "sha256": "30c95575991611cd15924369d2a3ad5066aa9a81ff68f8e549c71bdc6c638d3f",
+      "source_url": "https://servicios.idee.es/wcs-inspire/mdt?service=WCS&request=GetCapabilities"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T18:25:35.305487+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-03",
+      "byte_count": 2536,
+      "content_type": "text/xml; charset=UTF-8",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_METADATA",
+      "probe_id": "ign_wcs_mdt_describe_5m",
+      "sha256": "da3b2638ecceb52eeb837fc5d020e6573489fdfb2ce0435872e34e1f5876421a",
+      "source_url": "https://servicios.idee.es/wcs-inspire/mdt?service=WCS&version=2.0.1&request=DescribeCoverage&coverageId=Elevacion25830_5"
+    },
+    {
+      "acquired_at_utc": "2026-09-06T17:38:00.288687+00:00",
+      "artifact_name": "20260906.raw",
+      "assumption": "A-02",
+      "byte_count": 16273,
+      "content_type": "application/json",
+      "integrity": "PASS",
+      "integrity_detail": "raw bytes, sidecar and ledger SHA-256 agree",
+      "ledger_classification": "REAL_SOURCE_DATA",
+      "probe_id": "madrid_city_open_data_fire_stations",
+      "sha256": "5c3957873878d30c93556c75544b6d7740c648b84b0424682dfac655842f8eb6",
+      "source_url": "https://datos.madrid.es/egob/catalogo/211642-0-bomberos-parques.json"
+    }
+  ],
+  "assumptions": [
+    {
+      "analytical_eligibility": "NOT_ELIGIBLE",
+      "artifacts": [
+        "egif_ccaa_lookup/20260906.raw",
+        "egif_provincia_lookup_madrid/20260906.raw",
+        "egif_public_search_madrid/20260906.raw",
+        "egif_search_landing_session/20260906.raw",
+        "egif_search_landing_session/20260906T182521Z.raw",
+        "egif_search_post_madrid/20260906.raw",
+        "egif_search_post_madrid/20260906T182521Z.raw"
+      ],
+      "assumption": "A-01",
+      "blockers": [
+        "no integrity-verified incident-level records with detection and first-arrival timestamps (BASELINE_NOT_OBSERVABLE)"
+      ],
+      "completeness": "NOT_OBSERVED",
+      "details": {
+        "kind": "A-01",
+        "note": "public EGIF interface available != observable incident-level TTFRP baseline; no proxy TTFRP generated; baseline design belongs to Phase 0E",
+        "observability": {
+          "incident_level_records_available": false,
+          "minimum_usable_records_for_eligibility": 10,
+          "proxy_ttfrp_generated": false,
+          "public_interface_available": true,
+          "ttfrp_baseline_status": "BASELINE_NOT_OBSERVABLE",
+          "usable_timing_record_count": 0
+        }
+      },
+      "eligible_for_downstream_substitution": false,
+      "evidence_acquired": true,
+      "integrity": "PASS",
+      "normalization_outcome": "OBSERVABILITY_RECORD_ONLY",
+      "normalized_successfully": false,
+      "reason": "7 EGIF artifacts classified ['REAL_METADATA']; ttfrp_baseline_status=BASELINE_NOT_OBSERVABLE",
+      "scope_restrictions": [],
+      "semantic_fitness": "NOT_FIT_FOR_TARGET_ROLE",
+      "structural_validity": "NOT_NORMALIZED",
+      "target_role": "observable incident-level TTFRP components (timestamps) for Madrid incidents"
+    },
+    {
+      "analytical_eligibility": "ELIGIBLE_WITHIN_DECLARED_SCOPE",
+      "artifacts": [
+        "madrid_city_open_data_fire_stations/20260906.raw"
+      ],
+      "assumption": "A-02",
+      "blockers": [
+        "full analytical-domain substitution blocked: declared source coverage is MADRID_MUNICIPALITY, not the Comunidad de Madrid"
+      ],
+      "completeness": "COMPLETE_FOR_DECLARED_SCOPE",
+      "details": {
+        "attribution": "Ayuntamiento de Madrid",
+        "checks": {
+          "canonical_record_count": 13,
+          "duplicate_coordinate_groups": [],
+          "duplicate_identifiers": [],
+          "easting_range_m": [
+            435063.001,
+            449956.52
+          ],
+          "inside_municipality_envelope_count": 13,
+          "northing_range_m": [
+            4465720.117,
+            4481279.118
+          ],
+          "reconciliation_ok": true,
+          "rejected_records": [],
+          "source_record_count": 13
+        },
+        "declared_coverage": "MADRID_MUNICIPALITY",
+        "kind": "A-02",
+        "license": "CC-BY-4.0",
+        "not_inferred": {
+          "availability": "NOT_EVALUATED",
+          "dispatch_capability": "NOT_EVALUATED",
+          "docking_capability": "NOT_EVALUATED",
+          "drone_suitability": "NOT_EVALUATED",
+          "emergency_response_timing": "NOT_EVALUATED",
+          "land_ownership": "NOT_EVALUATED",
+          "operational_readiness": "NOT_EVALUATED",
+          "permission": "NOT_EVALUATED"
+        },
+        "source_crs_interpretation": "EPSG:4326 (interpreted: decimal lat/lon, no CRS declared by source)",
+        "source_manifest_dataset_id": "madrid_city_fire_stations_open_data"
+      },
+      "eligible_for_downstream_substitution": true,
+      "evidence_acquired": true,
+      "integrity": "PASS",
+      "normalization_outcome": "CANONICAL_DATASET",
+      "normalized_successfully": true,
+      "reason": "13 of 13 source records canonicalized; 0 rejected; 0 duplicate-coordinate groups; declared coverage MADRID_MUNICIPALITY",
+      "scope_restrictions": [
+        "restricted to declared coverage MADRID_MUNICIPALITY; existence and location only (operational properties NOT_EVALUATED)"
+      ],
+      "semantic_fitness": "FIT_WITHIN_DECLARED_SCOPE",
+      "structural_validity": "VALID",
+      "target_role": "real public-asset locations replacing synthetic candidate-site locations (existence and location only)"
+    },
+    {
+      "analytical_eligibility": "NOT_ELIGIBLE",
+      "artifacts": [
+        "enaire_uas_zones_madrid_bbox/20260906.raw",
+        "ign_mdt05_getcoverage_madrid_sample/20260907.raw",
+        "ign_mdt05_madrid_capabilities/20260906.raw",
+        "ign_wcs_mdt_capabilities/20260906.raw",
+        "ign_wcs_mdt_describe_5m/20260906.raw"
+      ],
+      "assumption": "A-03",
+      "blockers": [
+        "ENAIRE response truncated by source (exceededTransferLimit=True, 50 features, resultRecordCount cap 50)",
+        "ENAIRE request envelope is a bounded subset of the analytical domain",
+        "MDT05 artifact is a fixed 100 m x 100 m pipeline-reproducibility window (declared purpose), not a terrain layer"
+      ],
+      "completeness": "TRUNCATED_BY_SOURCE",
+      "details": {
+        "airspace": {
+          "canonical_sha256": "f2f163b67362f66ee17bba39ce167bfea70c933c9a89d5e993fa245fd7371944",
+          "duplicate_object_id_count": 0,
+          "exceeded_transfer_limit": true,
+          "feature_count": 50,
+          "geometry_type_counts": {
+            "Polygon": 50
+          },
+          "invalid_geometry_count": 0,
+          "request_envelope": {
+            "crs": "EPSG:4326",
+            "max_x": -3.4,
+            "max_y": 40.65,
+            "min_x": -4.0,
+            "min_y": 40.25
+          },
+          "result_record_count_cap": 50,
+          "scope": {
+            "acquisition_timestamp_utc": "2026-09-06T17:37:56.987392+00:00",
+            "analytical_eligibility": "NOT_ELIGIBLE",
+            "bounded_sample": true,
+            "completeness": "TRUNCATED_BY_SOURCE",
+            "coverage_extent": {
+              "crs": "EPSG:4326",
+              "max_x": -3.4,
+              "max_y": 40.65,
+              "min_x": -4.0,
+              "min_y": 40.25
+            },
+            "crs": "EPSG:4326",
+            "crs_basis": "interpreted: RFC 7946 GeoJSON coordinates are lon/lat (EPSG:4326)",
+            "eligible_for_full_madrid_analysis": false,
+            "eligible_for_pipeline_verification": true,
+            "evidence_scope": "REQUEST_ENVELOPE_SUBSET_OF_ANALYTICAL_DOMAIN",
+            "source_probe_id": "enaire_uas_zones_madrid_bbox",
+            "source_resolution": "vector polygons (no raster resolution)",
+            "source_sha256": "36f6e58eddd38fe866ec42b009784d50b073effee4d96d834c1538c52d248182"
+          },
+          "structural_validity": "VALID"
+        },
+        "kind": "A-03",
+        "metadata_only_artifacts": [
+          "ign_mdt05_madrid_capabilities/20260906.raw",
+          "ign_wcs_mdt_capabilities/20260906.raw",
+          "ign_wcs_mdt_describe_5m/20260906.raw"
+        ],
+        "terrain": {
+          "declared_acquisition_purpose": "chain reproducibility proof (docs/PHASE_0D_PROTOCOL.md section 7.3)",
+          "extent_matches_request": true,
+          "raster": {
+            "bits_per_sample": 16,
+            "compression": 1,
+            "extent": {
+              "crs": "EPSG:25830",
+              "max_x": 440100.0,
+              "max_y": 4474100.0,
+              "min_x": 440000.0,
+              "min_y": 4474000.0
+            },
+            "height": 20,
+            "nodata": null,
+            "pixel_scale_x": 5.0,
+            "pixel_scale_y": 5.0,
+            "projected_crs_epsg": 25830,
+            "raster_type": "PIXEL_IS_AREA",
+            "sample_format": 2,
+            "sample_window_max": 654.0,
+            "sample_window_min": 648.0,
+            "sample_window_value_count": 400,
+            "statistic_scope": "sample_window_only",
+            "width": 20
+          },
+          "requested_extent": {
+            "crs": "EPSG:25830",
+            "max_x": 440100.0,
+            "max_y": 4474100.0,
+            "min_x": 440000.0,
+            "min_y": 4474000.0
+          },
+          "scope": {
+            "acquisition_timestamp_utc": "2026-09-07T09:10:28.545106+00:00",
+            "analytical_eligibility": "NOT_ELIGIBLE",
+            "bounded_sample": true,
+            "completeness": "BOUNDED_SAMPLE",
+            "coverage_extent": {
+              "crs": "EPSG:25830",
+              "max_x": 440100.0,
+              "max_y": 4474100.0,
+              "min_x": 440000.0,
+              "min_y": 4474000.0
+            },
+            "crs": "EPSG:25830",
+            "crs_basis": "declared by GeoTIFF ProjectedCSTypeGeoKey",
+            "eligible_for_full_madrid_analysis": false,
+            "eligible_for_pipeline_verification": true,
+            "evidence_scope": "FIXED_WINDOW_PIPELINE_REPRODUCIBILITY_SAMPLE",
+            "source_probe_id": "ign_mdt05_getcoverage_madrid_sample",
+            "source_resolution": "5 m x 5 m",
+            "source_sha256": "3d7fe2a109695383ec44415dbc9963146e64e178d0c94e5e6b0f7f7d09f6906f"
+          },
+          "structural_validity": "VALID"
+        }
+      },
+      "eligible_for_downstream_substitution": false,
+      "evidence_acquired": true,
+      "integrity": "PASS",
+      "normalization_outcome": "CANONICAL_BOUNDED_SAMPLE",
+      "normalized_successfully": true,
+      "reason": "enaire_uas_zones_madrid_bbox: REQUEST_ENVELOPE_SUBSET_OF_ANALYTICAL_DOMAIN, TRUNCATED_BY_SOURCE, eligible_for_full_madrid_analysis=False; ign_mdt05_getcoverage_madrid_sample: FIXED_WINDOW_PIPELINE_REPRODUCIBILITY_SAMPLE, BOUNDED_SAMPLE, eligible_for_full_madrid_analysis=False",
+      "scope_restrictions": [
+        "enaire_uas_zones_madrid_bbox: bounded_sample=True; coverage_extent EPSG:4326 [-4.0, 40.25, -3.4, 40.65]",
+        "ign_mdt05_getcoverage_madrid_sample: bounded_sample=True; coverage_extent EPSG:25830 [440000.0, 4474000.0, 440100.0, 4474100.0]"
+      ],
+      "semantic_fitness": "NOT_FIT_FOR_TARGET_ROLE",
+      "structural_validity": "VALID",
+      "target_role": "real airspace and terrain constraints over the analytical domain replacing synthetic geometry"
+    },
+    {
+      "analytical_eligibility": "NOT_ELIGIBLE",
+      "artifacts": [
+        "aemet_madrid_station_inventory/20260906.raw",
+        "aemet_madrid_station_inventory_datos/20260906.raw",
+        "aemet_madrid_station_inventory_datos/20260906T191152Z.raw"
+      ],
+      "assumption": "A-04",
+      "blockers": [
+        "no integrity-verified REAL observation series (dated measurements)",
+        "no REAL Madrid fire-date set with covering observations",
+        "wind and visibility fire-day observations unavailable (WEATHER_EVIDENCE_NOT_OBSERVABLE)"
+      ],
+      "completeness": "NOT_OBSERVED",
+      "details": {
+        "artifact_content_types": {
+          "aemet_madrid_station_inventory/20260906.raw": "WRAPPER",
+          "aemet_madrid_station_inventory_datos/20260906.raw": "SERVICE_ERROR",
+          "aemet_madrid_station_inventory_datos/20260906T191152Z.raw": "STATION_INVENTORY"
+        },
+        "fire_date_source": "none: no integrity-verified REAL Madrid fire-date set exists in the 0D.1 evidence (A-01 has no incident-level records)",
+        "inventory_quality": {
+          "canonical_sha256": "45227614141e507c06eaf117c2789e4e0954ee1a4988c0d975b0dab86e43fe7a",
+          "duplicate_identifiers": [],
+          "madrid_altitude_unparsed_count": 0,
+          "madrid_canonical_record_count": 23,
+          "madrid_province_record_count": 23,
+          "madrid_rejected_records": [],
+          "nationwide_rejected_record_count": 3,
+          "source_record_count": 926,
+          "structural_validity": "VALID"
+        },
+        "kind": "A-04",
+        "readiness": {
+          "evidence_label": "WEATHER_EVIDENCE_NOT_OBSERVABLE",
+          "fire_day_observations_available": false,
+          "historical_observations_available": false,
+          "station_inventory_available": true,
+          "weather_falsification_ready": false
+        }
+      },
+      "eligible_for_downstream_substitution": false,
+      "evidence_acquired": true,
+      "integrity": "PASS",
+      "normalization_outcome": "CANONICAL_INVENTORY_ONLY",
+      "normalized_successfully": true,
+      "reason": "station_inventory_available=True; historical_observations_available=False; fire_day_observations_available=False; weather_falsification_ready=False",
+      "scope_restrictions": [
+        "station inventory describes where stations are, not what they observed"
+      ],
+      "semantic_fitness": "NOT_FIT_FOR_TARGET_ROLE",
+      "structural_validity": "VALID",
+      "target_role": "real fire-day weather observations replacing assumed weather scenarios"
+    }
+  ],
+  "canonical_outputs": [
+    {
+      "record_count": 13,
+      "redistribution_basis": "CC-BY-4.0 per data/datasets_manifest.json (madrid_city_fire_stations_open_data); attribution: Ayuntamiento de Madrid",
+      "relative_path": "outputs/canonical/phase0d2/a02_madrid_city_fire_stations.json",
+      "sha256": "1437d82a956fa530f865c8cf8178294ce6efceacfc599d09b05f63ddaa8feb71",
+      "tracked_in_git": true
+    },
+    {
+      "record_count": 50,
+      "redistribution_basis": "ENAIRE AIS terms (attribution required; never for operational use): record-level derivative kept in gitignored data/processed",
+      "relative_path": "data/processed/phase0d2/a03_enaire_uas_zones_bounded_sample.json",
+      "sha256": "f2f163b67362f66ee17bba39ce167bfea70c933c9a89d5e993fa245fd7371944",
+      "tracked_in_git": false
+    },
+    {
+      "record_count": 23,
+      "redistribution_basis": "AEMET OpenData reuse terms (product notice must be retained): record-level derivative kept in gitignored data/processed",
+      "relative_path": "data/processed/phase0d2/a04_aemet_madrid_station_inventory.json",
+      "sha256": "45227614141e507c06eaf117c2789e4e0954ee1a4988c0d975b0dab86e43fe7a",
+      "tracked_in_git": false
+    }
+  ],
+  "gate": {
+    "eligibility_by_assumption": {
+      "A-01": "NOT_ELIGIBLE",
+      "A-02": "ELIGIBLE_WITHIN_DECLARED_SCOPE",
+      "A-03": "NOT_ELIGIBLE",
+      "A-04": "NOT_ELIGIBLE"
+    },
+    "eligible_assumptions": [],
+    "integrity_failures": [],
+    "rule": "NORMALIZATION_READY iff all four targets are ELIGIBLE and no in-scope artifact has integrity FAIL; PARTIAL_NORMALIZATION iff not READY and at least one target is ELIGIBLE or ELIGIBLE_WITHIN_DECLARED_SCOPE; SEMANTICALLY_INSUFFICIENT iff all four targets are NOT_ELIGIBLE",
+    "scope_restricted_assumptions": [
+      "A-02"
+    ],
+    "scope_restricted_includes_a02": true,
+    "verdict": "PARTIAL_NORMALIZATION"
+  },
+  "non_claims": [
+    "fire station != UAS dock",
+    "bounded sample != full Madrid layer",
+    "station inventory != weather observations",
+    "EGIF interface != TTFRP baseline",
+    "normalization success != SUPPORTED",
+    "no 0D.2 verdict implies BUILD, SAFE_TO_FLY or MADRID VALIDATED",
+    "no assumption changes TESTING -> SUPPORTED/REFUTED in 0D.2"
+  ],
+  "normalization_version": "0D.2-1.0.0",
+  "phase": "0D.2",
+  "preregistration": "docs/PHASE_0D2_PREREGISTRATION.md",
+  "schema_version": "1.0",
+  "stop_rule": "Phase 0D.2 ends at this gate: it does not start 0D.3, perform real-evidence substitution, change BUILD/REPOSITION/KILL or begin Phase 0E."
+}
