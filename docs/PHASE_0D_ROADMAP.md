@@ -69,8 +69,8 @@ verdicts is predetermined.
 ## 0D.1 — REAL INPUT ACQUISITION & PROVENANCE
 
 **Status:** `CLOSED` (2026-09-07). Packaged in **PR #5**
-(`research/phase0d-local-retry-2026-09-02`, HEAD `7bc39c9`), **pending human
-merge**. The agent does not merge.
+(`research/phase0d-local-retry-2026-09-02`, HEAD `7bc39c9`), **merged by the
+owner on 2026-09-13** (merge commit `eb637c2`). The agent does not merge.
 
 **Gate:** `0D.1 REAL INPUT AVAILABLE`.
 
@@ -110,6 +110,26 @@ inflation → block the PR.
 ---
 
 ## 0D.2 — REAL DATA NORMALIZATION & SEMANTIC FITNESS
+
+**Status:** `EVALUATED` (2026-09-13) on branch
+`research/phase0d2-real-data-normalization`, packaged as a draft PR, **pending
+human review**. The agent does not merge.
+
+**Gate:** `PARTIAL_NORMALIZATION` — rule pre-registered in
+`docs/PHASE_0D2_PREREGISTRATION.md` (commit `b2e9a67`) before any normalization
+code or output existed. Evidence and interpretation:
+`PHASE_0D2_NORMALIZATION_GATE_REPORT.md`; machine-readable:
+`outputs/reports/phase0d2_normalization_report.json`.
+
+| Assumption | Analytical eligibility | Note |
+|---|---|---|
+| A-01 | `NOT_ELIGIBLE` | `BASELINE_NOT_OBSERVABLE`: 7 interface/metadata artifacts, 0 incident-level records |
+| A-02 | `ELIGIBLE_WITHIN_DECLARED_SCOPE` | 13/13 city fire stations canonical in `EPSG:25830`; declared coverage Madrid municipality only |
+| A-03 | `NOT_ELIGIBLE` | ENAIRE truncated by source (50/50, `exceededTransferLimit`); MDT05 is a 100 m × 100 m pipeline-proof window |
+| A-04 | `NOT_ELIGIBLE` | station inventory only (23 Madrid stations); `WEATHER_EVIDENCE_NOT_OBSERVABLE` |
+
+**Explicit non-meaning:** not `NORMALIZATION_READY`, not `SUPPORTED`, not `BUILD`,
+not authorization to start 0D.3.
 
 **Purpose:** transform genuinely acquired real evidence into canonical,
 model-ready inputs **without inventing missing information**.
@@ -311,9 +331,9 @@ stop condition · exit gate · dependencies as defined in the sections above):
 
 | # | Recommended issue title | State |
 |---|---|---|
-| 0D.1 | `0D.1 — Acquisition & provenance closure` | CLOSED (PR #5, pending human merge) |
-| 0D.2 | `0D.2 — Normalization & semantic fitness` | Not started (entry: PR #5 merged) |
-| 0D.3 | `0D.3 — Incremental real-evidence substitution` | Blocked by 0D.2 |
+| 0D.1 | `0D.1 — Acquisition & provenance closure` | CLOSED (PR #5, merged 2026-09-13) |
+| 0D.2 | `0D.2 — Normalization & semantic fitness` | EVALUATED — `PARTIAL_NORMALIZATION` (draft PR, pending human review) |
+| 0D.3 | `0D.3 — Incremental real-evidence substitution` | Not started — needs owner authorization after 0D.2 review |
 | 0D.4 | `0D.4 — Adversarial falsification` | Blocked by 0D.3 |
 | 0D.5 | `0D.5 — Robustness & uncertainty` | Blocked by 0D.4 |
 | 0D.6 | `0D.6 — Madrid Real Data MVP closure` | Blocked by 0D.2–0D.5 |
@@ -335,3 +355,7 @@ roadmap is the canonical plan and the titles above are the recommended issues.
    updated `main`.
 
 Until both hold, **Phase 0D.2 implementation has not started.**
+
+**Status (2026-09-13):** both conditions were met (PR #5 merged at `eb637c2`;
+the branch was created from, and fast-forwarded to, that commit). Phase 0D.2 was
+executed and its gate evaluated. **Phase 0D.3 has not started.**

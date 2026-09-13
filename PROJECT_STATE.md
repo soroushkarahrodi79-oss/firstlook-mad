@@ -8,10 +8,26 @@
 ---
 
 ## Current phase
-**Phase 0D.1 — adquisición local acotada (procedencia). 0D.1D cerrado
-(2026-09-07): insumo real reproducible adquirido y verificado por contenido.
-STOP antes de 0E. STOP antes de 0D.2 (normalización). Ningún supuesto pasó a
-`SUPPORTED`/`REFUTED`; ninguna decisión `BUILD/REPOSITION/KILL`.**
+**Phase 0D.2 — normalización de datos reales y aptitud semántica. Gate 0D.2
+evaluado (2026-09-13): `PARTIAL_NORMALIZATION`. STOP antes de 0D.3. Ningún
+supuesto pasó a `SUPPORTED`/`REFUTED`; ninguna decisión `BUILD/REPOSITION/KILL`;
+Phase 0E no iniciada.**
+
+## Phase 0D.2 normalization gate (2026-09-13)
+**`PARTIAL_NORMALIZATION`**, por la regla pre-registrada en
+`docs/PHASE_0D2_PREREGISTRATION.md` (commit `b2e9a67`, anterior a todo código
+de normalización y a la inspección del contenido crudo). Elegibilidad analítica
+por supuesto (nivel de insumo, no de decisión científica): **A-01 `NOT_ELIGIBLE`**
+(`BASELINE_NOT_OBSERVABLE`: 7 artefactos de interfaz EGIF, 0 registros de
+incidente); **A-02 `ELIGIBLE_WITHIN_DECLARED_SCOPE`** (13/13 parques municipales
+canónicos en EPSG:25830, 0 rechazos; cobertura declarada solo municipio de
+Madrid); **A-03 `NOT_ELIGIBLE`** (ENAIRE truncado por la fuente, 50/50 con
+`exceededTransferLimit`; MDT05 ventana 100 m × 100 m de prueba de cadena);
+**A-04 `NOT_ELIGIBLE`** (inventario 926 estaciones / 23 Madrid; sin
+observaciones → `WEATHER_EVIDENCE_NOT_OBSERVABLE`). Integridad 16/16 `PASS`.
+Informe: `PHASE_0D2_NORMALIZATION_GATE_REPORT.md`; JSON:
+`outputs/reports/phase0d2_normalization_report.json`. **No** es
+`NORMALIZATION_READY`, `SUPPORTED`, `BUILD` ni autorización para 0D.3.
 
 ## Phase 0D.1 acquisition gate (2026-09-07)
 **`0D.1 REAL INPUT AVAILABLE`.** La regla de adquisición pre-registrada declara
@@ -153,16 +169,22 @@ INFOMA; no fijar threshold numérico de TTFRP; aceptar resultados negativos.
   `tests/test_provenance_ledger.py`. Desviación en
   `docs/PHASE_0D_PROTOCOL.md` §7.3; adenda en el informe §17. Empaquetado en
   **PR #5** (abierto, borrador «Do not merge»; pendiente de revisión/fusión
-  humana).
+  humana). Fusionado después por el propietario (2026-09-13, merge `eb637c2`).
+- **2026-09-13 (0D.2):** gate pre-registrado (`docs/PHASE_0D2_PREREGISTRATION.md`);
+  capa de normalización `src/firstlook_mad/normalization/` (integridad
+  ledger → sidecar → bytes, CRS `EPSG:4326 → EPSG:25830`, A-02 canónico, A-03
+  con alcance acotado explícito, A-04 con cuatro hechos de preparación
+  separados, A-01 `BASELINE_NOT_OBSERVABLE`, regla de gate); runner
+  `scripts/normalize_phase0d2.py`; informe JSON determinista y derivado canónico
+  A-02 (CC-BY-4.0) versionados; derivados ENAIRE/AEMET en `data/processed/`
+  (gitignored); 93 tests nuevos; informe de gate
+  `PHASE_0D2_NORMALIZATION_GATE_REPORT.md`. Veredicto `PARTIAL_NORMALIZATION`.
 
 ## In progress
-- **PR #5 abierto** (borrador, «Do not merge»): «Phase 0D.1 — bounded real-data
-  acquisition and provenance closure», rama
-  `research/phase0d-local-retry-2026-09-02` (HEAD `7bc39c9`; 4 commits por
-  delante de `main`, 0 por detrás). Pendiente: **revisión y fusión humana**.
-  Empaqueta el cierre 0D.1 (adquisición acotada verificada por contenido +
-  provenance payload-free + tests); **no** inicia 0D.2. Este agente **no**
-  fusiona.
+- **PR borrador de Phase 0D.2** hacia `main` desde
+  `research/phase0d2-real-data-normalization`: «Phase 0D.2 — real-data
+  normalization and semantic fitness». Pendiente: **revisión y fusión humana**.
+  **No** inicia 0D.3. Este agente **no** fusiona.
 
 ## Decisions (ver docs/adr/0001)
 - Alcance Phase 0 = investigación + simulación; sin control real, sin dispatch.
@@ -183,7 +205,9 @@ A-01, A-02, A-03, A-04, A-06, A-07, A-08 y A-09 están `TESTING`.
 A-01 = `STRONGLY_CONDITION_DEPENDENT`; A-04 permanece `TESTING`; A-06 muestra alta
 sensibilidad. Ninguna está `SUPPORTED`. Phase 0D intentó falsación real para
 A-01–A-04 y fue bloqueada antes de alcanzar cualquier fuente externa
-(ver Current gate); **ningún estado cambió**.
+(ver Current gate); **ningún estado cambió**. Phase 0D.2 (2026-09-13) solo
+normalizó la evidencia de 0D.1 y evaluó su aptitud semántica; **ningún estado
+cambió** tampoco.
 
 ## Known blockers
 - `NO_PUBLIC_TTFRP_BASELINE`: faltan clocks públicos end-to-end.
@@ -212,6 +236,12 @@ A-01–A-04 y fue bloqueada antes de alcanzar cualquier fuente externa
   solicitada por este agente); histórico completo de EFFIS (solicitud
   humana); el 502 de EFFIS y el fallo TLS/certificado de Overpass observados
   el 2026-09-02 siguen sin resolver y no se han enmascarado ni sorteado.
+- **De 0D.2 (2026-09-13):** A-01 sin registros de incidente EGIF
+  (`BASELINE_NOT_OBSERVABLE`); A-02 limitado al municipio de Madrid (13 parques,
+  envolvente ≈232 km², ≈1,9 % de la extensión sintética de 0C.1; sin activos
+  regionales/INFOMA); A-03 ENAIRE truncado por la fuente (50/50,
+  `exceededTransferLimit`) y MDT05 solo ventana de 100 m; A-04 sin
+  observaciones meteorológicas (`WEATHER_EVIDENCE_NOT_OBSERVABLE`).
 
 ## Data status
 `DATA PARTIAL`: 19 fuentes — 5 `READY`, 9 `PARTIAL`, 1 `BLOCKED`,
@@ -232,6 +262,13 @@ tenía persistencia de evidencia cruda) — no hay ningún archivo `REAL` de
 Madrid en `data/raw/` todavía. `data/raw/phase0d/` es el nuevo destino
 determinista para la próxima adquisición ejecutada con el script endurecido.
 
+Datos 0D.2 (2026-09-13): `data/raw/phase0d/` no se modificó (integridad 16/16
+`PASS`). Derivados `DERIVED` desde `REAL`: canónico A-02 versionado
+(`outputs/canonical/phase0d2/`, CC-BY-4.0, 13 registros); derivados ENAIRE (50
+zonas, acotado y truncado) e inventario AEMET Madrid (23 estaciones) solo en
+`data/processed/phase0d2/` (gitignored). Informe de calidad payload-free en
+`outputs/reports/phase0d2_normalization_report.json`.
+
 ## Test status
 Antes del endurecimiento 0D.1: `uv run pytest -q` — **34 passed** (25 de 0C.1
 + 9 de 0D), `ruff check`/`ruff format --check`/`mypy` — **PASS**. Tras el
@@ -244,7 +281,11 @@ sesión. CLI determinista — output byte-for-byte reproducible salvo
 timestamps. Phase 0B probes — 7/7 (2026-08-26). Phase 0D re-probe agente
 Claude Code — 0/7 (2026-08-31, bloqueador de entorno). Reintento local
 propietario — 5/7 HTTP 200, 0/7 bloqueados por red (2026-09-02, ver Current
-gate).
+gate). Cierre 0D.1D: 72 passed. **0D.2 (2026-09-13, Python 3.12.10):**
+`uv run pytest -q` — **165 passed** (72 + 93 nuevos, incluida la regeneración
+byte a byte del informe desde la evidencia cruda local); `ruff check`,
+`ruff format --check` (69 archivos) y `mypy` estricto (30 archivos) — **PASS**;
+dos ejecuciones del runner 0D.2 producen salidas idénticas byte a byte.
 
 ## Last verified commit
 Phase 0D quedó fusionada en `main` vía PR #3 (merge commit
@@ -257,20 +298,24 @@ endurecimiento y cierre 0D.1 (2026-09-02 → 2026-09-07) vive en 4 commits
 empaquetado en **PR #5** (abierto, pendiente de fusión humana). Nada de este
 trabajo se ha fusionado en `main` todavía.
 
+**Actualización 2026-09-13:** PR #5 fusionado en `main` (merge `eb637c2`). La
+rama `research/phase0d2-real-data-normalization` parte de `eb637c2`; sus commits
+de 0D.2 (pre-registro `b2e9a67` y siguientes) están en un PR borrador pendiente
+de revisión humana, sin fusionar.
+
 ## Next 3 actions
-1. El propietario revisa y **fusiona PR #5** manualmente (cierre de adquisición
-   0D.1: script endurecido, tests, provenance payload-free, AEMET
-   credential-aware). Este agente **no** fusiona.
-2. Tras la fusión, crear la rama `research/phase0d2-real-data-normalization`
-   desde el `main` actualizado y ejecutar **Phase 0D.2** (normalización y
-   aptitud semántica) según `docs/PHASE_0D_ROADMAP.md`. Verdictos
-   pre-registrados: `NORMALIZATION_READY` / `PARTIAL_NORMALIZATION` /
-   `SEMANTICALLY_INSUFFICIENT`. Nunca promover muestras acotadas (ENAIRE/IGN) a
-   capas completas de Madrid.
-3. No entrar en Phase 0E ni cambiar el estado científico de ningún supuesto
-   (`SUPPORTED`/`REFUTED`) hasta ejecutar 0D.2–0D.6 sobre la evidencia real y
-   confrontar la lectura de 0C.1 (`CONDITION_DEPENDENT_STRONG`, sin soporte
-   para `BUILD`).
+1. El propietario revisa y, si procede, **fusiona el PR borrador de 0D.2**
+   manualmente. Este agente **no** fusiona.
+2. El propietario decide si autoriza **Phase 0D.3** y con qué alcance. La
+   condición de entrada del roadmap admite un `PARTIAL_NORMALIZATION` acotado
+   que cubra A-02, pero el alcance municipal de A-02 (≈1,9 % de la extensión
+   sintética de 0C.1) puede hacer poco informativa una sustitución solo-A-02;
+   0D.2 no decide la entrada en 0D.3.
+3. Con autorización explícita, cerrar huecos de evidencia sin inflarla:
+   observaciones AEMET (clave `AEMET_API_KEY` del propietario), registros de
+   incidente EGIF con licencia verificada, capa ENAIRE completa paginada,
+   cobertura MDT05 del dominio y activos regionales. No entrar en Phase 0E ni
+   cambiar ningún supuesto a `SUPPORTED`/`REFUTED`.
 
 ## Do not do yet
 Dashboard · ML · hardware · control de drones · dispatch real · integración 112/

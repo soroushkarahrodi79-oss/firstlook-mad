@@ -121,6 +121,28 @@ A nivel de *insumo* (no de decisión científica):
 autoriza Phase 0E. Ver `PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §17 y
 `docs/PHASE_0D_PROTOCOL.md` §7.3.
 
+### Adenda 0D.2 — normalización y aptitud semántica (2026-09-13)
+
+Gate pre-registrado (`docs/PHASE_0D2_PREREGISTRATION.md`):
+**`PARTIAL_NORMALIZATION`**. Es un gate de *normalización* sobre la evidencia de
+0D.1; no evalúa científicamente ningún supuesto. Elegibilidad analítica (nivel
+de insumo):
+
+- **A-01:** `NOT_ELIGIBLE` — `BASELINE_NOT_OBSERVABLE`; 7 artefactos de
+  interfaz/metadatos EGIF, 0 registros de incidente; ningún TTFRP proxy.
+- **A-02:** `ELIGIBLE_WITHIN_DECLARED_SCOPE` — 13/13 parques municipales
+  canónicos en `EPSG:25830`, 0 rechazos; solo municipio de Madrid; existencia y
+  localización, nunca aptitud como dock.
+- **A-03:** `NOT_ELIGIBLE` — ENAIRE truncado por la fuente (50/50,
+  `exceededTransferLimit`); MDT05 es una ventana de 100 m × 100 m;
+  `eligible_for_full_madrid_analysis = false` en ambos.
+- **A-04:** `NOT_ELIGIBLE` — inventario de estaciones disponible; observaciones
+  históricas, observaciones de días de fuego y preparación para la falsación
+  meteorológica: `false` (`WEATHER_EVIDENCE_NOT_OBSERVABLE`).
+
+**Ningún supuesto pasa a `SUPPORTED` ni a `REFUTED`**; todos siguen en su estado
+previo. Ver `PHASE_0D2_NORMALIZATION_GATE_REPORT.md`.
+
 ## Supuestos que NO hacemos (explícito)
 
 - **No** asumimos que ninguna infraestructura acepte realmente un dock.
