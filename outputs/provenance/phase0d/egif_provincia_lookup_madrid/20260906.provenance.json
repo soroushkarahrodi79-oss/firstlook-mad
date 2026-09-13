@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "egif_provincia_lookup_madrid",
+  "source_url": "https://servicio.mapa.gob.es/incendios/ParteIncendioForestal/ProvinciasByCCAAIdPublico?id=16",
+  "acquired_at_utc": "2026-09-06T18:25:11.832829+00:00",
+  "http_status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "byte_count": 49,
+  "sha256": "f564ff029f088442754bf125bb12891b3c0cf8bb95d7ba095bc6919ae43edf43",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/egif_provincia_lookup_madrid/20260906.raw",
+  "assumption": "A-01",
+  "evidence_classification": "REAL_METADATA"
+}

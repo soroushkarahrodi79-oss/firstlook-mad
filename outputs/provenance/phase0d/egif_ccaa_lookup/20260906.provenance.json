@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "egif_ccaa_lookup",
+  "source_url": "https://servicio.mapa.gob.es/incendios/ParteIncendioForestal/GetComunidadesAutonomasPublico",
+  "acquired_at_utc": "2026-09-06T18:25:11.648674+00:00",
+  "http_status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "byte_count": 1010,
+  "sha256": "3783e9d3a04a25da49dafad1ef921a9945d5aa6c220bf7b36102393ee3c6dd5b",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/egif_ccaa_lookup/20260906.raw",
+  "assumption": "A-01",
+  "evidence_classification": "REAL_METADATA"
+}

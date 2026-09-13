@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "aemet_madrid_station_inventory_datos",
+  "source_url": "https://opendata.aemet.es/opendata/sh/3f1a111a",
+  "acquired_at_utc": "2026-09-06T19:11:52.722227+00:00",
+  "http_status": 200,
+  "content_type": "text/plain;charset=ISO-8859-15",
+  "byte_count": 167915,
+  "sha256": "fe21a46756675c9febdead0273901c5a2760fa190ff10d107b7ae04695ff0f8e",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/aemet_madrid_station_inventory_datos/20260906T191152Z.raw",
+  "parent_probe_id": "aemet_madrid_station_inventory",
+  "parent_raw_sha256": "832640737a29feb216812013676ab1e03d3c7578dadab3120b7a8ae453801d39",
+  "parent_acquired_at_utc": "2026-09-06T19:11:52.214668+00:00",
+  "resolved_url": "https://opendata.aemet.es/opendata/sh/3f1a111a",
+  "hop": 2,
+  "assumption": "A-04",
+  "evidence_classification": "REAL_SOURCE_DATA"
+}

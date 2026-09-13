@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "ign_wcs_mdt_capabilities",
+  "source_url": "https://servicios.idee.es/wcs-inspire/mdt?service=WCS&request=GetCapabilities",
+  "acquired_at_utc": "2026-09-06T18:25:35.127456+00:00",
+  "http_status": 200,
+  "content_type": "text/xml",
+  "byte_count": 12162,
+  "sha256": "30c95575991611cd15924369d2a3ad5066aa9a81ff68f8e549c71bdc6c638d3f",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/ign_wcs_mdt_capabilities/20260906.raw",
+  "assumption": "A-03",
+  "evidence_classification": "REAL_METADATA"
+}

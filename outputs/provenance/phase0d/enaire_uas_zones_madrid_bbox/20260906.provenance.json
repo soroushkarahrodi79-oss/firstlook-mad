@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "enaire_uas_zones_madrid_bbox",
+  "source_url": "https://servais.enaire.es/insigniads/rest/services/NSF_SRV/SRV_UAS_ZG_data_V2/FeatureServer/2/query?f=geojson&where=1%3D1&outFields=*&geometry=-4.0,40.25,-3.4,40.65&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&resultRecordCount=50",
+  "acquired_at_utc": "2026-09-06T17:37:56.987392+00:00",
+  "http_status": 200,
+  "content_type": "application/geo+json; charset=UTF-8",
+  "byte_count": 268402,
+  "sha256": "36f6e58eddd38fe866ec42b009784d50b073effee4d96d834c1538c52d248182",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/enaire_uas_zones_madrid_bbox/20260906.raw",
+  "assumption": "A-03",
+  "evidence_classification": "REAL_BOUNDED_SAMPLE"
+}

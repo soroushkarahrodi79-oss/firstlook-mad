@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "madrid_city_open_data_fire_stations",
+  "source_url": "https://datos.madrid.es/egob/catalogo/211642-0-bomberos-parques.json",
+  "acquired_at_utc": "2026-09-06T17:38:00.288687+00:00",
+  "http_status": 200,
+  "content_type": "application/json",
+  "byte_count": 16273,
+  "sha256": "5c3957873878d30c93556c75544b6d7740c648b84b0424682dfac655842f8eb6",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/madrid_city_open_data_fire_stations/20260906.raw",
+  "assumption": "A-02",
+  "evidence_classification": "REAL_SOURCE_DATA"
+}

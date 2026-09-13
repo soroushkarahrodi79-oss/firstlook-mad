@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "aemet_madrid_station_inventory",
+  "source_url": "https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones",
+  "acquired_at_utc": "2026-09-06T17:37:58.062383+00:00",
+  "http_status": 200,
+  "content_type": "application/json;charset=ISO-8859-15",
+  "byte_count": 175,
+  "sha256": "832640737a29feb216812013676ab1e03d3c7578dadab3120b7a8ae453801d39",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/aemet_madrid_station_inventory/20260906.raw",
+  "assumption": "A-04",
+  "evidence_classification": "REAL_WRAPPER"
+}

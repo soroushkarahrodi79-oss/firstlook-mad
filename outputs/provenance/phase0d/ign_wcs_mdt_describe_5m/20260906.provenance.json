@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "ign_wcs_mdt_describe_5m",
+  "source_url": "https://servicios.idee.es/wcs-inspire/mdt?service=WCS&version=2.0.1&request=DescribeCoverage&coverageId=Elevacion25830_5",
+  "acquired_at_utc": "2026-09-06T18:25:35.305487+00:00",
+  "http_status": 200,
+  "content_type": "text/xml; charset=UTF-8",
+  "byte_count": 2536,
+  "sha256": "da3b2638ecceb52eeb837fc5d020e6573489fdfb2ce0435872e34e1f5876421a",
+  "truncated": false,
+  "evidence_nature": "REAL",
+  "local_raw_path": "data/raw/phase0d/ign_wcs_mdt_describe_5m/20260906.raw",
+  "assumption": "A-03",
+  "evidence_classification": "REAL_METADATA"
+}

@@ -14,7 +14,10 @@
       "priority_assumption": "A-04",
       "url": "https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones",
       "accept": "application/json",
-      "max_bytes": 500000
+      "max_bytes": 500000,
+      "credential_env_var": "AEMET_API_KEY",
+      "credential_header": "api_key",
+      "credential_note": "Free AEMET OpenData API key, supplied only via this environment variable at run time. Never hard-coded, never committed, never placed in the URL. If unset, this probe is classified CREDENTIAL_REQUIRED without attempting the request."
     },
     {
       "probe_id": "effis_current_fires_madrid_bbox",

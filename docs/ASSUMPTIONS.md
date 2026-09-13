@@ -97,6 +97,30 @@ entorno de ejecución, no un hallazgo sobre Madrid. Ver §15 del informe de 0D
 para la acción humana mínima requerida antes de poder reintentar esta
 evaluación.
 
+### Adenda 0D.1 — adquisición local acotada (2026-09-07)
+
+El bloqueo de egress de 2026-08-31 (arriba) **sigue siendo válido** como
+evidencia histórica de aquel entorno de ejecución; **no** se reescribe. Con
+posterioridad, una repetición local (Windows, Python 3.12.10) desde un entorno
+con salida de red permitida **sí** adquirió insumo real acotado, verificado por
+contenido y con procedencia SHA-256 (evidencia cruda inmutable y gitignored).
+Subgate de adquisición: **`0D.1 REAL INPUT AVAILABLE`** (satisfecho por A-02).
+A nivel de *insumo* (no de decisión científica):
+
+- **A-01:** `PARTIAL_REAL_INPUT` — interfaz de búsqueda EGIF real; sigue sin
+  baseline TTFRP observable (`BASELINE_NOT_OBSERVABLE`).
+- **A-02:** `USABLE_REAL_INPUT` — parques de bomberos reales de Madrid Open
+  Data, para *existencia de activos* únicamente.
+- **A-03:** `PARTIAL_REAL_INPUT` — muestras reales acotadas (ENAIRE bbox + IGN
+  MDT05 `GetCoverage`) y metadatos IGN; no capas/terreno completos.
+- **A-04:** `PARTIAL_REAL_INPUT` — inventario de estaciones AEMET real (926
+  estaciones, 23 en Madrid); **no** las observaciones meteorológicas del test.
+
+**Ningún supuesto pasa a `SUPPORTED` ni a `REFUTED`.** No se ejecutó 0D.2
+(normalización); la lectura científica sigue insuficiente para `BUILD` y no se
+autoriza Phase 0E. Ver `PHASE_0D_REAL_DATA_FALSIFICATION_REPORT.md` §17 y
+`docs/PHASE_0D_PROTOCOL.md` §7.3.
+
 ## Supuestos que NO hacemos (explícito)
 
 - **No** asumimos que ninguna infraestructura acepte realmente un dock.
