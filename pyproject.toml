@@ -63,3 +63,9 @@ pythonpath = ["."]
 python_version = "3.12"
 strict = true
 files = ["src", "scripts"]
+
+# Shapely 2.x ships no py.typed marker; it is used only for OGC validity checks
+# in Phase 0D.2 normalization (src/firstlook_mad/normalization/a03_bounded.py).
+[[tool.mypy.overrides]]
+module = ["shapely", "shapely.*"]
+ignore_missing_imports = true
