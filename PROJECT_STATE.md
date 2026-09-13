@@ -15,8 +15,11 @@ Phase 0E no iniciada.**
 
 ## Phase 0D.2 normalization gate (2026-09-13)
 **`PARTIAL_NORMALIZATION`**, por la regla pre-registrada en
-`docs/PHASE_0D2_PREREGISTRATION.md` (commit `b2e9a67`, anterior a todo código
-de normalización y a la inspección del contenido crudo). Elegibilidad analítica
+`docs/PHASE_0D2_PREREGISTRATION.md` (commit `b2e9a67`: reglas fijadas antes de
+la implementación de la normalización, antes de generar las salidas normalizadas
+de 0D.2 y antes de evaluar el gate; la evidencia ya había sido adquirida y
+caracterizada en 0D.1, así que no es un pre-registro ciego; ningún umbral cambió
+tras ver los resultados de 0D.2). Elegibilidad analítica
 por supuesto (nivel de insumo, no de decisión científica): **A-01 `NOT_ELIGIBLE`**
 (`BASELINE_NOT_OBSERVABLE`: 7 artefactos de interfaz EGIF, 0 registros de
 incidente); **A-02 `ELIGIBLE_WITHIN_DECLARED_SCOPE`** (13/13 parques municipales

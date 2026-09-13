@@ -1,10 +1,19 @@
 # PHASE 0D.2 — PRE-REGISTERED NORMALIZATION & SEMANTIC FITNESS GATE
 
 > **Status:** pre-registered **2026-09-13**, on branch
-> `research/phase0d2-real-data-normalization` at base `eb637c2` (PR #5 merged),
-> **before** any Phase 0D.2 normalization code exists, **before** the raw
-> payload contents were inspected for normalization, and **before** any
-> normalized output or quality result was produced.
+> `research/phase0d2-real-data-normalization` at base `eb637c2` (PR #5 merged).
+> The Phase 0D.2 rules were frozen before normalization implementation, before
+> Phase 0D.2 normalized outputs were generated, and before the 0D.2 gate was
+> evaluated. The underlying evidence had already been acquired and characterized
+> during Phase 0D.1, so this is not a blinded pre-registration independent of
+> prior evidence characterization.
+>
+> *Chronology wording corrected on 2026-09-13 after external methodological
+> review. An earlier version of this header also said the rules were fixed
+> "before the raw payload contents were inspected for normalization", which
+> overstated their independence from the Phase 0D.1 characterization. No rule in
+> §4–§6 changed, and no threshold was changed after the Phase 0D.2 normalized
+> results were seen.*
 >
 > **Use:** `RESEARCH / SIMULATION PROTOTYPE ONLY`.
 >

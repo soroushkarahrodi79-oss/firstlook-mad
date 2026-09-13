@@ -4,8 +4,12 @@
 > **Gate:** `NORMALIZATION & SEMANTIC FITNESS` — **`PARTIAL_NORMALIZATION`**
 > **Use:** `RESEARCH / SIMULATION PROTOTYPE ONLY`
 > **Pre-registration:** [`docs/PHASE_0D2_PREREGISTRATION.md`](docs/PHASE_0D2_PREREGISTRATION.md),
-> committed as `b2e9a67` before any normalization code existed and before the raw
-> payload contents were inspected.
+> committed as `b2e9a67`. The Phase 0D.2 rules were frozen before normalization
+> implementation, before Phase 0D.2 normalized outputs were generated, and before
+> the 0D.2 gate was evaluated. The underlying evidence had already been acquired
+> and characterized during Phase 0D.1, so this is not a blinded pre-registration
+> independent of prior evidence characterization. No threshold was changed after
+> the Phase 0D.2 normalized results were seen.
 > **Machine-readable report:**
 > [`outputs/reports/phase0d2_normalization_report.json`](outputs/reports/phase0d2_normalization_report.json)
 
@@ -139,8 +143,11 @@ the gitignored raw evidence is absent).
 
 ## 2. What passed
 
-- The pre-registration was committed before any code existed and before the raw
-  contents were inspected; the verdict was computed by code applying that rule.
+- The Phase 0D.2 rules were committed (`b2e9a67`) before normalization
+  implementation, before normalized outputs were generated and before the gate
+  was evaluated. The verdict was computed by code applying that rule, and no
+  threshold changed after the 0D.2 results were seen. The evidence itself had
+  already been characterized in 0D.1 (see the header and §5).
 - The integrity chain holds for all 16 artifacts.
 - A-02 normalization is structurally clean (13/13, 0 rejections, 0 duplicates),
   deterministic and fully traceable to source bytes.
@@ -206,9 +213,16 @@ the gitignored raw evidence is absent).
 - **Single-environment determinism.** Byte determinism was verified on Windows,
   Python 3.12.10, pyproj 3.7.2 and shapely 2.1.2 only; rounding to 1 mm mitigates
   but does not prove cross-platform identity.
+- **Pre-registration is not blinded.** The rules were written knowing the Phase
+  0D.1 characterization: 13 municipal stations, a truncated ENAIRE sample, a
+  100 m MDT05 window, an AEMET inventory without observations and no observable
+  EGIF baseline. They guard against post-result threshold changes within 0D.2,
+  not against rules shaped by prior knowledge of the evidence, so reviewers should
+  judge the rules on their own merits rather than by the verdict they produce.
 - **Implementation clarifications.** A few cases the pre-registration left
   unspecified were settled conservatively during implementation, before the first
-  real-data run, but were not committed separately before it: completeness
+  Phase 0D.2 normalization run on the real evidence, but were not committed
+  separately before it: completeness
   `UNKNOWN` for A-02 duplicate-coordinate flags without rejections; A-03
   assumption-level completeness reported as the worst component; A-04/A-01
   fitness and completeness mapped from eligibility / observability; a GeoJSON

@@ -116,8 +116,11 @@ inflation → block the PR.
 human review**. The agent does not merge.
 
 **Gate:** `PARTIAL_NORMALIZATION` — rule pre-registered in
-`docs/PHASE_0D2_PREREGISTRATION.md` (commit `b2e9a67`) before any normalization
-code or output existed. Evidence and interpretation:
+`docs/PHASE_0D2_PREREGISTRATION.md` (commit `b2e9a67`) before normalization
+implementation, before 0D.2 normalized outputs were generated and before the gate
+was evaluated; no threshold changed after the 0D.2 results were seen. The
+evidence had already been characterized in 0D.1, so this is not a blinded
+pre-registration. Evidence and interpretation:
 `PHASE_0D2_NORMALIZATION_GATE_REPORT.md`; machine-readable:
 `outputs/reports/phase0d2_normalization_report.json`.
 
