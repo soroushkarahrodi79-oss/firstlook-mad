@@ -331,15 +331,21 @@ A-04 weather observations are `NOT_ELIGIBLE`
   is **not** new real-weather evidence and **not** an independent gate-driving
   falsification. This is precisely why T3-SYNTH is barred from the formal gate.
 
-### T4 — Airspace / geographic constraints · DIAGNOSTIC
+### T4 — Airspace / geographic constraints · split gate authority
 
 A-03 is `NOT_ELIGIBLE` (ENAIRE truncated 50/50; MDT05 is a 100 m × 100 m
-window). Split:
+window). This family is split into two branches with **different gate authority**
+(mirroring T3; amendment §3):
 
-- **T4-REAL — `NOT_EVALUATED` (`NOT_EVALUATED_MISSING_EVIDENCE`).** The bounded
-  ENAIRE/IGN samples are **not** promoted to a full-domain constraint layer
-  (enforced by test). Not classified `SURVIVES`.
-- **T4-SYNTH — `SYNTHETIC_STRESS_TEST`.** Pre-specified rectangular exclusion of
+- **T4-REAL — FORMAL-CRITICAL — `NOT_EVALUATED` (`NOT_EVALUATED_MISSING_EVIDENCE`).**
+  The real airspace/geographic question is evidence-critical and **governs the
+  formal gate** (§8). The bounded ENAIRE/IGN samples are **not** promoted to a
+  full-domain constraint layer (enforced by test). Current status:
+  `NOT_EVALUATED_MISSING_EVIDENCE`. **Never classified `SURVIVES`.** No real
+  constraint layer is manufactured to avoid this (amendment §3).
+- **T4-SYNTH — DIAGNOSTIC — `SYNTHETIC_STRESS_TEST`.** Belongs to the diagnostic
+  battery (§8) and **MUST NOT drive the formal gate**. Pre-specified rectangular
+  exclusion of
   a candidate sub-region of the synthetic domain, defined **purely by domain
   geometry** (no result peeking). Domain midpoint = E 445000, N 4465000.
   - **T4-SYNTH-a (mild):** exclude the central box E [435000, 455000],
