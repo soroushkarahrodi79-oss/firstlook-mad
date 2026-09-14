@@ -17,6 +17,23 @@
 > control: the frozen rules below exist in Git history **before** the result
 > artifacts do, and the owner reviews these rules before results are produced.
 >
+> **⚠ PRE-RESULT AMENDMENT (2026-09-14, commit 2 of the checkpoint).** After an
+> external methodological review of commit `3a64b1d` (this document's first
+> version), and **before any 0D.4 result was executed or inspected**, the owner
+> directed a focused amendment to the **criticality and gate-authority** rules.
+> The scientific concern: the earlier §8–§9 let **already-known SYNTHETIC** stress
+> outcomes (T3-SYNTH weather collapse; T6 threshold flip) drive the **formal**
+> 0D.4 gate, even though those outcomes are visible in the tracked 0C.1 results
+> **before** 0D.4 runs and are not new real-data falsification. This amendment
+> therefore (1) splits T3 into T3-REAL (formal-critical, missing evidence) and
+> T3-SYNTH (diagnostic); (2) moves T6 from critical to diagnostic; (3) makes the
+> **formal gate** authority the **evidence-qualified critical set** {T3-REAL,
+> T4-REAL, T5} only; (4) removes the "all four verdicts reachable" claim; and
+> (5) hardens T1c boundary handling. **No 0D.4 result existed and none was
+> inspected when this amendment was made.** Commit `3a64b1d` is preserved in
+> history; this is a documented pre-result change, logged in §12. Sections
+> superseded by this amendment are marked **[AMENDED 2026-09-14]** inline.
+>
 > **This is NOT a blinded pre-registration.** The Phase 0C.1 synthetic results
 > (`outputs/reports/phase0c_synthetic_results.json`) and the Phase 0D.3
 > substitution results are already tracked and known. The 0C/0D evidence is in
@@ -72,6 +89,14 @@ The mechanism is not rescued.
 
 `EVIDENCE → STRESS CONDITION → MODEL RESPONSE → INTERPRETATION → DECISION` stay
 strictly separate throughout.
+
+**Two reporting layers are kept distinct (see §8–§9, as amended 2026-09-14):**
+a **formal 0D.4 gate** driven only by the **evidence-qualified critical set**
+(the real-data adversarial questions T3-REAL, T4-REAL, T5), and a separate
+**diagnostic battery** (T1, T2, T3-SYNTH, T4-SYNTH, T6) that characterises the
+**synthetic** mechanism's fragility but never drives the formal real-data gate.
+A synthetic-stress `FAILS` is a diagnostic finding about the model, not a
+real-data falsification.
 
 ---
 
@@ -206,11 +231,18 @@ placement; does one site dominate; is the result a lucky spatial draw?
   highest-ranked candidate in the frozen 0C.1 greedy A-order
   (`selected_site_order[0]` = `SYN-SITE-003`) from the full network; recompute
   Model-A and Model-F risk-weighted coverage over all 180 incidents.
-- **T1c — uniform displacement (`SYNTHETIC_STRESS_TEST`).** Displace **every**
-  synthetic candidate site by a fixed magnitude **R = 2500 m** at a
-  deterministic per-site bearing `θ_i = 2π · i / site_count` (i = site index; no
-  RNG; fully deterministic). Sites are re-projected within the domain bounds;
-  recompute Model-A and Model-F risk-weighted coverage.
+- **T1c — uniform displacement (`SYNTHETIC_STRESS_TEST`). [AMENDED 2026-09-14]**
+  Displace **every** synthetic candidate site by a fixed magnitude
+  **R = 2500 m** at a deterministic per-site bearing `θ_i = 2π · i / site_count`
+  (i = site index; no RNG; fully deterministic). **Boundary handling (amendment
+  §5):** apply the exact 2500 m displacement and perform **NO** clipping,
+  wrapping, reflection, snapping, or repair of any kind. If **any** displaced
+  candidate would fall **outside** the frozen analytical domain
+  (E [390000, 500000], N [4410000, 4520000]), then **T1c =
+  `NOT_EVALUATED` (`NOT_EVALUATED_CONFIG_INVALID`)** and it is **not** retried
+  with another bearing or distance. Only when every displaced site remains inside
+  the domain are Model-A and Model-F risk-weighted coverage recomputed. This
+  prevents boundary repair from becoming a second, unregistered transformation.
 
 **Primary metric:** Model-A risk-weighted coverage @ full network (placement is
 a pure-geometry effect; Model-F reported as secondary because it also reads
@@ -222,6 +254,11 @@ synthetic operational booleans).
   ≥50% dominance.
 - `FAILS`: that `max |relative Δ|` **≥ 0.50**, **or** one site accounts for
   ≥ 50 % of Model-A covered risk (result is a lucky/dominant single draw).
+
+If T1c is `NOT_EVALUATED_CONFIG_INVALID` (§5, amendment §5), the `max` is taken
+over the **evaluable** sub-tests only (T1b plus the single-site-dominance check);
+T1 as a whole is still evaluated as long as T1b is evaluable. T1 is DIAGNOSTIC
+and never drives the formal gate regardless.
 
 ### T2 — Diminishing returns · DIAGNOSTIC
 
@@ -248,37 +285,51 @@ gain to the peak per-site marginal gain.
   saturates such that added sites contribute ~0 (RQ6 "strongly diminishing"
   confirmed).
 
-### T3 — Weather / performance erosion · **CRITICAL**
+### T3 — Weather / performance erosion · split gate authority **[AMENDED 2026-09-14]**
 
 A-04 weather observations are `NOT_ELIGIBLE`
-(`WEATHER_EVIDENCE_NOT_OBSERVABLE`). Therefore this family is split:
+(`WEATHER_EVIDENCE_NOT_OBSERVABLE`). This family is split into two branches with
+**different gate authority** (amendment §3):
 
-- **T3-REAL — `NOT_EVALUATED` (`NOT_EVALUATED_MISSING_EVIDENCE`).** No real
-  fire-day weather frequency test is possible (PROTOCOL §4.2 bands require real
-  out-of-envelope frequency). A-04 inventory ≠ weather observations. This is
-  **not** classified `SURVIVES`.
-- **T3-SYNTH — `SYNTHETIC_STRESS_TEST`.** Use the three **existing** frozen 0C
-  weather scenarios. Read Model-F risk-weighted coverage @ 10 sites, **reference
-  profile** (the 0C.1 headline profile): within-envelope (baseline),
-  wind-outside-envelope (the genuine meteorological stress), visibility-unknown.
+- **T3-REAL — FORMAL-CRITICAL — `NOT_EVALUATED` (`NOT_EVALUATED_MISSING_EVIDENCE`).**
+  The real weather question is the evidence-critical one and it **governs the
+  formal gate** (§8). No real fire-day weather-frequency test is possible
+  (PROTOCOL §4.2 bands require real out-of-envelope frequency); A-04 inventory ≠
+  weather observations. Current status: `NOT_EVALUATED_MISSING_EVIDENCE`. **Never
+  classified `SURVIVES`.** No real weather evidence is manufactured to avoid this
+  (amendment §3).
+- **T3-SYNTH — DIAGNOSTIC — `SYNTHETIC_STRESS_TEST`.** Fully executable, but it
+  **MUST NOT drive the formal 0D.4 gate** (amendment §1); it belongs to the
+  diagnostic battery (§8). Use the three **existing** frozen 0C weather
+  scenarios. Read Model-F risk-weighted coverage @ 10 sites, **reference
+  profile** (the 0C.1 headline profile — unchanged by this amendment):
+  within-envelope (baseline), wind-outside-envelope (the genuine meteorological
+  stress, 16 m/s — unchanged), visibility-unknown.
   - **visibility-unknown is reported as a `DESIGN_ARTIFACT`, excluded from the
     classification** — PROTOCOL §4.2 declares UNKNOWN-visibility→0 a conservative
     **design rule**, not a weather-frequency signal.
   - The classification uses the **wind-outside-envelope** scenario only.
 
-**Primary metric:** relative reduction of Model-F coverage under
-wind-outside-envelope vs within-envelope, reference profile.
-**Classification (frozen):**
-- `SURVIVES`: relative reduction **< 0.50** (benefit materially retained under
-  the adverse-wind envelope).
-- `DEGRADES`: relative reduction in **[0.50, 0.95)**.
-- `FAILS`: relative reduction **≥ 0.95** (benefit **erased** under the
-  pre-specified adverse-weather envelope).
+  **Primary metric:** relative reduction of Model-F coverage under
+  wind-outside-envelope vs within-envelope, reference profile.
+  **Diagnostic classification (frozen, thresholds unchanged):**
+  - `SURVIVES`: relative reduction **< 0.50** (benefit materially retained).
+  - `DEGRADES`: relative reduction in **[0.50, 0.95)**.
+  - `FAILS`: relative reduction **≥ 0.95** (benefit **erased** under the
+    pre-specified adverse-wind envelope).
 
-Profile dependence (the optimistic profile's `max_wind = 16` equals the stress
-wind) is **reported as a diagnostic**, but the classification is fixed on the
-reference profile to match the 0C.1 headline. **This synthetic stress is never
-called "real Madrid weather."**
+  Profile dependence (the optimistic profile's `max_wind = 16` equals the stress
+  wind) is **reported as a diagnostic**, but the classification is fixed on the
+  reference profile to match the 0C.1 headline. **This synthetic stress is never
+  called "real Madrid weather."**
+
+  **Known-outcome disclosure (binding, amendment §1).** The tracked 0C.1 results
+  **already** record that the reference-profile wind-outside-envelope scenario
+  produces **0.0** Model-F risk-weighted coverage. Under the frozen ≥0.95 rule,
+  T3-SYNTH's `FAILS` classification is therefore **known before 0D.4 executes**.
+  It is useful adversarial **diagnostic** evidence about the synthetic model — it
+  is **not** new real-weather evidence and **not** an independent gate-driving
+  falsification. This is precisely why T3-SYNTH is barred from the formal gate.
 
 ### T4 — Airspace / geographic constraints · DIAGNOSTIC
 
@@ -308,7 +359,7 @@ window). Split:
 
 **Never reported as an ENAIRE result.**
 
-### T5 — Camera / hybrid comparator · **CRITICAL**
+### T5 — Camera / hybrid comparator · **FORMAL-CRITICAL** (evidence-qualified)
 
 Recover the **existing** comparator from the frozen 0C.1 output
 (`alternative_comparison` and the staged `fair_comparator`). Report `dock_only`,
@@ -330,7 +381,24 @@ reported **only** as an optimistic camera upper bound and explicitly **not**
 read as camera-beats-dock. Any evidence that would make it comparable (defensible
 LOS/smoke/FOV/equivalence) does not exist in the repository and is not acquired.
 
-### T6 — Threshold / gate fragility · **CRITICAL**
+### T6 — Threshold / gate fragility · DIAGNOSTIC **[AMENDED 2026-09-14]**
+
+**Criticality (amended):** moved from CRITICAL to **DIAGNOSTIC**. Reason: the
+frozen 0C.1 sweep **already** records the qualitative dominance transition
+around **840–960 s**, so a ±120 s window centred on 900 s interrogates a
+fragility **already visible in the known 0C.1 evidence** — it is a valuable
+characterisation of the synthetic mechanism, not a new real-data falsification.
+It therefore **quantifies, classifies and reports** the fragility (distance to
+flip, boolean-label behaviour) but **MUST NOT independently drive `REFUTED` or
+`WEAKENED`** (amendment §2). The experiment and its ±120 s / 900 s parameters
+are **unchanged**.
+
+**Scope clarification (binding, amendment §2).** `travel_dominates_fraction > 0`
+is a **model-emitted qualitative switch** on the synthetic full-F-survivor
+cohort. It is **not** the same decision threshold as the **real-data A-01 bands**
+in `PHASE_0D_PROTOCOL.md` §4.1 (median travel share ≥40 % strengthens / <20 %
+weakens over a real ≥20-incident Madrid sample). T6 tests the stability of the
+model switch, **not** the real A-01 materiality question.
 
 Question: does a scientific conclusion depend on **narrowly** crossing an
 existing threshold; does a small perturbation flip a gate?
@@ -397,60 +465,104 @@ copy of the frozen params from this document), `criticality`,
 
 ---
 
-## 8. Criticality (frozen BEFORE results — may not be downgraded after)
+## 8. Criticality — evidence-qualified critical set (frozen BEFORE results) **[AMENDED 2026-09-14]**
 
-- **CRITICAL:** **T3** (weather / performance erosion), **T5** (camera / hybrid
-  comparator), **T6** (threshold / gate fragility).
-- **DIAGNOSTIC:** **T1** (candidate-location fragility), **T2** (diminishing
-  returns), **T4** (airspace / geographic constraints).
+The **formal 0D.4 gate** is driven **only** by the **evidence-qualified critical
+set** — the branches that pose a **real-data** adversarial question. Everything
+else is a **diagnostic battery** that is reported prominently but **cannot** move
+the formal gate.
 
-Rationale (fixed here, before results): T3, T5, T6 operate on the frozen
-full-domain 0C.1 mechanism against **existing** thresholds and comparators and
-directly target the roadmap's core lines of attack (weather erasing benefit,
-architecture comparability, threshold fragility). T1, T2, T4 are, at their
-evaluable scopes, either structurally low-leverage (T1/T2 at the saturated
-matched scope; T1 full-domain placement perturbation) or synthetic-only spatial
-stress (T4-SYNTH); they **inform** robustness but must not, by themselves, drive
-the gate. **A failed CRITICAL test is never re-labelled DIAGNOSTIC after
-results** (mission rule).
+**Formal gate-driving CRITICAL branches (evidence-qualified):**
+
+| Branch | Real-data question | Current status |
+|---|---|---|
+| **T3-REAL** | Does real fire-day weather erase the benefit (A-04)? | `NOT_EVALUATED_MISSING_EVIDENCE` (A-04 real observations unavailable; PROTOCOL §4.2) |
+| **T4-REAL** | Do real airspace/geographic constraints collapse eligibility (A-03)? | `NOT_EVALUATED_MISSING_EVIDENCE` (ENAIRE/IGN bounded samples; not a full-domain layer) |
+| **T5** | Does a simpler camera/hybrid architecture perform comparably? | Expected `INCOMPARABLE` under PROTOCOL §4.5 unless defensible LOS/smoke/FOV/image-equivalence evidence exists |
+
+**Diagnostic battery (reported, never gate-driving):**
+
+- **T1** — candidate-location fragility (incl. the 0D.3 real-vs-matched context).
+- **T2** — diminishing returns (RQ6).
+- **T3-SYNTH** — synthetic weather / performance erosion (`SYNTHETIC_STRESS_TEST`;
+  known-outcome, §5).
+- **T4-SYNTH** — synthetic geographic exclusion (`SYNTHETIC_STRESS_TEST`).
+- **T6** — threshold / gate fragility (`travel_dominates_fraction > 0` model
+  switch; §5).
+
+**Binding rules (amendment §3):**
+
+1. A **diagnostic** `FAILS` (e.g. T3-SYNTH's known wind collapse, a T6 flip) is
+   **reported prominently** but is **never silently promoted** into a formal
+   real-data gate failure.
+2. **No additional REAL evidence is manufactured to avoid `INCOMPARABLE`.** The
+   bounded A-03 samples are not promoted to a full airspace layer; the A-04
+   inventory is not promoted to weather observations; the real A-02 stations are
+   given no imputed camera/LOS attributes.
+3. If the evidence-qualified critical set cannot produce enough **adjudicated
+   real comparisons**, the honest formal verdict is **`INCOMPARABLE`** under the
+   repository vocabulary — an **acceptable** scientific outcome, not a failure to
+   be engineered around.
+4. A branch's criticality frozen here is **never** changed after results; a
+   diagnostic finding is never re-promoted to critical, and no critical branch is
+   downgraded, after seeing results.
 
 ---
 
-## 9. Gate aggregation (frozen BEFORE results)
+## 9. Formal gate aggregation — evidence-qualified (frozen BEFORE results) **[AMENDED 2026-09-14]**
 
-The final gate uses the **repository** vocabulary
-`SURVIVES` / `WEAKENED` / `REFUTED` / `INCOMPARABLE`, decided over the **CRITICAL
-set only** (DIAGNOSTIC tests inform but cannot move the gate), in this
-**precedence** (first matching rule wins):
+The **formal** gate uses the **repository** vocabulary
+`SURVIVES` / `WEAKENED` / `REFUTED` / `INCOMPARABLE`, decided **only** over the
+**evidence-qualified critical set** {T3-REAL, T4-REAL, T5} (§8). Diagnostic
+tests **cannot** move it.
 
-1. **`REFUTED`** iff **either** (a) a CRITICAL test's `FAILS` is **unconditional**
-   — the benefit is erased/reversed even at the **mildest** pre-specified stress
-   setting of that test — **or** (b) **≥ 2 of the 3** CRITICAL tests are `FAILS`.
-   *(A single, purely conditional collapse is not `REFUTED`.)*
-2. else **`WEAKENED`** iff **≥ 1** CRITICAL test is `FAILS` (a conditional
-   collapse under a specific pre-specified condition) **or** `DEGRADES`.
-3. else **`INCOMPARABLE`** iff **fewer than 2** CRITICAL tests reached a definite
-   `{SURVIVES, DEGRADES, FAILS}` adjudication (too many CRITICAL tests
-   `NOT_EVALUATED`, and/or the only remaining decisive comparator is
-   `INCOMPARABLE`, so an overall robustness judgement cannot be made).
-4. else **`SURVIVES`** (≥ 2 CRITICAL tests adjudicated, all `SURVIVES`, none
-   `FAILS`/`DEGRADES`).
+Define an **adjudicated real comparison** = a formal-critical branch that reaches
+a definite `{SURVIVES, DEGRADES, FAILS}` on `REAL` or `DERIVED_FROM_REAL`
+evidence. A branch that is `NOT_EVALUATED` or `INCOMPARABLE` is **not**
+adjudicated.
 
-Notes bound before results:
-- `T5` is expected to be `INCOMPARABLE` by construction (no LOS evidence). Under
-  the precedence above, `T5`'s `INCOMPARABLE` **does not dominate** the gate as
-  long as **≥ 2** CRITICAL tests (i.e. T3 and T6) are adjudicated; it is reported
-  as a standing per-test finding regardless of the gate.
-- All four gate verdicts are reachable under these rules; **none is
-  pre-determined**. The verdict is **not** asserted in this preregistration
-  commit; it is produced in the later result commit by applying these rules.
+**Precedence (first matching rule wins):**
+
+0. **`PRECONDITION_FAILED`** (no verdict) if a whole-gate entry precondition (§2)
+   fails.
+1. **`REFUTED`** iff **≥ 1** formal-critical branch is an **adjudicated `FAILS`**.
+2. else **`WEAKENED`** iff **≥ 1** formal-critical branch is an **adjudicated
+   `DEGRADES`** (and none `FAILS`).
+3. else **`SURVIVES`** iff **every** formal-critical branch is an **adjudicated
+   `SURVIVES`** (none `FAILS`/`DEGRADES`, none `NOT_EVALUATED`, none
+   `INCOMPARABLE`).
+4. else **`INCOMPARABLE`** — at least one formal-critical branch is
+   `NOT_EVALUATED` or `INCOMPARABLE` and none is an adjudicated
+   `FAILS`/`DEGRADES`; an overall **real-data** robustness judgement cannot be
+   made.
+
+**Reachability disclosure (binding, amendment §4).** The gate is determined by
+this frozen evidence-qualified aggregation rule. **Given evidence availability
+known at preregistration** — T3-REAL and T4-REAL are `NOT_EVALUATED_MISSING_EVIDENCE`
+and T5 is expected `INCOMPARABLE` under PROTOCOL §4.5 — **some terminal states
+may already be structurally unreachable** for the formal gate, and clause 4
+(`INCOMPARABLE`) is the expected outcome. **This is not adjusted to force a more
+decisive result.** The earlier claim that "all four verdicts are reachable / none
+is predetermined" is **withdrawn**; it was inaccurate because known real-evidence
+availability already constrains the reachable formal gate. The verdict is still
+**not asserted** in this preregistration commit; it is produced in the later
+result commit by mechanically applying this rule.
+
+**Diagnostic summary (separate, mandatory).** Independently of the formal gate,
+the result artifacts carry a **diagnostic summary** stating what the **synthetic
+model mechanism** `SURVIVES` / `DEGRADES` under / `FAILS` across the diagnostic
+battery {T1, T2, T3-SYNTH, T4-SYNTH, T6}. This is where the adversarial
+characterisation of the synthetic mechanism is reported — clearly labelled as
+synthetic diagnostics, never as real-data gate outcomes.
 
 **No-claim-inflation (binding).** Whatever the gate verdict, 0D.4 emits **no**
 `BUILD` / `REPOSITION` / `KILL` / `SAFE_TO_FLY` / `MADRID_VALIDATED` /
 `SUPPORTED` / `REFUTED` (assumption-level); it changes **no** assumption state;
-it emits **no** regional claim from municipal-only evidence. A gate `REFUTED` or
-`WEAKENED` is scoped explicitly to *"under the pre-specified adversarial stress,
-the model mechanism …"*, never to Madrid reality.
+it emits **no** regional claim from municipal-only evidence. A formal `REFUTED`
+or `WEAKENED` (were the evidence to permit one) would be scoped explicitly to
+*"under the pre-specified real-data adversarial test, the model mechanism …"*,
+never to Madrid reality; and a synthetic-diagnostic `FAILS` is scoped to *"under
+the pre-specified synthetic stress …"*.
 
 ---
 
@@ -460,10 +572,14 @@ the model mechanism …"*, never to Madrid reality.
   they are **never** promoted to `SURVIVES`, and their synthetic counterparts
   (T3-SYNTH, T4-SYNTH) carry the `SYNTHETIC_STRESS_TEST` class and are never
   reported as real Madrid evidence.
-- If a CRITICAL test cannot be evaluated at all, it counts toward clause 9.3
-  (`INCOMPARABLE`), never toward `SURVIVES`.
+- A formal-critical branch (T3-REAL, T4-REAL, T5) that cannot be adjudicated on
+  real/derived-from-real evidence counts toward clause **9.4** (`INCOMPARABLE`),
+  never toward `SURVIVES`.
+- A diagnostic branch that is `NOT_EVALUATED` (e.g. T1c `NOT_EVALUATED_CONFIG_INVALID`)
+  is reported as such and never counted as `SURVIVES`; it does not affect the
+  formal gate either way.
 - If an entry precondition in §2 that blocks the **whole** gate fails, the run
-  stops with `PRECONDITION_FAILED` and no gate verdict is emitted.
+  stops with `PRECONDITION_FAILED` and no gate verdict is emitted (clause 9.0).
 
 ---
 
@@ -488,3 +604,37 @@ Any change to §3–§9 after 0D.4 results exist is recorded here with date, rea
 and authorizer, and the verdict under these original rules is reported alongside.
 
 - **Initial state:** no deviations.
+- **2026-09-14 — PRE-RESULT amendment of criticality and gate authority
+  (commit 2 of the checkpoint); authorizer: project owner, after external
+  methodological review of commit `3a64b1d`.** **No 0D.4 result existed and none
+  was inspected when this amendment was made** — it is therefore a **pre-result**
+  design change, not a post-result threshold change, and no "verdict under
+  original rules" is reportable because no verdict had been produced. Changes:
+  1. **T3 split by gate authority (§5, §8).** T3-REAL is FORMAL-CRITICAL and
+     currently `NOT_EVALUATED_MISSING_EVIDENCE`; T3-SYNTH is DIAGNOSTIC
+     (`SYNTHETIC_STRESS_TEST`) and barred from the formal gate. Reference profile,
+     the 16 m/s wind stress, the 0.50/0.95 diagnostic thresholds and the profile
+     sweep/reporting are **unchanged**. Added the known-outcome disclosure (the
+     reference-profile wind-outside scenario is already 0.0 Model-F coverage in
+     the tracked 0C.1 results, so T3-SYNTH `FAILS` is known pre-execution).
+  2. **T6 → DIAGNOSTIC (§5, §8).** ±120 s / 900 s experiment and parameters
+     unchanged; it may not independently drive `REFUTED`/`WEAKENED`. Added the
+     clarification that `travel_dominates_fraction > 0` is a model-emitted
+     qualitative switch, not the real-data A-01 bands of PROTOCOL §4.1.
+  3. **Evidence-qualified formal gate (§8, §9).** Formal gate authority = the
+     evidence-qualified critical set {T3-REAL, T4-REAL, T5} only; diagnostic
+     `FAILS` never silently promoted; no REAL evidence manufactured to avoid
+     `INCOMPARABLE`; `INCOMPARABLE` is an acceptable honest verdict; separate
+     diagnostic summary retained.
+  4. **Withdrew the "all four verdicts reachable / none predetermined" claim
+     (§9).** Replaced with the reachability disclosure that known evidence
+     availability may already make some terminal formal-gate states unreachable,
+     not adjusted to force a decisive result.
+  5. **T1c boundary handling hardened (§5).** No clipping/wrapping/reflection/
+     snapping/repair; any displaced site outside the frozen domain →
+     `NOT_EVALUATED_CONFIG_INVALID`, no retry.
+
+  **No stress parameter, threshold, metric, seed, evidence class, reference
+  profile, or the T3/T6 experiment definitions were changed** — only the
+  **criticality, gate authority and boundary-failure handling**. Commit
+  `3a64b1d` is preserved in history.
