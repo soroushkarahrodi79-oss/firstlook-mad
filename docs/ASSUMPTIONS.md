@@ -197,7 +197,9 @@ mecanismo, no realidad de Madrid.
 - **A-03 (buffer geométrico ≠ cobertura operacional):** sin cambios; `TESTING`. La
   rama real (T4-REAL) es `NOT_EVALUATED_MISSING_EVIDENCE`; las muestras acotadas
   ENAIRE/IGN **no** se promueven a capa de dominio completo. La rama sintética
-  (T4-SYNTH) sobrevive a una exclusión espacial suave (diagnóstico, nunca ENAIRE).
+  (T4-SYNTH) `SURVIVES` por la regla congelada pero es un **NO-OP** (la exclusión
+  suave eliminó 0 candidatos): no informativa para robustez espacial, diagnóstica,
+  nunca ENAIRE.
 - **A-01 (tránsito material del TTFRP):** sin cambios; `STRONGLY_CONDITION_DEPENDENT`
   / `BASELINE_NOT_OBSERVABLE`. T6 (diagnóstico) muestra que el **conmutador
   cualitativo emitido por el modelo** `travel_dominates_fraction>0` se voltea a

@@ -37,6 +37,17 @@ from firstlook_mad.validation import NetworkOutcome, evaluate_network, greedy_si
 
 OPTIMISTIC_PROFILE_ID = "assumed-optimistic-envelope-v1"
 
+# Evidence-qualification for the formal gate (PHASE_0D4_PREREGISTRATION §4, §9):
+# only REAL or DERIVED_FROM_REAL evidence may produce an *adjudicated* real
+# comparison. A definite classification on any other evidence class fails closed.
+QUALIFIED_EVIDENCE_CLASSES = frozenset({"REAL", "DERIVED_FROM_REAL"})
+DEFINITE_CLASSIFICATIONS = frozenset({"SURVIVES", "DEGRADES", "FAILS"})
+NON_ADJUDICATED_CLASSIFICATIONS = frozenset({"NOT_EVALUATED", "INCOMPARABLE"})
+
+
+class EvidenceQualificationError(ValueError):
+    """A formal-critical branch tried to adjudicate the gate on non-real evidence."""
+
 
 # --------------------------------------------------------------------------- #
 # Small deterministic helpers over the frozen engine
@@ -204,10 +215,12 @@ def _run_t1(
         classification = "SURVIVES"
 
     reason = (
-        f"max |relative Δ Model-A coverage| over evaluable perturbations = {max_rel_a:.6f} "
+        "No strong placement fragility was detected under the two pre-specified synthetic "
+        "perturbations, and no single site crossed the 50% dominance rule: "
+        f"max |relative Δ Model-A coverage| = {max_rel_a:.6f} "
         f"(survive<{S.T1_SURVIVE_MAX_REL}, degrade<{S.T1_DEGRADE_MAX_REL}); "
         f"single-site Model-A dominance share = {dominance_share:.6f} "
-        f"(dominance threshold {S.T1_DOMINANCE_SHARE})."
+        f"(dominance threshold {S.T1_DOMINANCE_SHARE}). Scope: the two frozen perturbations only."
     )
 
     return {
@@ -488,6 +501,12 @@ def _run_t4_synth(
     else:
         classification = "SURVIVES"
 
+    # Interpretive honesty: the frozen rule yields a classification, but if the
+    # pre-specified mild exclusion removed no candidate the realised stress was a
+    # no-op and the classification is non-informative for spatial robustness.
+    stress_effective = mild_removed > 0
+    interpretive_status = "EFFECTIVE_STRESS" if stress_effective else "NO_OP_STRESS"
+
     return {
         "stress_id": "T4-SYNTH",
         "target_assumption": "A-03 (airspace / geographic) — SYNTHETIC exclusion proxy",
@@ -500,6 +519,16 @@ def _run_t4_synth(
             "Never reported as an ENAIRE result."
         ),
         "primary_metric": "model_a_risk_weighted_coverage_relative_reduction_mild_exclusion",
+        "stress_effective": stress_effective,
+        "interpretive_status": interpretive_status,
+        "informative_for_spatial_robustness": stress_effective,
+        "interpretation_note": (
+            "T4-SYNTH mechanically SURVIVES under the frozen rule, but the pre-specified mild "
+            "exclusion removed zero candidate sites. The realised stress was therefore a no-op "
+            "and this SURVIVES classification is non-informative for spatial robustness."
+        )
+        if not stress_effective
+        else "The mild exclusion removed at least one candidate; classification is informative.",
         "mild_exclusion": {
             "box_min_e_max_e_min_n_max_n": list(S.T4_MILD_BOX),
             "candidates_removed": mild_removed,
@@ -664,14 +693,34 @@ def _run_t6(
 # Formal gate aggregation (evidence-qualified critical set only)
 # --------------------------------------------------------------------------- #
 def _aggregate_formal_gate(formal_branches: list[dict[str, object]]) -> dict[str, object]:
-    classifications = {
-        str(branch["stress_id"]): str(branch["result_classification"]) for branch in formal_branches
-    }
-    adjudicated = {
-        stress_id: classification
-        for stress_id, classification in classifications.items()
-        if classification in {"SURVIVES", "DEGRADES", "FAILS"}
-    }
+    classifications: dict[str, str] = {}
+    evidence_classes: dict[str, str] = {}
+    adjudicated: dict[str, str] = {}
+    for branch in formal_branches:
+        stress_id = str(branch["stress_id"])
+        classification = str(branch["result_classification"])
+        evidence_class = str(branch.get("evidence_class", ""))
+        classifications[stress_id] = classification
+        evidence_classes[stress_id] = evidence_class
+        if classification in DEFINITE_CLASSIFICATIONS:
+            # Fail closed: a definite SURVIVES/DEGRADES/FAILS may adjudicate the
+            # formal gate ONLY on REAL or DERIVED_FROM_REAL evidence. Synthetic,
+            # synthetic-stress or not-evaluated evidence can never drive the gate.
+            if evidence_class not in QUALIFIED_EVIDENCE_CLASSES:
+                raise EvidenceQualificationError(
+                    f"evidence-qualification violation: formal-critical branch {stress_id!r} "
+                    f"reports a definite classification {classification!r} on non-qualified "
+                    f"evidence class {evidence_class!r}; only REAL or DERIVED_FROM_REAL evidence "
+                    f"may adjudicate the formal gate (fail-closed, PHASE_0D4_PREREGISTRATION §9)."
+                )
+            adjudicated[stress_id] = classification
+        elif classification not in NON_ADJUDICATED_CLASSIFICATIONS:
+            raise EvidenceQualificationError(
+                f"unknown formal-critical classification {classification!r} for branch "
+                f"{stress_id!r}; expected one of "
+                f"{sorted(DEFINITE_CLASSIFICATIONS | NON_ADJUDICATED_CLASSIFICATIONS)}."
+            )
+
     fails = [k for k, v in adjudicated.items() if v == "FAILS"]
     degrades = [k for k, v in adjudicated.items() if v == "DEGRADES"]
 
@@ -696,7 +745,13 @@ def _aggregate_formal_gate(formal_branches: list[dict[str, object]]) -> dict[str
         "vocabulary": list(S.GATE_VERDICTS),
         "evidence_qualified_critical_set": list(S.FORMAL_CRITICAL_BRANCHES),
         "branch_classifications": classifications,
+        "branch_evidence_classes": evidence_classes,
+        "qualified_evidence_classes": sorted(QUALIFIED_EVIDENCE_CLASSES),
         "adjudicated_real_comparisons": adjudicated,
+        "evidence_qualification_enforced": "A definite SURVIVES/DEGRADES/FAILS adjudicates the "
+        "formal gate ONLY on REAL or DERIVED_FROM_REAL evidence; any other evidence class fails "
+        "closed (EvidenceQualificationError). Synthetic evidence can never drive "
+        "REFUTED/WEAKENED/SURVIVES.",
         "verdict": verdict,
         "rule_applied": rule,
         "reachability_disclosure": "Given evidence availability frozen at preregistration "
@@ -843,7 +898,7 @@ def build_manifest(results: dict[str, object]) -> dict[str, object]:
     assert isinstance(formal_branches, list) and isinstance(diagnostic_branches, list)
 
     def _summarise(branch: dict[str, object]) -> dict[str, object]:
-        return {
+        summary: dict[str, object] = {
             "stress_id": branch.get("stress_id"),
             "target_assumption": branch.get("target_assumption"),
             "criticality": branch.get("criticality"),
@@ -851,6 +906,13 @@ def build_manifest(results: dict[str, object]) -> dict[str, object]:
             "result_classification": branch.get("result_classification"),
             "reason": branch.get("reason"),
         }
+        # Carry the T4-SYNTH no-op interpretation into the manifest, when present.
+        if "interpretive_status" in branch:
+            summary["interpretive_status"] = branch.get("interpretive_status")
+            summary["informative_for_spatial_robustness"] = branch.get(
+                "informative_for_spatial_robustness"
+            )
+        return summary
 
     return {
         "metadata": results["metadata"],

@@ -28,10 +28,17 @@ y **nunca** mueve el gate formal. Resultado formal: T3-REAL y T4-REAL
 espacio aéreo A-03 de dominio completo), T5 `INCOMPARABLE` (ranking cámara/UAS
 inadjudicable sin evidencia LOS/humo/FOV) → ningún comparador real adjudicado →
 `INCOMPARABLE`. **No se fabricó evidencia real para forzar un veredicto más
-decisivo.** Diagnóstico: sobreviven {T1 placement, T2 rendimientos, T4-SYNTH
-exclusión suave}; fallan {T3-SYNTH (cobertura de referencia →0 con viento 16 m/s,
-pero el perfil optimista sobrevive), T6 (la etiqueta de materialidad de tránsito
-A-01 se voltea a ~12 s del supuesto central)} — ambos **conocidos de 0C.1** y
+decisivo.** El agregador **impone la cualificación por evidencia en código**
+(solo `REAL`/`DERIVED_FROM_REAL` adjudica; evidencia sintética con clasificación
+definida **falla en cerrado** con `EvidenceQualificationError`), de modo que una
+rama sintética nunca puede mover `REFUTED/WEAKENED/SURVIVES`. Diagnóstico:
+sobreviven {T1 placement (sin fragilidad fuerte bajo las dos perturbaciones
+pre-especificadas; ningún sitio cruza el 50 %), T2 rendimientos}; **T4-SYNTH
+`SURVIVES` por la regla congelada pero es un NO-OP** (la exclusión suave eliminó
+0 candidatos → no informativo para robustez espacial, marcado `NO_OP_STRESS` en
+las salidas); fallan {T3-SYNTH (cobertura de referencia →0 con viento 16 m/s, pero
+el perfil optimista sobrevive), T6 (la etiqueta de materialidad de tránsito A-01
+se voltea a ~12 s del supuesto central)} — ambos **conocidos de 0C.1** y
 **diagnósticos**, no mueven el gate. Baseline 0C.1 reproducido byte a byte;
 salidas deterministas; motor 0C.1 reutilizado sin duplicar. Informe:
 `PHASE_0D4_ADVERSARIAL_FALSIFICATION_GATE_REPORT.md`; JSON:

@@ -97,7 +97,7 @@
       {
         "criticality": "DIAGNOSTIC",
         "evidence_class": null,
-        "reason": "max |relative Δ Model-A coverage| over evaluable perturbations = 0.068265 (survive<0.2, degrade<0.5); single-site Model-A dominance share = 0.203754 (dominance threshold 0.5).",
+        "reason": "No strong placement fragility was detected under the two pre-specified synthetic perturbations, and no single site crossed the 50% dominance rule: max |relative Δ Model-A coverage| = 0.068265 (survive<0.2, degrade<0.5); single-site Model-A dominance share = 0.203754 (dominance threshold 0.5). Scope: the two frozen perturbations only.",
         "result_classification": "SURVIVES",
         "stress_id": "T1",
         "target_assumption": "A-02 (candidate placement) — model geometry"
@@ -121,6 +121,8 @@
       {
         "criticality": "DIAGNOSTIC",
         "evidence_class": "SYNTHETIC_STRESS_TEST",
+        "informative_for_spatial_robustness": false,
+        "interpretive_status": "NO_OP_STRESS",
         "reason": "relative reduction of Model-A coverage under the mild central-box exclusion = 0.000000 (fail≥0.5, degrade≥0.2). Never reported as an ENAIRE result.",
         "result_classification": "SURVIVES",
         "stress_id": "T4-SYNTH",

@@ -186,6 +186,13 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
   fragilidad de umbral A-01 (T6) ya eran visibles en las salidas 0C.1 rastreadas;
   0D.4 los cuantifica y clasifica, no los descubre. T6 usa además una cohorte con
   **sesgo de supervivencia** (solo incidentes que ya pasan todas las puertas F).
+- **T4-SYNTH es un NO-OP.** La exclusión suave pre-especificada (caja central,
+  ≈3,3 % del dominio) eliminó **0** sitios candidatos: mecánicamente `SURVIVES`
+  bajo la regla congelada, pero el estrés realizado fue nulo. Esta clasificación
+  es **no informativa para la robustez espacial** (marcada `NO_OP_STRESS` /
+  `informative_for_spatial_robustness=false` en las salidas). Se conserva la
+  clasificación por integridad de pre-registro; el resultado del cuadrante NE
+  (−27 %) es solo contexto, no el test primario clasificado.
 - **Dependencia de perfil (T3-SYNTH).** El colapso a 0 es específico del perfil de
   referencia; el perfil optimista (`max_wind=16`) sobrevive al viento de 16 m/s.
   Reportar solo la referencia podría exagerar la fragilidad meteo; se documenta

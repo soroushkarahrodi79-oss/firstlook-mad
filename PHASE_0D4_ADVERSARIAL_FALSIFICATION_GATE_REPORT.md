@@ -80,7 +80,7 @@ Both match the tracked 0C.1 output exactly (pinned by test).
 | T3-REAL weather erosion | formal | FORMAL-CRITICAL | NOT_EVALUATED | **NOT_EVALUATED** |
 | T3-SYNTH weather erosion | diagnostic | DIAGNOSTIC | SYNTHETIC_STRESS_TEST | **FAILS** |
 | T4-REAL airspace/geographic | formal | FORMAL-CRITICAL | NOT_EVALUATED | **NOT_EVALUATED** |
-| T4-SYNTH airspace/geographic | diagnostic | DIAGNOSTIC | SYNTHETIC_STRESS_TEST | **SURVIVES** |
+| T4-SYNTH airspace/geographic | diagnostic | DIAGNOSTIC | SYNTHETIC_STRESS_TEST | **SURVIVES** (no-op stress — non-informative) |
 | T5 camera / hybrid comparator | formal | FORMAL-CRITICAL | SYNTHETIC | **INCOMPARABLE** |
 | T6 threshold / gate fragility | diagnostic | DIAGNOSTIC | SYNTHETIC | **FAILS** |
 
@@ -99,9 +99,11 @@ Both match the tracked 0C.1 output exactly (pinned by test).
 - **Single-site dominance:** the most-covering site holds **20.4 %** of Model-A
   covered risk (`SYN-SITE-006`), below the 50 % dominance threshold.
 
-`max |relative Δ Model-A| = 0.068 < 0.20` and no single-site dominance ⇒
-**SURVIVES**. The model's coverage is not a lucky spatial draw and is not
-dominated by one site.
+`max |relative Δ Model-A| = 0.068 < 0.20` and no single site crossed the 50 %
+dominance rule ⇒ **SURVIVES**. Scope statement: **no strong placement fragility
+was detected under the two pre-specified synthetic perturbations, and no single
+site crossed the 50 % dominance rule** — this is the exact claim the experiment
+supports, not a general "not placement-fragile" or "not a lucky draw" conclusion.
 
 ### T2 — Diminishing returns · DIAGNOSTIC · SURVIVES
 
@@ -135,12 +137,19 @@ so 13 real locations do not materially outperform a smaller set there.)
   `NOT_ELIGIBLE` (ENAIRE truncated 50/50, `exceededTransferLimit`; IGN MDT05 is a
   100 m x 100 m window). Bounded samples are **never** promoted to a full-domain
   constraint layer; never `SURVIVES`; never synthesised.
-- **T4-SYNTH (DIAGNOSTIC, `SYNTHETIC_STRESS_TEST`) → SURVIVES.** Geometry-defined
-  exclusion (no result peeking). The **mild** central box (E [435000, 455000],
-  N [4455000, 4475000], ≈3.3 % of domain) contains **0** candidate sites ⇒ Model-A
-  reduction **0 %** ⇒ SURVIVES. Context: the NE **quadrant** exclusion (25 % of
-  domain) removes 4 sites and reduces Model-A coverage 0.553475 → 0.403994
-  (**−27.0 %**). Never reported as an ENAIRE result.
+- **T4-SYNTH (DIAGNOSTIC, `SYNTHETIC_STRESS_TEST`) → SURVIVES *by frozen rule, but
+  no-op / non-informative*.** Geometry-defined exclusion (no result peeking). The
+  **mild** central box (E [435000, 455000], N [4455000, 4475000], ≈3.3 % of domain)
+  contains **0** candidate sites ⇒ Model-A reduction **0 %** ⇒ SURVIVES. **T4-SYNTH
+  mechanically SURVIVES under the frozen rule, but the pre-specified mild exclusion
+  removed zero candidate sites. The realised stress was therefore a no-op and this
+  SURVIVES classification is non-informative for spatial robustness**
+  (`stress_effective = false`, `interpretive_status = NO_OP_STRESS`,
+  `informative_for_spatial_robustness = false` in the machine-readable outputs).
+  The frozen classification is preserved for preregistration integrity. Context
+  only: the NE **quadrant** exclusion (25 % of domain) removes 4 sites and reduces
+  Model-A coverage 0.553475 → 0.403994 (**−27.0 %**) — reported, **not** promoted
+  into the classified primary test. Never reported as an ENAIRE result.
 
 ### T5 — Camera / hybrid comparator · FORMAL-CRITICAL · INCOMPARABLE
 
@@ -167,14 +176,18 @@ PROTOCOL §4.1**, and it is diagnostic (survivor-biased cohort).
 
 ## What survived
 
-- **T1 (SURVIVES):** coverage is not placement-fragile (≤6.8 % under a dropped top
-  site, 0.6 % under 2500 m displacement) and not single-site-dominated (20.4 %).
-- **T2 (SURVIVES):** returns are not strongly diminishing on the full domain
-  (last/peak per-site ratio 0.80).
-- **T4-SYNTH (SURVIVES):** the mild synthetic spatial exclusion removes no
-  candidate and does not collapse coverage.
+- **T1 (SURVIVES):** no strong placement fragility detected under the two
+  pre-specified synthetic perturbations (≤6.8 % under a dropped top site, 0.6 %
+  under 2500 m displacement), and no single site crossed the 50 % dominance rule
+  (20.4 %). Scope: the two frozen perturbations only.
+- **T2 (SURVIVES):** returns are not strongly diminishing on the full domain over
+  the tested range (last/peak per-site ratio 0.80).
+- **T4-SYNTH (SURVIVES by frozen rule — NO-OP, non-informative):** the mild
+  synthetic exclusion removed **0** candidates, so the realised stress was a no-op;
+  the SURVIVES classification is **non-informative for spatial robustness** and is
+  not evidence that the model is robust to a modest spatial exclusion.
 
-These are **synthetic-mechanism** survivals only.
+These are **synthetic-mechanism** results only.
 
 ## What failed
 
@@ -219,9 +232,11 @@ engineered around.
 
 ## Interpretation
 
-The **synthetic mechanism** is internally robust to candidate placement (T1),
-delivers non-collapsing marginal returns over the tested range (T2), and is
-insensitive to a modest synthetic spatial exclusion (T4-SYNTH). It remains
+The **synthetic mechanism** shows no strong placement fragility under the two
+pre-specified perturbations (T1) and delivers non-collapsing marginal returns over
+the tested range (T2). The synthetic spatial-exclusion test (T4-SYNTH) is a
+**no-op** (the mild box removed no candidate), so it provides **no** evidence
+about spatial robustness despite its SURVIVES label. The mechanism remains
 fragile, as 0C.1 already showed, to adverse weather on the reference profile
 (T3-SYNTH) and to a knife-edge threshold in the A-01 travel-materiality label
 (T6) — both diagnostic and both known.

@@ -16,7 +16,11 @@ import pytest
 
 from firstlook_mad.adversarial import build_manifest, build_results
 from firstlook_mad.adversarial import stresses as S
-from firstlook_mad.adversarial.experiment import _aggregate_formal_gate, _displace_sites
+from firstlook_mad.adversarial.experiment import (
+    EvidenceQualificationError,
+    _aggregate_formal_gate,
+    _displace_sites,
+)
 from firstlook_mad.domain import CandidateSite, ProjectedPoint
 
 RESULTS_PATH = Path("outputs/reports/phase0d4_adversarial_results.json")
@@ -126,29 +130,114 @@ def test_diagnostic_fails_never_drive_formal_gate(results: dict[str, object]) ->
     assert not (set(S.DIAGNOSTIC_BRANCHES) & formal_ids)
 
 
-def test_aggregator_preserves_a_real_critical_failure() -> None:
-    # A failed critical test is never silently downgraded: an adjudicated real
-    # FAILS drives REFUTED (proving diagnostics being excluded is not a loophole).
+def test_aggregator_real_fails_drives_refuted() -> None:
+    # (A) REAL + FAILS -> REFUTED. A failed real critical test is never downgraded.
     branches = [
-        {"stress_id": "T3-REAL", "result_classification": "FAILS"},
-        {"stress_id": "T4-REAL", "result_classification": "NOT_EVALUATED"},
-        {"stress_id": "T5", "result_classification": "INCOMPARABLE"},
+        {"stress_id": "T3-REAL", "result_classification": "FAILS", "evidence_class": "REAL"},
+        {
+            "stress_id": "T4-REAL",
+            "result_classification": "NOT_EVALUATED",
+            "evidence_class": "NOT_EVALUATED",
+        },
+        {"stress_id": "T5", "result_classification": "INCOMPARABLE", "evidence_class": "SYNTHETIC"},
     ]
-    assert _aggregate_formal_gate(branches)["verdict"] == "REFUTED"
+    result = _aggregate_formal_gate(branches)
+    assert result["verdict"] == "REFUTED"
+    assert result["adjudicated_real_comparisons"] == {"T3-REAL": "FAILS"}
 
-    degraded = [
-        {"stress_id": "T3-REAL", "result_classification": "DEGRADES"},
-        {"stress_id": "T4-REAL", "result_classification": "NOT_EVALUATED"},
-        {"stress_id": "T5", "result_classification": "INCOMPARABLE"},
-    ]
-    assert _aggregate_formal_gate(degraded)["verdict"] == "WEAKENED"
 
-    all_survive = [
-        {"stress_id": "T3-REAL", "result_classification": "SURVIVES"},
-        {"stress_id": "T4-REAL", "result_classification": "SURVIVES"},
-        {"stress_id": "T5", "result_classification": "SURVIVES"},
+def test_aggregator_derived_from_real_degrades_drives_weakened() -> None:
+    # (B) DERIVED_FROM_REAL + DEGRADES -> WEAKENED.
+    branches = [
+        {
+            "stress_id": "T3-REAL",
+            "result_classification": "DEGRADES",
+            "evidence_class": "DERIVED_FROM_REAL",
+        },
+        {
+            "stress_id": "T4-REAL",
+            "result_classification": "NOT_EVALUATED",
+            "evidence_class": "NOT_EVALUATED",
+        },
+        {"stress_id": "T5", "result_classification": "INCOMPARABLE", "evidence_class": "SYNTHETIC"},
     ]
-    assert _aggregate_formal_gate(all_survive)["verdict"] == "SURVIVES"
+    assert _aggregate_formal_gate(branches)["verdict"] == "WEAKENED"
+
+
+def test_aggregator_all_qualified_survives_drives_survives() -> None:
+    # (C) all evidence-qualified REAL/DERIVED_FROM_REAL + SURVIVES -> SURVIVES.
+    branches = [
+        {"stress_id": "T3-REAL", "result_classification": "SURVIVES", "evidence_class": "REAL"},
+        {
+            "stress_id": "T4-REAL",
+            "result_classification": "SURVIVES",
+            "evidence_class": "DERIVED_FROM_REAL",
+        },
+        {"stress_id": "T5", "result_classification": "SURVIVES", "evidence_class": "REAL"},
+    ]
+    assert _aggregate_formal_gate(branches)["verdict"] == "SURVIVES"
+
+
+def test_aggregator_synthetic_fails_cannot_drive_refuted() -> None:
+    # (D) SYNTHETIC + FAILS on a FORMAL-CRITICAL branch must fail closed.
+    branches = [
+        {"stress_id": "T3-REAL", "result_classification": "FAILS", "evidence_class": "SYNTHETIC"},
+        {
+            "stress_id": "T4-REAL",
+            "result_classification": "NOT_EVALUATED",
+            "evidence_class": "NOT_EVALUATED",
+        },
+        {"stress_id": "T5", "result_classification": "INCOMPARABLE", "evidence_class": "SYNTHETIC"},
+    ]
+    with pytest.raises(EvidenceQualificationError):
+        _aggregate_formal_gate(branches)
+
+
+def test_aggregator_synthetic_stress_degrades_cannot_drive_weakened() -> None:
+    # (E) SYNTHETIC_STRESS_TEST + DEGRADES must fail closed.
+    branches = [
+        {
+            "stress_id": "T3-REAL",
+            "result_classification": "DEGRADES",
+            "evidence_class": "SYNTHETIC_STRESS_TEST",
+        },
+        {
+            "stress_id": "T4-REAL",
+            "result_classification": "NOT_EVALUATED",
+            "evidence_class": "NOT_EVALUATED",
+        },
+        {"stress_id": "T5", "result_classification": "INCOMPARABLE", "evidence_class": "SYNTHETIC"},
+    ]
+    with pytest.raises(EvidenceQualificationError):
+        _aggregate_formal_gate(branches)
+
+
+def test_aggregator_t5_synthetic_incomparable_is_valid_non_adjudicated() -> None:
+    # (F) T5 = SYNTHETIC + INCOMPARABLE is valid and yields no adjudicated comparison.
+    branches = [
+        {
+            "stress_id": "T3-REAL",
+            "result_classification": "NOT_EVALUATED",
+            "evidence_class": "NOT_EVALUATED",
+        },
+        {
+            "stress_id": "T4-REAL",
+            "result_classification": "NOT_EVALUATED",
+            "evidence_class": "NOT_EVALUATED",
+        },
+        {"stress_id": "T5", "result_classification": "INCOMPARABLE", "evidence_class": "SYNTHETIC"},
+    ]
+    result = _aggregate_formal_gate(branches)
+    assert result["verdict"] == "INCOMPARABLE"
+    assert result["adjudicated_real_comparisons"] == {}
+
+
+def test_aggregator_real_run_regenerates_incomparable(results: dict[str, object]) -> None:
+    # (G) The actual Phase 0D.4 formal branches regenerate INCOMPARABLE, no adjudication.
+    aggregation = results["formal_real_data_gate"]["aggregation"]  # type: ignore[index]
+    assert isinstance(aggregation, dict)
+    assert aggregation["verdict"] == "INCOMPARABLE"
+    assert aggregation["adjudicated_real_comparisons"] == {}
 
 
 # --------------------------------------------------------------------------- #
@@ -283,6 +372,23 @@ def test_malformed_config_fails() -> None:
 def test_malformed_results_manifest_fails() -> None:
     with pytest.raises((KeyError, AssertionError, TypeError)):
         build_manifest({"not": "a valid results tree"})
+
+
+# --------------------------------------------------------------------------- #
+# T4-SYNTH no-op interpretation flag
+# --------------------------------------------------------------------------- #
+def test_t4_synth_no_op_flag(results: dict[str, object]) -> None:
+    # The mild exclusion removed 0 sites: SURVIVES by the frozen rule, but flagged
+    # non-informative for spatial robustness (no-op stress).
+    t4 = _by_id(results)["T4-SYNTH"]
+    assert t4["result_classification"] == "SURVIVES"
+    mild = t4["mild_exclusion"]
+    assert isinstance(mild, dict)
+    if mild["candidates_removed"] == 0:
+        assert t4["stress_effective"] is False
+        assert t4["interpretive_status"] == "NO_OP_STRESS"
+        assert t4["informative_for_spatial_robustness"] is False
+        assert "no-op" in str(t4["interpretation_note"]).lower()
 
 
 # --------------------------------------------------------------------------- #

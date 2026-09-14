@@ -247,9 +247,12 @@ evidence-qualified critical set {T3-REAL, T4-REAL, T5}: T3-REAL and T4-REAL are
 `NOT_EVALUATED_MISSING_EVIDENCE` (no real A-04 weather, no full-domain A-03 layer)
 and T5 is `INCOMPARABLE` (no LOS/FOV evidence) → no adjudicated real comparison →
 `INCOMPARABLE`. A separate diagnostic battery {T1, T2, T3-SYNTH, T4-SYNTH, T6}
-characterises the **synthetic** mechanism (survived T1/T2/T4-SYNTH; diagnostic
-`FAILS` on T3-SYNTH and T6, both known from 0C.1) and **never** drives the formal
-gate. Report: `PHASE_0D4_ADVERSARIAL_FALSIFICATION_GATE_REPORT.md`;
+characterises the **synthetic** mechanism (survived T1/T2; T4-SYNTH `SURVIVES` by
+the frozen rule but is a **no-op**, non-informative — its mild exclusion removed 0
+candidates; diagnostic `FAILS` on T3-SYNTH and T6, both known from 0C.1) and
+**never** drives the formal gate. The formal aggregator enforces
+evidence-qualification in code (only REAL/DERIVED_FROM_REAL adjudicates; synthetic
+evidence fails closed). Report: `PHASE_0D4_ADVERSARIAL_FALSIFICATION_GATE_REPORT.md`;
 machine-readable: `outputs/reports/phase0d4_adversarial_manifest.json` and
 `…_results.json`. No assumption changed state; Phase 0D.5 not started.
 
