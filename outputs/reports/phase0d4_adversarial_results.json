@@ -1,0 +1,426 @@
+{
+  "baseline_control": {
+    "config": "configs/phase0c_synthetic.json",
+    "incident_count": 180,
+    "model_a_risk_weighted_coverage_full_network": 0.553475,
+    "model_f_risk_weighted_coverage_full_network": 0.101496,
+    "network_sizes": [
+      1,
+      2,
+      3,
+      5,
+      10
+    ],
+    "reference_profile_id": "assumed-reference-envelope-v1",
+    "seed": 260827,
+    "site_count": 10
+  },
+  "boundaries": {
+    "no_assumption_state_change": "No assumption moves TESTING -> SUPPORTED/REFUTED.",
+    "no_decision": "0D.4 decides no BUILD / REPOSITION / KILL.",
+    "no_regional_inference": "No Comunidad de Madrid regional claim from municipal-only A-02 evidence.",
+    "not_safe_to_fly": "No SAFE_TO_FLY, no MADRID VALIDATED, no operational claim.",
+    "synthetic_stress_labelling": "Every synthetic perturbation is SYNTHETIC_STRESS_TEST, never real Madrid evidence."
+  },
+  "diagnostic_battery": {
+    "branches": [
+      {
+        "baseline_config": "0C.1 full domain, seed 260827, 10 sites, reference profile",
+        "criticality": "DIAGNOSTIC",
+        "max_relative_delta_model_a": 0.068265,
+        "primary_metric": "model_a_risk_weighted_coverage",
+        "reason": "max |relative Δ Model-A coverage| over evaluable perturbations = 0.068265 (survive<0.2, degrade<0.5); single-site Model-A dominance share = 0.203754 (dominance threshold 0.5).",
+        "result_classification": "SURVIVES",
+        "single_site_dominance": {
+          "dominant_site_id": "SYN-SITE-006",
+          "dominated": false,
+          "share_of_model_a_covered_risk": 0.203754,
+          "threshold": 0.5
+        },
+        "stress_id": "T1",
+        "sub_tests": {
+          "t1a_real_vs_matched_control": {
+            "direction_stable_across_seeds": false,
+            "effect_material": false,
+            "evidence_class": "DERIVED_FROM_REAL / SYNTHETIC (matched municipal envelope)",
+            "note": "Real A-02 placement produced no material, seed-stable geometry signal at matched municipal scope (SUBSTITUTION_UNINFORMATIVE). Municipal-scope context only; no regional claim; not re-run here.",
+            "phase0d3_verdict": "SUBSTITUTION_UNINFORMATIVE",
+            "primary_relative_delta_median_nearest": 0.059828,
+            "source": "outputs/reports/phase0d3_substitution_results.json"
+          },
+          "t1b_drop_top_site": {
+            "dropped_greedy_rank": 0,
+            "dropped_site_id": "SYN-SITE-003",
+            "evidence_class": "SYNTHETIC_STRESS_TEST",
+            "model_a": {
+              "absolute_delta": -0.037783,
+              "adversarial_value": 0.515692,
+              "baseline_value": 0.553475,
+              "effect_direction": "ADVERSARIAL_SMALLER",
+              "metric": "model_a_risk_weighted_coverage",
+              "relative_delta": -0.068265
+            },
+            "model_f": {
+              "absolute_delta": -0.017217,
+              "adversarial_value": 0.084279,
+              "baseline_value": 0.101496,
+              "effect_direction": "ADVERSARIAL_SMALLER",
+              "metric": "model_f_risk_weighted_coverage",
+              "relative_delta": -0.169632
+            }
+          },
+          "t1c_uniform_displacement": {
+            "displace_m": 2500.0,
+            "evidence_class": "SYNTHETIC_STRESS_TEST",
+            "model_a": {
+              "absolute_delta": -0.003318,
+              "adversarial_value": 0.550157,
+              "baseline_value": 0.553475,
+              "effect_direction": "ADVERSARIAL_SMALLER",
+              "metric": "model_a_risk_weighted_coverage",
+              "relative_delta": -0.005995
+            },
+            "model_f": {
+              "absolute_delta": -0.004498,
+              "adversarial_value": 0.096998,
+              "baseline_value": 0.101496,
+              "effect_direction": "ADVERSARIAL_SMALLER",
+              "metric": "model_f_risk_weighted_coverage",
+              "relative_delta": -0.044317
+            },
+            "result_classification": "EVALUATED"
+          }
+        },
+        "target_assumption": "A-02 (candidate placement) — model geometry"
+      },
+      {
+        "criticality": "DIAGNOSTIC",
+        "diminishing_returns": [
+          {
+            "model_f_risk_weighted_coverage": 0.023708,
+            "site_count": 1
+          },
+          {
+            "model_f_risk_weighted_coverage": 0.023708,
+            "site_count": 2
+          },
+          {
+            "model_f_risk_weighted_coverage": 0.030453,
+            "site_count": 3
+          },
+          {
+            "model_f_risk_weighted_coverage": 0.054093,
+            "site_count": 5
+          },
+          {
+            "model_f_risk_weighted_coverage": 0.101496,
+            "site_count": 10
+          }
+        ],
+        "evidence_class": "SYNTHETIC",
+        "last_over_peak_ratio": 0.802081,
+        "matched_scope_context": {
+          "evidence_class": "DERIVED_FROM_REAL / SYNTHETIC",
+          "note": "At the 0D.3 station-envelope scope Model-A coverage is already saturated at 1.0 for 10 and 13 sites; 13 real locations do not materially outperform a smaller configuration there. Municipal-scope context only.",
+          "phase0d3_any_full_coverage_threshold_crossed": false,
+          "source": "outputs/reports/phase0d3_substitution_results.json"
+        },
+        "primary_metric": "model_f_per_site_marginal_gain_ratio",
+        "reason": "last-segment per-site marginal gain / peak per-site marginal gain = 0.802081 (survive≥0.2, degrade≥0.05).",
+        "result_classification": "SURVIVES",
+        "segments": [
+          {
+            "coverage_gain": 0.0,
+            "from_sites": 1,
+            "per_site_marginal_gain": 0.0,
+            "to_sites": 2
+          },
+          {
+            "coverage_gain": 0.006745,
+            "from_sites": 2,
+            "per_site_marginal_gain": 0.006745,
+            "to_sites": 3
+          },
+          {
+            "coverage_gain": 0.02364,
+            "from_sites": 3,
+            "per_site_marginal_gain": 0.01182,
+            "to_sites": 5
+          },
+          {
+            "coverage_gain": 0.047403,
+            "from_sites": 5,
+            "per_site_marginal_gain": 0.009481,
+            "to_sites": 10
+          }
+        ],
+        "site_count_sequence": [
+          1,
+          2,
+          3,
+          5,
+          10
+        ],
+        "stress_id": "T2",
+        "target_assumption": "RQ6 (diminishing returns) — model marginal benefit"
+      },
+      {
+        "criticality": "DIAGNOSTIC",
+        "evidence_class": "SYNTHETIC_STRESS_TEST",
+        "known_outcome_disclosure": "The tracked 0C.1 results already record 0.0 Model-F coverage for the reference-profile wind-outside scenario, so this FAILS is known before execution; it is diagnostic evidence about the synthetic model, not new real-weather evidence and not a gate-driving falsification.",
+        "primary_metric": "model_f_risk_weighted_coverage_relative_reduction_reference_profile",
+        "profile_dependence_diagnostic": {
+          "note": "Reported, not classified. The optimistic profile (max_wind 16 == stress wind) is not wind-gated by this stress; the collapse is reference-profile specific. Classification is fixed on the reference profile (0C.1 headline).",
+          "optimistic_profile_model_f_under_stress": 0.134804,
+          "reference_profile_model_f_under_stress": 0.0
+        },
+        "reason": "relative reduction of Model-F coverage under wind-outside-assumed-envelope (reference profile) = 1.000000 (fail≥0.95, degrade≥0.5).",
+        "reference_profile": {
+          "absolute_delta": -0.101496,
+          "adversarial_value": 0.0,
+          "baseline_value": 0.101496,
+          "effect_direction": "ADVERSARIAL_SMALLER",
+          "metric": "model_f_within_vs_wind_outside_reference",
+          "relative_delta": -1.0
+        },
+        "relative_reduction_reference_profile": 1.0,
+        "result_classification": "FAILS",
+        "stress_id": "T3-SYNTH",
+        "target_assumption": "A-04 (fire-weather erosion) — SYNTHETIC stress proxy",
+        "visibility_unknown_design_artifact": {
+          "model_f_visibility_unknown_reference": 0.0,
+          "note": "Excluded from classification. PROTOCOL §4.2 declares UNKNOWN-visibility→0 a conservative design rule, not a weather-frequency signal."
+        }
+      },
+      {
+        "criticality": "DIAGNOSTIC",
+        "evidence_class": "SYNTHETIC_STRESS_TEST",
+        "mild_exclusion": {
+          "box_min_e_max_e_min_n_max_n": [
+            435000.0,
+            455000.0,
+            4455000.0,
+            4475000.0
+          ],
+          "candidates_removed": 0,
+          "model_a": {
+            "absolute_delta": 0.0,
+            "adversarial_value": 0.553475,
+            "baseline_value": 0.553475,
+            "effect_direction": "NO_CHANGE",
+            "metric": "model_a_risk_weighted_coverage",
+            "relative_delta": 0.0
+          },
+          "model_f": {
+            "absolute_delta": 0.0,
+            "adversarial_value": 0.101496,
+            "baseline_value": 0.101496,
+            "effect_direction": "NO_CHANGE",
+            "metric": "model_f_risk_weighted_coverage",
+            "relative_delta": 0.0
+          }
+        },
+        "primary_metric": "model_a_risk_weighted_coverage_relative_reduction_mild_exclusion",
+        "quadrant_exclusion_context": {
+          "candidates_removed": 4,
+          "model_a": {
+            "absolute_delta": -0.149481,
+            "adversarial_value": 0.403994,
+            "baseline_value": 0.553475,
+            "effect_direction": "ADVERSARIAL_SMALLER",
+            "metric": "model_a_risk_weighted_coverage",
+            "relative_delta": -0.270077
+          },
+          "model_f": {
+            "absolute_delta": -0.027626,
+            "adversarial_value": 0.07387,
+            "baseline_value": 0.101496,
+            "effect_direction": "ADVERSARIAL_SMALLER",
+            "metric": "model_f_risk_weighted_coverage",
+            "relative_delta": -0.272188
+          },
+          "note": "Reported for context, not classified.",
+          "rule": "E >= 445000.0 AND N >= 4465000.0 (NE quadrant)"
+        },
+        "reason": "relative reduction of Model-A coverage under the mild central-box exclusion = 0.000000 (fail≥0.5, degrade≥0.2). Never reported as an ENAIRE result.",
+        "result_classification": "SURVIVES",
+        "stress_id": "T4-SYNTH",
+        "target_assumption": "A-03 (airspace / geographic) — SYNTHETIC exclusion proxy"
+      },
+      {
+        "boolean_flips_in_window": true,
+        "booleans": {
+          "central": true,
+          "high": false,
+          "low": true
+        },
+        "criticality": "DIAGNOSTIC",
+        "distance_central_to_flip_seconds": 11.672,
+        "dominance_flip_boundary_seconds": 911.672,
+        "evidence_class": "SYNTHETIC",
+        "fixed_full_f_survivor_cohort": 17,
+        "primary_metric": "travel_dominates_fraction_boolean_flip",
+        "reason": "boolean B=(travel_dominates_fraction>0) over ±120s window around 900s: low=True, central=True, high=False; flips=True (flip⇒FAILS). This is a model-emitted qualitative switch, NOT the real-data A-01 bands of PROTOCOL §4.1.",
+        "result_classification": "FAILS",
+        "secondary_context": {
+          "note": "0D.3 material-relative-delta threshold (0.20) was not narrowly crossed (0D.3 primary_relative_delta = 0.0598), so that gate is not threshold-fragile."
+        },
+        "stress_id": "T6",
+        "survivor_bias_warning": "Characterises only synthetic incidents already surviving every F gate; membership is not recomputed during the sweep.",
+        "target_assumption": "A-01 travel-materiality qualitative switch (model-emitted)",
+        "window_points": {
+          "central": {
+            "non_travel_s": 900.0,
+            "travel_dominates_fraction": 0.176471
+          },
+          "high": {
+            "non_travel_s": 1020.0,
+            "travel_dominates_fraction": 0.0
+          },
+          "low": {
+            "non_travel_s": 780.0,
+            "travel_dominates_fraction": 0.411765
+          }
+        }
+      }
+    ],
+    "summary": {
+      "degraded": [],
+      "failed": [
+        "T3-SYNTH",
+        "T6"
+      ],
+      "incomparable": [],
+      "not_evaluated": [],
+      "note": "Synthetic-mechanism characterisation ONLY. A diagnostic FAILS is scoped to the pre-specified synthetic stress; it is never promoted into a real-data gate failure.",
+      "survived": [
+        "T1",
+        "T2",
+        "T4-SYNTH"
+      ]
+    }
+  },
+  "formal_real_data_gate": {
+    "aggregation": {
+      "adjudicated_real_comparisons": {},
+      "branch_classifications": {
+        "T3-REAL": "NOT_EVALUATED",
+        "T4-REAL": "NOT_EVALUATED",
+        "T5": "INCOMPARABLE"
+      },
+      "evidence_qualified_critical_set": [
+        "T3-REAL",
+        "T4-REAL",
+        "T5"
+      ],
+      "no_claim_inflation": "No BUILD/REPOSITION/KILL/SAFE_TO_FLY/MADRID_VALIDATED/SUPPORTED/REFUTED(assumption-level); no assumption-state change; no regional claim from municipal-only evidence.",
+      "reachability_disclosure": "Given evidence availability frozen at preregistration (T3-REAL and T4-REAL NOT_EVALUATED_MISSING_EVIDENCE; T5 INCOMPARABLE under PROTOCOL §4.5), some terminal states are structurally unreachable for the formal gate. This is not adjusted to force a more decisive result.",
+      "rule_applied": "clause 4: at least one evidence-qualified critical branch is NOT_EVALUATED or INCOMPARABLE and none is an adjudicated FAILS/DEGRADES; an overall real-data robustness judgement cannot be made.",
+      "verdict": "INCOMPARABLE",
+      "vocabulary": [
+        "SURVIVES",
+        "WEAKENED",
+        "REFUTED",
+        "INCOMPARABLE"
+      ]
+    },
+    "branches": [
+      {
+        "criticality": "FORMAL-CRITICAL",
+        "evidence_class": "NOT_EVALUATED",
+        "reason": "NOT_EVALUATED_MISSING_EVIDENCE: A-04 real fire-day weather observations are unavailable (WEATHER_EVIDENCE_NOT_OBSERVABLE); PROTOCOL §4.2 bands require real out-of-envelope frequency. AEMET station inventory is not weather observations. No real weather evidence is manufactured to avoid this.",
+        "result_classification": "NOT_EVALUATED",
+        "stress_id": "T3-REAL",
+        "target_assumption": "A-04 (fire-weather erosion)"
+      },
+      {
+        "criticality": "FORMAL-CRITICAL",
+        "evidence_class": "NOT_EVALUATED",
+        "reason": "NOT_EVALUATED_MISSING_EVIDENCE: A-03 is NOT_ELIGIBLE (ENAIRE truncated 50/50, exceededTransferLimit; IGN MDT05 is a 100 m x 100 m pipeline-proof window). The bounded samples are never promoted to a full-domain constraint layer; no real constraint layer is manufactured to avoid this.",
+        "result_classification": "NOT_EVALUATED",
+        "stress_id": "T4-REAL",
+        "target_assumption": "A-03 (airspace / geographic constraints)"
+      },
+      {
+        "best_available_observation_proxy": {
+          "covered_incidents": 59,
+          "median_ttfrp_seconds": 360.0,
+          "p90_ttfrp_seconds": 360.0,
+          "risk_weighted_coverage": 0.312742345408657
+        },
+        "camera_only_optimistic_upper_bound": {
+          "covered_incidents": 59,
+          "median_ttfrp_seconds": 360.0,
+          "p90_ttfrp_seconds": 360.0,
+          "risk_weighted_coverage": 0.312742345408657
+        },
+        "criticality": "FORMAL-CRITICAL",
+        "dock_only": {
+          "covered_incidents": 17,
+          "median_ttfrp_seconds": 1530.944119982526,
+          "p90_ttfrp_seconds": 1809.7048350319892,
+          "risk_weighted_coverage": 0.10149601787480876
+        },
+        "evidence_class": "SYNTHETIC",
+        "fair_comparator_all_incomparable": null,
+        "fair_comparator_status": "INCOMPARABLE",
+        "prohibited_inference": "No economic, operational-equivalence, or architecture-dominance claim is supported.",
+        "reason": "PROTOCOL §4.5: the architecture ranking is structurally unadjudicable under unknown LOS / smoke / FOV / observation-equivalence. The camera figure is an optimistic upper bound, never read as camera-beats-dock. Real A-02 stations supply no camera attributes (NOT_EVALUATED); none is imputed.",
+        "result_classification": "INCOMPARABLE",
+        "stress_id": "T5",
+        "target_assumption": "Camera / tower / hybrid comparator vs UAS dock"
+      }
+    ]
+  },
+  "frozen_parameters": {
+    "T1": {
+      "degrade_max_rel": 0.5,
+      "displace_m": 2500.0,
+      "dominance_share": 0.5,
+      "drop_greedy_rank": 0,
+      "survive_max_rel": 0.2
+    },
+    "T2": {
+      "degrade_ratio": 0.05,
+      "survive_ratio": 0.2
+    },
+    "T3": {
+      "baseline_scenario": "within-assumed-envelope",
+      "degrade_rel": 0.5,
+      "design_artifact_scenario": "visibility-unknown",
+      "fail_rel": 0.95,
+      "stress_scenario": "wind-outside-assumed-envelope"
+    },
+    "T4": {
+      "degrade_max_rel": 0.5,
+      "mild_box": [
+        435000.0,
+        455000.0,
+        4455000.0,
+        4475000.0
+      ],
+      "quadrant_min_easting_m": 445000.0,
+      "quadrant_min_northing_m": 4465000.0,
+      "survive_max_rel": 0.2
+    },
+    "T6": {
+      "central_non_travel_s": 900.0,
+      "degrade_rel": 0.5,
+      "step_s": 120.0
+    },
+    "domain_epsg25830": {
+      "max_easting_m": 500000.0,
+      "max_northing_m": 4520000.0,
+      "min_easting_m": 390000.0,
+      "min_northing_m": 4410000.0
+    },
+    "experiment_version": "0D.4-1.0.0"
+  },
+  "metadata": {
+    "crs": "EPSG:25830",
+    "experiment_version": "0D.4-1.0.0",
+    "phase": "0D.4",
+    "preregistration": "docs/PHASE_0D4_PREREGISTRATION.md",
+    "use": "RESEARCH / SIMULATION PROTOTYPE ONLY"
+  }
+}

@@ -45,6 +45,8 @@ outputs/reports/*
 !outputs/reports/phase0d2_normalization_report.json
 !outputs/reports/phase0d3_substitution_manifest.json
 !outputs/reports/phase0d3_substitution_results.json
+!outputs/reports/phase0d4_adversarial_manifest.json
+!outputs/reports/phase0d4_adversarial_results.json
 
 # --- Secrets / credentials (never commit) ---
 *.pem

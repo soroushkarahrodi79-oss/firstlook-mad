@@ -169,6 +169,33 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
 - Determinismo verificado en este entorno (uv, Python 3.12, pyproj 3.7.2); el
   redondeo a 1 mm lo mitiga, no lo prueba en otras plataformas.
 
+### 7.4 Limitaciones de Phase 0D.4 — falsificación adversarial (2026-09-14)
+
+- **El gate formal es `INCOMPARABLE` por disponibilidad de evidencia, no por
+  robustez.** No debe leerse como "robusto" ni como "refutado": la falsificación
+  adversarial de datos reales **no puede montarse** porque sus tres ramas críticas
+  cualificadas por evidencia son inevaluables (T3-REAL, T4-REAL
+  `NOT_EVALUATED_MISSING_EVIDENCE`) o estructuralmente incomparables (T5). Algunos
+  estados terminales del gate formal eran **estructuralmente inalcanzables** ya en
+  el pre-registro; no se ajustó nada para forzar un veredicto más decisivo.
+- **La batería diagnóstica es 100 % sintética.** T1, T2, T3-SYNTH, T4-SYNTH y T6
+  estresan el mecanismo del modelo 0C.1, no Madrid. Un `FAILS` diagnóstico
+  (T3-SYNTH, T6) es un hallazgo sobre el modelo, **no** una falsificación de datos
+  reales, y **nunca** se promueve al gate formal.
+- **Hallazgos diagnósticos ya conocidos de 0C.1.** El colapso meteo (T3-SYNTH) y la
+  fragilidad de umbral A-01 (T6) ya eran visibles en las salidas 0C.1 rastreadas;
+  0D.4 los cuantifica y clasifica, no los descubre. T6 usa además una cohorte con
+  **sesgo de supervivencia** (solo incidentes que ya pasan todas las puertas F).
+- **Dependencia de perfil (T3-SYNTH).** El colapso a 0 es específico del perfil de
+  referencia; el perfil optimista (`max_wind=16`) sobrevive al viento de 16 m/s.
+  Reportar solo la referencia podría exagerar la fragilidad meteo; se documenta
+  ambos.
+- **Sin evidencia real nueva.** A-04 (meteo), A-03 (espacio aéreo/terreno de
+  dominio completo) y la equivalencia de observación cámara/UAS siguen sin
+  observarse; ninguna se fabricó ni se adquirió.
+- Determinismo verificado en este entorno (salidas byte-idénticas en reejecución;
+  baseline 0C.1 reproducido byte a byte); no probado en otras plataformas.
+
 ## 8. Lo que estas limitaciones implican
 
 Ningún output del proyecto debe leerse como recomendación operacional,

@@ -177,6 +177,43 @@ no las establece.
 **Ningún supuesto pasa a `SUPPORTED` ni a `REFUTED` en 0D.3.** Ver
 `PHASE_0D3_REALITY_SUBSTITUTION_GATE_REPORT.md`.
 
+### Adenda 0D.4 — falsificación adversarial (2026-09-14)
+
+Diseño pre-especificado antes de resultados (`docs/PHASE_0D4_PREREGISTRATION.md`,
+tres commits solo-preregistro; enmienda pre-resultado del propietario que separa
+la autoridad del gate). **Gate formal `INCOMPARABLE`**, decidido solo por el
+conjunto crítico cualificado por evidencia {T3-REAL, T4-REAL, T5}. Una batería
+diagnóstica {T1, T2, T3-SYNTH, T4-SYNTH, T6} estresa el mecanismo **sintético** y
+**no** mueve el gate ni cambia ningún estado de supuesto. 0D.4 mide fragilidad del
+mecanismo, no realidad de Madrid.
+
+- **A-04 (meteo no anula viabilidad):** sin cambios; `TESTING`. La rama real
+  (T3-REAL) es `NOT_EVALUATED_MISSING_EVIDENCE` (sin observaciones meteo reales;
+  inventario AEMET ≠ observaciones). La rama sintética (T3-SYNTH,
+  `SYNTHETIC_STRESS_TEST`) `FAILS` en el perfil de referencia (cobertura →0 con
+  viento 16 m/s) pero **sobrevive** en el perfil optimista (`max_wind=16`): es un
+  hallazgo **diagnóstico ya conocido de 0C.1**, no evidencia meteo real, no mueve
+  el gate.
+- **A-03 (buffer geométrico ≠ cobertura operacional):** sin cambios; `TESTING`. La
+  rama real (T4-REAL) es `NOT_EVALUATED_MISSING_EVIDENCE`; las muestras acotadas
+  ENAIRE/IGN **no** se promueven a capa de dominio completo. La rama sintética
+  (T4-SYNTH) sobrevive a una exclusión espacial suave (diagnóstico, nunca ENAIRE).
+- **A-01 (tránsito material del TTFRP):** sin cambios; `STRONGLY_CONDITION_DEPENDENT`
+  / `BASELINE_NOT_OBSERVABLE`. T6 (diagnóstico) muestra que el **conmutador
+  cualitativo emitido por el modelo** `travel_dominates_fraction>0` se voltea a
+  ~12 s del supuesto central de 900 s — fragilidad de umbral **conocida de 0C.1**,
+  sobre una cohorte con sesgo de supervivencia, y **no** es la banda A-01 de datos
+  reales de PROTOCOL §4.1.
+- **Comparador cámara/UAS:** sin cambios; `INCOMPARABLE` (T5) bajo LOS/humo/FOV
+  desconocidos; la cifra de cámara es solo cota superior optimista, nunca un
+  ranking. Los parques A-02 reales no aportan atributos de cámara; no se imputan.
+- **A-02:** sin cambios; `TESTING` / `ELIGIBLE_WITHIN_DECLARED_SCOPE`. T1
+  (diagnóstico) confirma que la cobertura del modelo no es frágil al emplazamiento
+  ni está dominada por un único sitio.
+
+**Ningún supuesto pasa a `SUPPORTED` ni a `REFUTED` en 0D.4.** Ver
+`PHASE_0D4_ADVERSARIAL_FALSIFICATION_GATE_REPORT.md`.
+
 ## Supuestos que NO hacemos (explícito)
 
 - **No** asumimos que ninguna infraestructura acepte realmente un dock.

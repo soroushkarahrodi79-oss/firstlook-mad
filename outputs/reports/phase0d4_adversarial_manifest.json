@@ -1,0 +1,165 @@
+{
+  "constant_vs_changed": {
+    "changed_per_test": "exactly one stress dimension per test (candidate set, weather scenario, spatial exclusion, or non-travel budget)",
+    "held_constant": [
+      "frozen 0C.1 engine (generate_inputs, evaluate_network, greedy_site_order)",
+      "seed 260827, 180 incidents, reference profile, thresholds, scoring logic",
+      "all tracked 0C/0D outputs (immutable)"
+    ]
+  },
+  "criticality": {
+    "diagnostic": [
+      "T1",
+      "T2",
+      "T3-SYNTH",
+      "T4-SYNTH",
+      "T6"
+    ],
+    "formal_critical": [
+      "T3-REAL",
+      "T4-REAL",
+      "T5"
+    ]
+  },
+  "diagnostic_summary": {
+    "degraded": [],
+    "failed": [
+      "T3-SYNTH",
+      "T6"
+    ],
+    "incomparable": [],
+    "not_evaluated": [],
+    "note": "Synthetic-mechanism characterisation ONLY. A diagnostic FAILS is scoped to the pre-specified synthetic stress; it is never promoted into a real-data gate failure.",
+    "survived": [
+      "T1",
+      "T2",
+      "T4-SYNTH"
+    ]
+  },
+  "formal_gate_verdict": "INCOMPARABLE",
+  "frozen_parameters": {
+    "T1": {
+      "degrade_max_rel": 0.5,
+      "displace_m": 2500.0,
+      "dominance_share": 0.5,
+      "drop_greedy_rank": 0,
+      "survive_max_rel": 0.2
+    },
+    "T2": {
+      "degrade_ratio": 0.05,
+      "survive_ratio": 0.2
+    },
+    "T3": {
+      "baseline_scenario": "within-assumed-envelope",
+      "degrade_rel": 0.5,
+      "design_artifact_scenario": "visibility-unknown",
+      "fail_rel": 0.95,
+      "stress_scenario": "wind-outside-assumed-envelope"
+    },
+    "T4": {
+      "degrade_max_rel": 0.5,
+      "mild_box": [
+        435000.0,
+        455000.0,
+        4455000.0,
+        4475000.0
+      ],
+      "quadrant_min_easting_m": 445000.0,
+      "quadrant_min_northing_m": 4465000.0,
+      "survive_max_rel": 0.2
+    },
+    "T6": {
+      "central_non_travel_s": 900.0,
+      "degrade_rel": 0.5,
+      "step_s": 120.0
+    },
+    "domain_epsg25830": {
+      "max_easting_m": 500000.0,
+      "max_northing_m": 4520000.0,
+      "min_easting_m": 390000.0,
+      "min_northing_m": 4410000.0
+    },
+    "experiment_version": "0D.4-1.0.0"
+  },
+  "metadata": {
+    "crs": "EPSG:25830",
+    "experiment_version": "0D.4-1.0.0",
+    "phase": "0D.4",
+    "preregistration": "docs/PHASE_0D4_PREREGISTRATION.md",
+    "use": "RESEARCH / SIMULATION PROTOTYPE ONLY"
+  },
+  "not_evaluable": [
+    "T3-REAL",
+    "T4-REAL"
+  ],
+  "what_was_stressed": {
+    "diagnostic_battery": [
+      {
+        "criticality": "DIAGNOSTIC",
+        "evidence_class": null,
+        "reason": "max |relative Δ Model-A coverage| over evaluable perturbations = 0.068265 (survive<0.2, degrade<0.5); single-site Model-A dominance share = 0.203754 (dominance threshold 0.5).",
+        "result_classification": "SURVIVES",
+        "stress_id": "T1",
+        "target_assumption": "A-02 (candidate placement) — model geometry"
+      },
+      {
+        "criticality": "DIAGNOSTIC",
+        "evidence_class": "SYNTHETIC",
+        "reason": "last-segment per-site marginal gain / peak per-site marginal gain = 0.802081 (survive≥0.2, degrade≥0.05).",
+        "result_classification": "SURVIVES",
+        "stress_id": "T2",
+        "target_assumption": "RQ6 (diminishing returns) — model marginal benefit"
+      },
+      {
+        "criticality": "DIAGNOSTIC",
+        "evidence_class": "SYNTHETIC_STRESS_TEST",
+        "reason": "relative reduction of Model-F coverage under wind-outside-assumed-envelope (reference profile) = 1.000000 (fail≥0.95, degrade≥0.5).",
+        "result_classification": "FAILS",
+        "stress_id": "T3-SYNTH",
+        "target_assumption": "A-04 (fire-weather erosion) — SYNTHETIC stress proxy"
+      },
+      {
+        "criticality": "DIAGNOSTIC",
+        "evidence_class": "SYNTHETIC_STRESS_TEST",
+        "reason": "relative reduction of Model-A coverage under the mild central-box exclusion = 0.000000 (fail≥0.5, degrade≥0.2). Never reported as an ENAIRE result.",
+        "result_classification": "SURVIVES",
+        "stress_id": "T4-SYNTH",
+        "target_assumption": "A-03 (airspace / geographic) — SYNTHETIC exclusion proxy"
+      },
+      {
+        "criticality": "DIAGNOSTIC",
+        "evidence_class": "SYNTHETIC",
+        "reason": "boolean B=(travel_dominates_fraction>0) over ±120s window around 900s: low=True, central=True, high=False; flips=True (flip⇒FAILS). This is a model-emitted qualitative switch, NOT the real-data A-01 bands of PROTOCOL §4.1.",
+        "result_classification": "FAILS",
+        "stress_id": "T6",
+        "target_assumption": "A-01 travel-materiality qualitative switch (model-emitted)"
+      }
+    ],
+    "formal_real_data_gate": [
+      {
+        "criticality": "FORMAL-CRITICAL",
+        "evidence_class": "NOT_EVALUATED",
+        "reason": "NOT_EVALUATED_MISSING_EVIDENCE: A-04 real fire-day weather observations are unavailable (WEATHER_EVIDENCE_NOT_OBSERVABLE); PROTOCOL §4.2 bands require real out-of-envelope frequency. AEMET station inventory is not weather observations. No real weather evidence is manufactured to avoid this.",
+        "result_classification": "NOT_EVALUATED",
+        "stress_id": "T3-REAL",
+        "target_assumption": "A-04 (fire-weather erosion)"
+      },
+      {
+        "criticality": "FORMAL-CRITICAL",
+        "evidence_class": "NOT_EVALUATED",
+        "reason": "NOT_EVALUATED_MISSING_EVIDENCE: A-03 is NOT_ELIGIBLE (ENAIRE truncated 50/50, exceededTransferLimit; IGN MDT05 is a 100 m x 100 m pipeline-proof window). The bounded samples are never promoted to a full-domain constraint layer; no real constraint layer is manufactured to avoid this.",
+        "result_classification": "NOT_EVALUATED",
+        "stress_id": "T4-REAL",
+        "target_assumption": "A-03 (airspace / geographic constraints)"
+      },
+      {
+        "criticality": "FORMAL-CRITICAL",
+        "evidence_class": "SYNTHETIC",
+        "reason": "PROTOCOL §4.5: the architecture ranking is structurally unadjudicable under unknown LOS / smoke / FOV / observation-equivalence. The camera figure is an optimistic upper bound, never read as camera-beats-dock. Real A-02 stations supply no camera attributes (NOT_EVALUATED); none is imputed.",
+        "result_classification": "INCOMPARABLE",
+        "stress_id": "T5",
+        "target_assumption": "Camera / tower / hybrid comparator vs UAS dock"
+      }
+    ]
+  }
+}
