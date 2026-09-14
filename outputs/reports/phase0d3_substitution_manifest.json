@@ -1,0 +1,65 @@
+{
+  "analytical_domain_area_m2": 12100000000.0,
+  "analytical_scope": "COMUNIDAD_DE_MADRID (0C.1 synthetic extent 110 km x 110 km)",
+  "assumptions_held_constant": [
+    "incidents / demand (synthetic, identical)",
+    "random seed (260827 primary; 25 robustness seeds)",
+    "UAS performance profiles",
+    "TTFRP scenarios",
+    "weather scenarios",
+    "travel model",
+    "thresholds and constraints",
+    "scoring / coverage logic",
+    "geographic support (matched station-envelope extent from the 13 A-02 locations, identical in both arms; see matched_support_definition)"
+  ],
+  "assumptions_not_substituted": [
+    "A-01",
+    "A-03",
+    "A-04"
+  ],
+  "candidate_count_policy": "match_real_candidate_count",
+  "canonical_output_sha256": "1437d82a956fa530f865c8cf8178294ce6efceacfc599d09b05f63ddaa8feb71",
+  "declared_scope": "MADRID_MUNICIPALITY",
+  "declared_scope_note": "declared_scope is the source dataset's declared coverage (MADRID_MUNICIPALITY), a documented source fact; it is distinct from the matched_support extent used by this experiment (see matched_support_definition)",
+  "experiment_version": "0D.3-1.0.0",
+  "matched_support_area_m2": 231728277.015,
+  "matched_support_definition": "axis-aligned bounding box of the 13 canonical A-02 station locations in EPSG:25830 (a station-envelope extent). This is NOT the official Madrid municipality boundary and NOT the legal/administrative support of the source dataset; it is a conservative, repository-derived spatial extent applied identically to both arms only to hold geographic support constant.",
+  "matched_support_epsg25830": {
+    "crs": "EPSG:25830",
+    "max_easting_m": 449956.52,
+    "max_northing_m": 4481279.118,
+    "min_easting_m": 435063.001,
+    "min_northing_m": 4465720.117
+  },
+  "matched_support_fraction_of_domain": 0.019151,
+  "native_synthetic_candidate_count": 10,
+  "normalization_version": "0D.2-1.0.0",
+  "not_inferred_from_source": {
+    "availability": "NOT_EVALUATED",
+    "dispatch_capability": "NOT_EVALUATED",
+    "docking_capability": "NOT_EVALUATED",
+    "drone_suitability": "NOT_EVALUATED",
+    "emergency_response_timing": "NOT_EVALUATED",
+    "land_ownership": "NOT_EVALUATED",
+    "operational_readiness": "NOT_EVALUATED",
+    "permission": "NOT_EVALUATED"
+  },
+  "operational_properties_not_evaluated": {
+    "assumed_available": "NOT_EVALUATED",
+    "camera_available": "NOT_EVALUATED",
+    "camera_communications_available": "NOT_EVALUATED",
+    "communications_available": "NOT_EVALUATED",
+    "uas_available": "NOT_EVALUATED"
+  },
+  "random_seed_policy": "primary seed 260827 from configs/phase0c_synthetic.json; robustness over the 25 pre-declared robustness_seeds; REAL sites are seed-independent; both arms share one incidents list per seed",
+  "real_candidate_count": 13,
+  "real_evidence_source": {
+    "canonical_path": "outputs/canonical/phase0d2/a02_madrid_city_fire_stations.json",
+    "record_count": 13,
+    "source_evidence_classification": "REAL_SOURCE_DATA",
+    "source_url": "https://datos.madrid.es/egob/catalogo/211642-0-bomberos-parques.json"
+  },
+  "scope_match_method": "station_bounding_box_epsg25830",
+  "source_sha256": "5c3957873878d30c93556c75544b6d7740c648b84b0424682dfac655842f8eb6",
+  "synthetic_variable_replaced": "A-02 candidate-site locations (existence and location only)"
+}

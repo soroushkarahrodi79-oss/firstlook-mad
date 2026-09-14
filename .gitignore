@@ -43,6 +43,8 @@ outputs/reports/*
 !outputs/reports/phase0d_acquisition_log.json
 !outputs/reports/phase0d_acquisition_log_local_2026-09-02.json
 !outputs/reports/phase0d2_normalization_report.json
+!outputs/reports/phase0d3_substitution_manifest.json
+!outputs/reports/phase0d3_substitution_results.json
 
 # --- Secrets / credentials (never commit) ---
 *.pem

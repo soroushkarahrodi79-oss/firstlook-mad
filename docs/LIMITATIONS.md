@@ -142,6 +142,33 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
   3.12.10, pyproj 3.7.2, shapely 2.1.2); no en otras plataformas (el redondeo a
   1 mm lo mitiga, no lo prueba).
 
+### 7.3 Limitaciones de Phase 0D.3 — sustitución de realidad (2026-09-14)
+
+- Gate `SUBSTITUTION_UNINFORMATIVE` (entry `LIMITED_PROCEED`). El experimento es
+  metodológicamente válido y reproducible, pero **poco informativo**: sobre la
+  extensión envolvente de estaciones igualada (caja delimitadora de las 13
+  localizaciones, ≈1,9 % del dominio; **no** es el límite municipal oficial ni el
+  soporte legal del dataset fuente) la sustitución de A-02 no mueve la geometría
+  del modelo de forma material (+5,98 % en la distancia mediana, bajo el 20 %
+  pre-registrado) ni estable (dirección no robusta en 25 seeds), y la cobertura
+  Modelo-A satura idéntica en ambos brazos.
+- **Demanda sintética.** Los incidentes siguen siendo uniformes/sintéticos
+  (A-01 `BASELINE_NOT_OBSERVABLE`); la métrica mide cómo cada conjunto de
+  candidatos cubre un campo uniforme, no incidentes reales de Madrid.
+- **Ceguera operacional.** Modelo-F, TTFRP como baseline, erosión meteo y la
+  comparación cámara/híbrido quedan `NOT_EVALUATED`: la evidencia real no
+  establece disponibilidad, dispatch, docking ni permiso de los parques. Solo se
+  comparó geometría. Ningún parque es un dock validado.
+- **Saturación de cobertura.** Los rangos de perfil pre-existentes (15–25 km one
+  way) exceden el diámetro del soporte (~15 km), así que la cobertura Modelo-A no
+  discrimina los brazos.
+- **Confound de conteo** en el control secundario (10 vs 13), excluido del
+  veredicto por diseño.
+- `SUBSTITUTION_INFORMATIVE` era inalcanzable por pre-registro (alcance + demanda
+  sintética): tope estructural, no una degradación posterior a ver resultados.
+- Determinismo verificado en este entorno (uv, Python 3.12, pyproj 3.7.2); el
+  redondeo a 1 mm lo mitiga, no lo prueba en otras plataformas.
+
 ## 8. Lo que estas limitaciones implican
 
 Ningún output del proyecto debe leerse como recomendación operacional,
