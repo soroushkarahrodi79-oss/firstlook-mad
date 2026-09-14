@@ -8,10 +8,46 @@
 ---
 
 ## Current phase
-**Phase 0D.3 — sustitución de realidad por etapas. Entry `LIMITED_PROCEED`;
-gate 0D.3 evaluado (2026-09-14): `SUBSTITUTION_UNINFORMATIVE`. STOP antes de
-0D.4. Ningún supuesto pasó a `SUPPORTED`/`REFUTED`; ninguna decisión
-`BUILD/REPOSITION/KILL`; Phase 0E no iniciada.**
+**Phase 0D.4 — falsificación adversarial. Gate formal evaluado (2026-09-14):
+`INCOMPARABLE` (vocabulario de repositorio `SURVIVES/WEAKENED/REFUTED/
+INCOMPARABLE`). STOP antes de 0D.5. Ningún supuesto pasó a `SUPPORTED`/`REFUTED`;
+ninguna decisión `BUILD/REPOSITION/KILL`; Phase 0D.5 / 0E no iniciadas.**
+
+## Phase 0D.4 adversarial-falsification gate (2026-09-14)
+**Gate formal `INCOMPARABLE`** por la regla pre-registrada en
+`docs/PHASE_0D4_PREREGISTRATION.md` (tres commits solo-preregistro antes de
+resultados: `3a64b1d` inicial; `470517b` **enmienda pre-resultado** del propietario
+que separa la autoridad del gate y degrada las ramas sintéticas a diagnóstico;
+`4512090` corrección de redacción; no ciego —la evidencia 0C/0D ya se conocía—;
+ningún umbral cambió tras ver resultados). **Dos capas separadas:** (1) **gate
+formal real-data**, decidido **solo** por el conjunto crítico cualificado por
+evidencia **{T3-REAL, T4-REAL, T5}**; (2) **batería diagnóstica** **{T1, T2,
+T3-SYNTH, T4-SYNTH, T6}**, que caracteriza la fragilidad del mecanismo **sintético**
+y **nunca** mueve el gate formal. Resultado formal: T3-REAL y T4-REAL
+`NOT_EVALUATED_MISSING_EVIDENCE` (sin observaciones meteo A-04 reales; sin capa de
+espacio aéreo A-03 de dominio completo), T5 `INCOMPARABLE` (ranking cámara/UAS
+inadjudicable sin evidencia LOS/humo/FOV) → ningún comparador real adjudicado →
+`INCOMPARABLE`. **No se fabricó evidencia real para forzar un veredicto más
+decisivo.** El agregador **impone la cualificación por evidencia en código**
+(solo `REAL`/`DERIVED_FROM_REAL` adjudica; evidencia sintética con clasificación
+definida **falla en cerrado** con `EvidenceQualificationError`), de modo que una
+rama sintética nunca puede mover `REFUTED/WEAKENED/SURVIVES`. Diagnóstico:
+sobreviven {T1 placement (sin fragilidad fuerte bajo las dos perturbaciones
+pre-especificadas; ningún sitio cruza el 50 %), T2 rendimientos}; **T4-SYNTH
+`SURVIVES` por la regla congelada pero es un NO-OP** (la exclusión suave eliminó
+0 candidatos → no informativo para robustez espacial, marcado `NO_OP_STRESS` en
+las salidas); fallan {T3-SYNTH (cobertura de referencia →0 con viento 16 m/s, pero
+el perfil optimista sobrevive), T6 (la etiqueta de materialidad de tránsito A-01
+se voltea a ~12 s del supuesto central)} — ambos **conocidos de 0C.1** y
+**diagnósticos**, no mueven el gate. Baseline 0C.1 reproducido byte a byte;
+salidas deterministas; motor 0C.1 reutilizado sin duplicar. Informe:
+`PHASE_0D4_ADVERSARIAL_FALSIFICATION_GATE_REPORT.md`; JSON:
+`outputs/reports/phase0d4_adversarial_manifest.json` y
+`outputs/reports/phase0d4_adversarial_results.json`. **No** es `SUPPORTED`,
+`BUILD`, `SAFE_TO_FLY`, `MADRID VALIDATED`, ni autorización para 0D.5. El estado
+científico de referencia sigue siendo `CONDITION_DEPENDENT_STRONG` (sin soporte
+para `BUILD`). Los parques reales siguen sin ser infraestructura UAS operativa;
+propiedades operativas `NOT_EVALUATED`.
 
 ## Phase 0D.3 reality-substitution gate (2026-09-14)
 **Entry `LIMITED_PROCEED`; veredicto `SUBSTITUTION_UNINFORMATIVE`** por la regla
