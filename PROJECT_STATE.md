@@ -8,10 +8,32 @@
 ---
 
 ## Current phase
-**Phase 0D.2 — normalización de datos reales y aptitud semántica. Gate 0D.2
-evaluado (2026-09-13): `PARTIAL_NORMALIZATION`. STOP antes de 0D.3. Ningún
-supuesto pasó a `SUPPORTED`/`REFUTED`; ninguna decisión `BUILD/REPOSITION/KILL`;
-Phase 0E no iniciada.**
+**Phase 0D.3 — sustitución de realidad por etapas. Entry `LIMITED_PROCEED`;
+gate 0D.3 evaluado (2026-09-14): `SUBSTITUTION_UNINFORMATIVE`. STOP antes de
+0D.4. Ningún supuesto pasó a `SUPPORTED`/`REFUTED`; ninguna decisión
+`BUILD/REPOSITION/KILL`; Phase 0E no iniciada.**
+
+## Phase 0D.3 reality-substitution gate (2026-09-14)
+**Entry `LIMITED_PROCEED`; veredicto `SUBSTITUTION_UNINFORMATIVE`** por la regla
+pre-registrada en `docs/PHASE_0D3_PREREGISTRATION.md` (diseño congelado antes de
+generar cualquier resultado 0D.3; no ciego — la evidencia 0D.1/0D.2 ya se
+conocía). Se sustituyó **una sola** variable sintética —las localizaciones de
+sitios candidatos A-02— por los 13 parques reales de 0D.2, sobre un **soporte
+geográfico igualado** (caja envolvente de las estaciones en `EPSG:25830`,
+≈231,7 km² = 1,9 % del dominio analítico de 0C.1). Solo se compararon métricas
+**de geometría** (los modelos/comparadores que leen propiedades operativas quedan
+`NOT_EVALUATED`, porque la evidencia real no las establece). Resultado: la
+distancia mediana incidente→candidato más cercano sube +5,98 % (bajo el umbral
+material pre-registrado de 20 %), la cobertura Modelo-A satura en 1,0 en ambos
+brazos (sin cruce de umbral), y la dirección del efecto **no** es estable en los
+25 seeds (13 vs 12). `SUBSTITUTION_INFORMATIVE` era inalcanzable por
+pre-registro (alcance municipal + demanda sintética). Motor 0C.1 reutilizado sin
+duplicar. Informe: `PHASE_0D3_REALITY_SUBSTITUTION_GATE_REPORT.md`; JSON:
+`outputs/reports/phase0d3_substitution_manifest.json` y
+`outputs/reports/phase0d3_substitution_results.json`. **No** es `SUPPORTED`,
+`BUILD`, `SAFE_TO_FLY`, `MADRID VALIDATED`, ni autorización para 0D.4. Ningún
+parque se convirtió en dock validado; propiedades operativas siguen
+`NOT_EVALUATED`.
 
 ## Phase 0D.2 normalization gate (2026-09-13)
 **`PARTIAL_NORMALIZATION`**, por la regla pre-registrada en
@@ -184,10 +206,10 @@ INFOMA; no fijar threshold numérico de TTFRP; aceptar resultados negativos.
   `PHASE_0D2_NORMALIZATION_GATE_REPORT.md`. Veredicto `PARTIAL_NORMALIZATION`.
 
 ## In progress
-- **PR borrador de Phase 0D.2** hacia `main` desde
-  `research/phase0d2-real-data-normalization`: «Phase 0D.2 — real-data
-  normalization and semantic fitness». Pendiente: **revisión y fusión humana**.
-  **No** inicia 0D.3. Este agente **no** fusiona.
+- **PR borrador de Phase 0D.3** hacia `main`: «Phase 0D.3 — staged reality
+  substitution». Entry `LIMITED_PROCEED`, veredicto `SUBSTITUTION_UNINFORMATIVE`.
+  Pendiente: **revisión humana**. **No** inicia 0D.4. Este agente **no** fusiona.
+- PR de Phase 0D.2 ya fusionado en `main` (merge `abdd260`, PR #14).
 
 ## Decisions (ver docs/adr/0001)
 - Alcance Phase 0 = investigación + simulación; sin control real, sin dispatch.
@@ -289,6 +311,13 @@ gate). Cierre 0D.1D: 72 passed. **0D.2 (2026-09-13, Python 3.12.10):**
 byte a byte del informe desde la evidencia cruda local); `ruff check`,
 `ruff format --check` (69 archivos) y `mypy` estricto (30 archivos) — **PASS**;
 dos ejecuciones del runner 0D.2 producen salidas idénticas byte a byte.
+**0D.3 (2026-09-14, Python 3.12):** `uv run pytest -q` — **192 passed, 1
+skipped** (165 + 28 nuevos en `tests/test_phase0d3_reality_substitution.py`; el
+skip es la prueba 0D.2 que requiere evidencia cruda local gitignored, ausente en
+cloud); `ruff check`, `ruff format --check` (77 archivos) y `mypy` estricto (35
+archivos) — **PASS**; `git diff --check` limpio; dos ejecuciones del runner 0D.3
+producen manifest y results idénticos byte a byte; 0C.1 reverificado reproducible
+byte a byte desde inputs versionados.
 
 ## Last verified commit
 Phase 0D quedó fusionada en `main` vía PR #3 (merge commit
@@ -307,18 +336,19 @@ de 0D.2 (pre-registro `b2e9a67` y siguientes) están en un PR borrador pendiente
 de revisión humana, sin fusionar.
 
 ## Next 3 actions
-1. El propietario revisa y, si procede, **fusiona el PR borrador de 0D.2**
-   manualmente. Este agente **no** fusiona.
-2. El propietario decide si autoriza **Phase 0D.3** y con qué alcance. La
-   condición de entrada del roadmap admite un `PARTIAL_NORMALIZATION` acotado
-   que cubra A-02, pero el alcance municipal de A-02 (≈1,9 % de la extensión
-   sintética de 0C.1) puede hacer poco informativa una sustitución solo-A-02;
-   0D.2 no decide la entrada en 0D.3.
-3. Con autorización explícita, cerrar huecos de evidencia sin inflarla:
-   observaciones AEMET (clave `AEMET_API_KEY` del propietario), registros de
-   incidente EGIF con licencia verificada, capa ENAIRE completa paginada,
-   cobertura MDT05 del dominio y activos regionales. No entrar en Phase 0E ni
-   cambiar ningún supuesto a `SUPPORTED`/`REFUTED`.
+1. El propietario revisa y, si procede, **fusiona el PR borrador de 0D.3**
+   manualmente. Este agente **no** fusiona. El veredicto
+   `SUBSTITUTION_UNINFORMATIVE` confirma la predicción de 0D.2: una sustitución
+   solo-A-02 municipal es poco informativa (la evidencia real, a su alcance real,
+   aún no mueve la geometría del modelo de forma material ni estable).
+2. El propietario decide si autoriza **Phase 0D.4** (falsación adversarial). Nada
+   en 0D.3 la habilita automáticamente; 0D.3 no cambia ningún supuesto.
+3. Con autorización explícita, cerrar huecos de evidencia sin inflarla, como
+   pre-condición para que cualquier sustitución futura sea informativa:
+   demanda real de incidentes (A-01, hoy `BASELINE_NOT_OBSERVABLE`), activos
+   regionales/INFOMA (A-02 más allá del municipio), capas ENAIRE/terreno
+   completas (A-03) y observaciones meteo de días de fuego (A-04). No entrar en
+   Phase 0E ni cambiar ningún supuesto a `SUPPORTED`/`REFUTED`.
 
 ## Do not do yet
 Dashboard · ML · hardware · control de drones · dispatch real · integración 112/

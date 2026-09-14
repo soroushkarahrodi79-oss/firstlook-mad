@@ -1,0 +1,467 @@
+{
+  "boundaries": {
+    "no_assumption_state_change": "No assumption moves TESTING -> SUPPORTED/REFUTED.",
+    "no_decision": "Phase 0D.3 does not decide BUILD / REPOSITION / KILL.",
+    "no_regional_inference": "This is a municipal-only experiment; no Comunidad de Madrid inference is emitted.",
+    "not_safe_to_fly": "No SAFE_TO_FLY, no MADRID VALIDATED, no operational claim."
+  },
+  "comparison": {
+    "any_full_coverage_threshold_crossed": false,
+    "candidate_count": {
+      "control": 13,
+      "delta_real_minus_control": 0,
+      "real": 13
+    },
+    "coverage_records": [
+      {
+        "control": 1.0,
+        "delta_real_minus_control": 0.0,
+        "effect_direction": "NO_CHANGE",
+        "full_coverage_threshold_crossed": false,
+        "metric": "model_a_risk_weighted_coverage.one_way_15000m",
+        "real": 1.0
+      },
+      {
+        "control": 1.0,
+        "delta_real_minus_control": 0.0,
+        "effect_direction": "NO_CHANGE",
+        "full_coverage_threshold_crossed": false,
+        "metric": "model_a_risk_weighted_coverage.one_way_20000m",
+        "real": 1.0
+      },
+      {
+        "control": 1.0,
+        "delta_real_minus_control": 0.0,
+        "effect_direction": "NO_CHANGE",
+        "full_coverage_threshold_crossed": false,
+        "metric": "model_a_risk_weighted_coverage.one_way_25000m",
+        "real": 1.0
+      }
+    ],
+    "effect_material": false,
+    "material_threshold": 0.2,
+    "nearest_distance_records": [
+      {
+        "control": 2067.102,
+        "delta_real_minus_control": 123.67,
+        "effect_direction": "REAL_GREATER",
+        "metric": "nearest_distance_m.median",
+        "real": 2190.772,
+        "relative_delta": 0.059828
+      },
+      {
+        "control": 4141.199,
+        "delta_real_minus_control": 95.61,
+        "effect_direction": "REAL_GREATER",
+        "metric": "nearest_distance_m.p90",
+        "real": 4236.809,
+        "relative_delta": 0.023088
+      },
+      {
+        "control": 5340.28,
+        "delta_real_minus_control": 662.688,
+        "effect_direction": "REAL_GREATER",
+        "metric": "nearest_distance_m.max",
+        "real": 6002.968,
+        "relative_delta": 0.124092
+      },
+      {
+        "control": 39.845,
+        "delta_real_minus_control": 140.718,
+        "effect_direction": "REAL_GREATER",
+        "metric": "nearest_distance_m.min",
+        "real": 180.563,
+        "relative_delta": 3.531635
+      },
+      {
+        "control": 2174.801,
+        "delta_real_minus_control": 207.124,
+        "effect_direction": "REAL_GREATER",
+        "metric": "nearest_distance_m.mean",
+        "real": 2381.925,
+        "relative_delta": 0.095238
+      }
+    ],
+    "not_evaluated_metrics": [
+      "model_f_feasible_coverage",
+      "ttfrp_seconds_baseline",
+      "weather_erosion",
+      "camera_or_hybrid_comparison",
+      "scenario_survival",
+      "operational_gate_outcome"
+    ],
+    "primary_metric": "nearest_distance_m.median",
+    "primary_relative_delta": 0.059828
+  },
+  "control": {
+    "candidate_count": 13,
+    "candidate_dispersion": {
+      "candidate_bbox_area_m2": 152261067.234,
+      "centroid_easting_m": 444019.351,
+      "centroid_northing_m": 4475570.612,
+      "mean_nearest_neighbour_m": 2120.935
+    },
+    "incident_count": 180,
+    "model_a_risk_weighted_coverage_by_one_way_range": {
+      "one_way_15000m": 1.0,
+      "one_way_20000m": 1.0,
+      "one_way_25000m": 1.0
+    },
+    "nearest_distance_m": {
+      "max": 5340.28,
+      "mean": 2174.801,
+      "median": 2067.102,
+      "min": 39.845,
+      "p90": 4141.199
+    }
+  },
+  "entry_decision": {
+    "decision": "LIMITED_PROCEED",
+    "eligible_entrant": "A-02",
+    "excluded_ineligible": [
+      "A-01",
+      "A-03",
+      "A-04"
+    ],
+    "excluded_reason": "NOT_ELIGIBLE at Phase 0D.2; cannot enter substitution",
+    "justification": "A-02 real evidence is ELIGIBLE_WITHIN_DECLARED_SCOPE (Madrid municipality only), so it cannot validly replace the synthetic candidate layer across the full analytical domain (rules out PROCEED). A scientifically valid matched-scope comparison can nonetheless be constructed by restricting both arms to the exact geographic support of the real evidence (the station bounding box). No STOP condition holds: 0C.1 reproduces from tracked inputs, the matched scope is definable from tracked 0D.2 outputs, the scope-matched synthetic control is generable, exactly one assumption is substituted, and confining the comparison to geometry-only metrics keeps it non-misleading."
+  },
+  "manifest": {
+    "analytical_domain_area_m2": 12100000000.0,
+    "analytical_scope": "COMUNIDAD_DE_MADRID (0C.1 synthetic extent 110 km x 110 km)",
+    "assumptions_held_constant": [
+      "incidents / demand (synthetic, identical)",
+      "random seed (260827 primary; 25 robustness seeds)",
+      "UAS performance profiles",
+      "TTFRP scenarios",
+      "weather scenarios",
+      "travel model",
+      "thresholds and constraints",
+      "scoring / coverage logic",
+      "geographic support (matched to real evidence, identical in both arms)"
+    ],
+    "assumptions_not_substituted": [
+      "A-01",
+      "A-03",
+      "A-04"
+    ],
+    "candidate_count_policy": "match_real_candidate_count",
+    "canonical_output_sha256": "1437d82a956fa530f865c8cf8178294ce6efceacfc599d09b05f63ddaa8feb71",
+    "declared_scope": "MADRID_MUNICIPALITY",
+    "experiment_version": "0D.3-1.0.0",
+    "matched_support_area_m2": 231728277.015,
+    "matched_support_epsg25830": {
+      "crs": "EPSG:25830",
+      "max_easting_m": 449956.52,
+      "max_northing_m": 4481279.118,
+      "min_easting_m": 435063.001,
+      "min_northing_m": 4465720.117
+    },
+    "matched_support_fraction_of_domain": 0.019151,
+    "native_synthetic_candidate_count": 10,
+    "normalization_version": "0D.2-1.0.0",
+    "not_inferred_from_source": {
+      "availability": "NOT_EVALUATED",
+      "dispatch_capability": "NOT_EVALUATED",
+      "docking_capability": "NOT_EVALUATED",
+      "drone_suitability": "NOT_EVALUATED",
+      "emergency_response_timing": "NOT_EVALUATED",
+      "land_ownership": "NOT_EVALUATED",
+      "operational_readiness": "NOT_EVALUATED",
+      "permission": "NOT_EVALUATED"
+    },
+    "operational_properties_not_evaluated": {
+      "assumed_available": "NOT_EVALUATED",
+      "camera_available": "NOT_EVALUATED",
+      "camera_communications_available": "NOT_EVALUATED",
+      "communications_available": "NOT_EVALUATED",
+      "uas_available": "NOT_EVALUATED"
+    },
+    "random_seed_policy": "primary seed 260827 from configs/phase0c_synthetic.json; robustness over the 25 pre-declared robustness_seeds; REAL sites are seed-independent; both arms share one incidents list per seed",
+    "real_candidate_count": 13,
+    "real_evidence_source": {
+      "canonical_path": "outputs/canonical/phase0d2/a02_madrid_city_fire_stations.json",
+      "record_count": 13,
+      "source_evidence_classification": "REAL_SOURCE_DATA",
+      "source_url": "https://datos.madrid.es/egob/catalogo/211642-0-bomberos-parques.json"
+    },
+    "scope_match_method": "station_bounding_box_epsg25830",
+    "source_sha256": "5c3957873878d30c93556c75544b6d7740c648b84b0424682dfac655842f8eb6",
+    "synthetic_variable_replaced": "A-02 candidate-site locations (existence and location only)"
+  },
+  "metadata": {
+    "crs": "EPSG:25830",
+    "experiment_version": "0D.3-1.0.0",
+    "phase": "0D.3",
+    "preregistration": "docs/PHASE_0D3_PREREGISTRATION.md",
+    "use": "RESEARCH / SIMULATION PROTOTYPE ONLY"
+  },
+  "real_substitution": {
+    "candidate_count": 13,
+    "candidate_dispersion": {
+      "candidate_bbox_area_m2": 231728277.015,
+      "centroid_easting_m": 442020.655,
+      "centroid_northing_m": 4474611.966,
+      "mean_nearest_neighbour_m": 2945.079
+    },
+    "incident_count": 180,
+    "model_a_risk_weighted_coverage_by_one_way_range": {
+      "one_way_15000m": 1.0,
+      "one_way_20000m": 1.0,
+      "one_way_25000m": 1.0
+    },
+    "nearest_distance_m": {
+      "max": 6002.968,
+      "mean": 2381.925,
+      "median": 2190.772,
+      "min": 180.563,
+      "p90": 4236.809
+    }
+  },
+  "robustness": {
+    "direction_stable": false,
+    "distinct_directions": [
+      "REAL_GREATER",
+      "REAL_SMALLER"
+    ],
+    "rows": [
+      {
+        "control_median_nearest_m": 2134.476,
+        "delta_real_minus_control_m": -34.58,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 2099.896,
+        "seed": 260803
+      },
+      {
+        "control_median_nearest_m": 2082.111,
+        "delta_real_minus_control_m": 51.309,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2133.42,
+        "seed": 260804
+      },
+      {
+        "control_median_nearest_m": 1955.797,
+        "delta_real_minus_control_m": 56.176,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2011.973,
+        "seed": 260805
+      },
+      {
+        "control_median_nearest_m": 2113.206,
+        "delta_real_minus_control_m": 123.649,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2236.854,
+        "seed": 260806
+      },
+      {
+        "control_median_nearest_m": 2120.317,
+        "delta_real_minus_control_m": -157.743,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 1962.574,
+        "seed": 260807
+      },
+      {
+        "control_median_nearest_m": 1839.348,
+        "delta_real_minus_control_m": 278.184,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2117.532,
+        "seed": 260808
+      },
+      {
+        "control_median_nearest_m": 1907.598,
+        "delta_real_minus_control_m": 160.312,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2067.91,
+        "seed": 260809
+      },
+      {
+        "control_median_nearest_m": 2247.68,
+        "delta_real_minus_control_m": -123.982,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 2123.698,
+        "seed": 260810
+      },
+      {
+        "control_median_nearest_m": 2371.275,
+        "delta_real_minus_control_m": -239.26,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 2132.015,
+        "seed": 260811
+      },
+      {
+        "control_median_nearest_m": 2264.194,
+        "delta_real_minus_control_m": -380.388,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 1883.805,
+        "seed": 260812
+      },
+      {
+        "control_median_nearest_m": 1928.521,
+        "delta_real_minus_control_m": 104.993,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2033.514,
+        "seed": 260813
+      },
+      {
+        "control_median_nearest_m": 2207.934,
+        "delta_real_minus_control_m": -136.858,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 2071.075,
+        "seed": 260814
+      },
+      {
+        "control_median_nearest_m": 1975.869,
+        "delta_real_minus_control_m": 231.348,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2207.217,
+        "seed": 260815
+      },
+      {
+        "control_median_nearest_m": 1863.773,
+        "delta_real_minus_control_m": 362.835,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2226.609,
+        "seed": 260816
+      },
+      {
+        "control_median_nearest_m": 1975.832,
+        "delta_real_minus_control_m": 52.13,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2027.962,
+        "seed": 260817
+      },
+      {
+        "control_median_nearest_m": 2092.351,
+        "delta_real_minus_control_m": -237.346,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 1855.005,
+        "seed": 260818
+      },
+      {
+        "control_median_nearest_m": 2006.203,
+        "delta_real_minus_control_m": -27.484,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 1978.72,
+        "seed": 260819
+      },
+      {
+        "control_median_nearest_m": 2200.476,
+        "delta_real_minus_control_m": -9.772,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 2190.704,
+        "seed": 260820
+      },
+      {
+        "control_median_nearest_m": 2012.489,
+        "delta_real_minus_control_m": 54.864,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2067.352,
+        "seed": 260821
+      },
+      {
+        "control_median_nearest_m": 2048.022,
+        "delta_real_minus_control_m": 170.26,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2218.282,
+        "seed": 260822
+      },
+      {
+        "control_median_nearest_m": 2152.464,
+        "delta_real_minus_control_m": -85.557,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 2066.906,
+        "seed": 260823
+      },
+      {
+        "control_median_nearest_m": 2356.212,
+        "delta_real_minus_control_m": -235.137,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 2121.075,
+        "seed": 260824
+      },
+      {
+        "control_median_nearest_m": 2245.225,
+        "delta_real_minus_control_m": -228.624,
+        "direction": "REAL_SMALLER",
+        "real_median_nearest_m": 2016.601,
+        "seed": 260825
+      },
+      {
+        "control_median_nearest_m": 1886.243,
+        "delta_real_minus_control_m": 132.842,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2019.085,
+        "seed": 260826
+      },
+      {
+        "control_median_nearest_m": 2067.102,
+        "delta_real_minus_control_m": 123.67,
+        "direction": "REAL_GREATER",
+        "real_median_nearest_m": 2190.772,
+        "seed": 260827
+      }
+    ],
+    "seed_count": 25,
+    "seeds": [
+      260803,
+      260804,
+      260805,
+      260806,
+      260807,
+      260808,
+      260809,
+      260810,
+      260811,
+      260812,
+      260813,
+      260814,
+      260815,
+      260816,
+      260817,
+      260818,
+      260819,
+      260820,
+      260821,
+      260822,
+      260823,
+      260824,
+      260825,
+      260826,
+      260827
+    ]
+  },
+  "secondary_native_count_control": {
+    "control": {
+      "candidate_count": 10,
+      "candidate_dispersion": {
+        "candidate_bbox_area_m2": 135197571.245,
+        "centroid_easting_m": 444968.702,
+        "centroid_northing_m": 4476052.603,
+        "mean_nearest_neighbour_m": 2388.213
+      },
+      "incident_count": 180,
+      "model_a_risk_weighted_coverage_by_one_way_range": {
+        "one_way_15000m": 1.0,
+        "one_way_20000m": 1.0,
+        "one_way_25000m": 1.0
+      },
+      "nearest_distance_m": {
+        "max": 7138.066,
+        "mean": 2802.974,
+        "median": 2547.14,
+        "min": 39.845,
+        "p90": 5057.864
+      }
+    },
+    "note": "Synthetic control at native 0C.1 count (10) over the same matched support; shown so candidate count (10 vs 13) is transparent. Not the primary comparison and not used for the verdict."
+  },
+  "verdict": {
+    "any_full_coverage_threshold_crossed": false,
+    "direction_stable_across_seeds": false,
+    "effect_material": false,
+    "informative_cap_reason": "A-02 covers ~1.9% of the analytical domain and demand is synthetic (A-01 BASELINE_NOT_OBSERVABLE); no effect measured here is relevant to the tested mechanism across the analytical domain.",
+    "informative_structurally_unreachable": true,
+    "rationale": "The effect is not material (|relative delta of median nearest distance| < 0.2) and no pre-existing coverage threshold is crossed under any profile: at matched scope the real evidence has too little geometric leverage to test the model.",
+    "verdict": "SUBSTITUTION_UNINFORMATIVE"
+  }
+}

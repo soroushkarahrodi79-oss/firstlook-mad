@@ -182,11 +182,27 @@ a bounded sample to a full layer, or fabricating a baseline → stop and record
 
 ## 0D.3 — REALITY SUBSTITUTION / ASSUMPTION REPLACEMENT
 
+**Status:** `EVALUATED` (2026-09-14) on branch
+`research/phase0d3-reality-substitution`, packaged as a draft PR, **pending human
+review**. The agent does not merge. **Entry `LIMITED_PROCEED`; verdict
+`SUBSTITUTION_UNINFORMATIVE`** under the rules pre-registered in
+`docs/PHASE_0D3_PREREGISTRATION.md` (frozen before any 0D.3 result existed).
+Report: `PHASE_0D3_REALITY_SUBSTITUTION_GATE_REPORT.md`; machine-readable:
+`outputs/reports/phase0d3_substitution_manifest.json` and
+`…_results.json`. No assumption changed state; Phase 0D.4 not started.
+
 **Purpose:** replace synthetic inputs with real evidence **incrementally**, so
 that the effect of each substitution remains attributable.
 
-**Pre-registered verdicts:** `SUBSTITUTION_INFORMATIVE` /
-`SUBSTITUTION_PARTIAL` / `SUBSTITUTION_UNINFORMATIVE`.
+**Pre-registered verdicts (this roadmap, planning-stage):**
+`SUBSTITUTION_INFORMATIVE` / `SUBSTITUTION_PARTIAL` /
+`SUBSTITUTION_UNINFORMATIVE`. **Refinement recorded at execution:** the frozen
+0D.3 pre-registration (`docs/PHASE_0D3_PREREGISTRATION.md`, the authority for
+0D.3's own vocabulary) uses `SUBSTITUTION_INFORMATIVE` / `SUBSTITUTION_WEAK_SIGNAL`
+/ `SUBSTITUTION_UNINFORMATIVE` / `SUBSTITUTION_INVALID`, replacing the planning
+placeholder `SUBSTITUTION_PARTIAL` with the two more precise terminal states.
+This is a documented pre-execution vocabulary refinement, not a post-hoc
+threshold change.
 
 **Design (staged, attribution-preserving):**
 
@@ -336,8 +352,8 @@ stop condition · exit gate · dependencies as defined in the sections above):
 |---|---|---|
 | 0D.1 | `0D.1 — Acquisition & provenance closure` | CLOSED (PR #5, merged 2026-09-13) |
 | 0D.2 | `0D.2 — Normalization & semantic fitness` | EVALUATED — `PARTIAL_NORMALIZATION` (draft PR, pending human review) |
-| 0D.3 | `0D.3 — Incremental real-evidence substitution` | Not started — needs owner authorization after 0D.2 review |
-| 0D.4 | `0D.4 — Adversarial falsification` | Blocked by 0D.3 |
+| 0D.3 | `0D.3 — Incremental real-evidence substitution` | EVALUATED — `LIMITED_PROCEED` / `SUBSTITUTION_UNINFORMATIVE` (draft PR, pending human review) |
+| 0D.4 | `0D.4 — Adversarial falsification` | Not started — needs owner authorization after 0D.3 review |
 | 0D.5 | `0D.5 — Robustness & uncertainty` | Blocked by 0D.4 |
 | 0D.6 | `0D.6 — Madrid Real Data MVP closure` | Blocked by 0D.2–0D.5 |
 | 0E | `Phase 0E — Baseline` | Blocked by 0D.6 |
@@ -361,4 +377,9 @@ Until both hold, **Phase 0D.2 implementation has not started.**
 
 **Status (2026-09-13):** both conditions were met (PR #5 merged at `eb637c2`;
 the branch was created from, and fast-forwarded to, that commit). Phase 0D.2 was
-executed and its gate evaluated. **Phase 0D.3 has not started.**
+executed and its gate evaluated.
+
+**Status (2026-09-14):** Phase 0D.2 was merged into `main` (PR #14, merge
+`abdd260`). Phase 0D.3 was then executed from that base: entry `LIMITED_PROCEED`,
+verdict `SUBSTITUTION_UNINFORMATIVE`, packaged as a draft PR pending human
+review. **Phase 0D.4 has not started.**

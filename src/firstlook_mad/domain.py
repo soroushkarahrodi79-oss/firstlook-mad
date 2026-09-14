@@ -19,6 +19,10 @@ class FrozenModel(BaseModel):
 class EvidenceNature(StrEnum):
     ASSUMED = "ASSUMED"
     SYNTHETIC = "SYNTHETIC"
+    # DERIVED marks a value obtained by deterministic transformation of real,
+    # integrity-verified source evidence (e.g. a Phase 0D.2 canonical A-02
+    # station location). It is never applied to invented or assumed values.
+    DERIVED = "DERIVED"
 
 
 class ZoneState(StrEnum):
