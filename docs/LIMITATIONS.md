@@ -145,9 +145,11 @@ científica del proyecto (§35 brief). Esta lista crece con cada fase.
 ### 7.3 Limitaciones de Phase 0D.3 — sustitución de realidad (2026-09-14)
 
 - Gate `SUBSTITUTION_UNINFORMATIVE` (entry `LIMITED_PROCEED`). El experimento es
-  metodológicamente válido y reproducible, pero **poco informativo**: a alcance
-  municipal (≈1,9 % del dominio) la sustitución de A-02 no mueve la geometría del
-  modelo de forma material (+5,98 % en la distancia mediana, bajo el 20 %
+  metodológicamente válido y reproducible, pero **poco informativo**: sobre la
+  extensión envolvente de estaciones igualada (caja delimitadora de las 13
+  localizaciones, ≈1,9 % del dominio; **no** es el límite municipal oficial ni el
+  soporte legal del dataset fuente) la sustitución de A-02 no mueve la geometría
+  del modelo de forma material (+5,98 % en la distancia mediana, bajo el 20 %
   pre-registrado) ni estable (dirección no robusta en 25 seeds), y la cobertura
   Modelo-A satura idéntica en ambos brazos.
 - **Demanda sintética.** Los incidentes siguen siendo uniformes/sintéticos

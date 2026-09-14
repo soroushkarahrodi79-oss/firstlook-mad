@@ -100,18 +100,31 @@ def test_support_is_station_bounding_box(evidence) -> None:
 
 def test_scope_restricted_a02_cannot_become_full_domain_evidence(result) -> None:
     manifest = result["manifest"]
-    # Municipal support is a tiny fraction (~1.9%) of the analytical domain.
+    # The matched station-envelope extent is a tiny fraction (~1.9%) of the domain.
     assert manifest["matched_support_fraction_of_domain"] < MAX_SUPPORT_FRACTION
+    # Source declared coverage is preserved as a documented source fact.
     assert manifest["declared_scope"] == "MADRID_MUNICIPALITY"
     assert manifest["analytical_scope"].startswith("COMUNIDAD_DE_MADRID")
     # Declared scope and analytical scope are kept distinct, never conflated.
     assert manifest["declared_scope"] not in manifest["analytical_scope"]
 
 
+def test_matched_support_is_not_labelled_municipality_boundary(result) -> None:
+    manifest = result["manifest"]
+    definition = manifest["matched_support_definition"]
+    # The bbox extent must be explicitly distinguished from the municipality boundary.
+    assert "bounding box" in definition
+    assert "NOT the official Madrid municipality boundary" in definition
+    assert manifest["scope_match_method"] == "station_bounding_box_epsg25830"
+    # declared_scope (source fact) is annotated as distinct from the experiment extent.
+    assert "distinct from" in manifest["declared_scope_note"]
+
+
 def test_no_regional_inference_from_municipal_experiment(result) -> None:
     boundaries = result["boundaries"]
     assert "no_regional_inference" in boundaries
-    assert "municipal-only" in boundaries["no_regional_inference"]
+    assert "municipal-scope" in boundaries["no_regional_inference"]
+    assert "regional" in boundaries["no_regional_inference"]
     # The verdict object flags that INFORMATIVE (domain-relevant) is unreachable.
     assert result["verdict"]["informative_structurally_unreachable"] is True
 

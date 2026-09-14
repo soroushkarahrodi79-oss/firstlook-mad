@@ -10,7 +10,7 @@
     "travel model",
     "thresholds and constraints",
     "scoring / coverage logic",
-    "geographic support (matched to real evidence, identical in both arms)"
+    "geographic support (matched station-envelope extent from the 13 A-02 locations, identical in both arms; see matched_support_definition)"
   ],
   "assumptions_not_substituted": [
     "A-01",
@@ -20,8 +20,10 @@
   "candidate_count_policy": "match_real_candidate_count",
   "canonical_output_sha256": "1437d82a956fa530f865c8cf8178294ce6efceacfc599d09b05f63ddaa8feb71",
   "declared_scope": "MADRID_MUNICIPALITY",
+  "declared_scope_note": "declared_scope is the source dataset's declared coverage (MADRID_MUNICIPALITY), a documented source fact; it is distinct from the matched_support extent used by this experiment (see matched_support_definition)",
   "experiment_version": "0D.3-1.0.0",
   "matched_support_area_m2": 231728277.015,
+  "matched_support_definition": "axis-aligned bounding box of the 13 canonical A-02 station locations in EPSG:25830 (a station-envelope extent). This is NOT the official Madrid municipality boundary and NOT the legal/administrative support of the source dataset; it is a conservative, repository-derived spatial extent applied identically to both arms only to hold geographic support constant.",
   "matched_support_epsg25830": {
     "crs": "EPSG:25830",
     "max_easting_m": 449956.52,

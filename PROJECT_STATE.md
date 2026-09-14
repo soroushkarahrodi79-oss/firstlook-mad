@@ -15,12 +15,19 @@ gate 0D.3 evaluado (2026-09-14): `SUBSTITUTION_UNINFORMATIVE`. STOP antes de
 
 ## Phase 0D.3 reality-substitution gate (2026-09-14)
 **Entry `LIMITED_PROCEED`; veredicto `SUBSTITUTION_UNINFORMATIVE`** por la regla
-pre-registrada en `docs/PHASE_0D3_PREREGISTRATION.md` (diseño congelado antes de
-generar cualquier resultado 0D.3; no ciego — la evidencia 0D.1/0D.2 ya se
-conocía). Se sustituyó **una sola** variable sintética —las localizaciones de
-sitios candidatos A-02— por los 13 parques reales de 0D.2, sobre un **soporte
-geográfico igualado** (caja envolvente de las estaciones en `EPSG:25830`,
-≈231,7 km² = 1,9 % del dominio analítico de 0C.1). Solo se compararon métricas
+pre-registrada en `docs/PHASE_0D3_PREREGISTRATION.md` (el diseño se pre-especificó
+en la sesión antes de ejecutar el experimento según el flujo registrado; **pero
+pre-registro, implementación y salidas se commitearon juntos, así que ese orden
+no es verificable de forma independiente desde el historial de Git**; no ciego —
+la evidencia 0D.1/0D.2 ya se conocía; ningún umbral cambió tras ver los
+resultados). Se sustituyó **una sola** variable sintética —las localizaciones de
+sitios candidatos A-02— por los 13 parques reales de 0D.2, sobre una **extensión
+envolvente de estaciones igualada** (caja delimitadora de las 13 localizaciones
+canónicas en `EPSG:25830`, ≈231,7 km² = 1,9 % del dominio analítico de 0C.1;
+**no** es el límite municipal oficial de Madrid ni el soporte legal del dataset
+fuente —cuya cobertura declarada `MADRID_MUNICIPALITY` se conserva como hecho de
+fuente—, solo un extent derivado del repositorio para mantener el soporte
+geográfico constante entre brazos). Solo se compararon métricas
 **de geometría** (los modelos/comparadores que leen propiedades operativas quedan
 `NOT_EVALUATED`, porque la evidencia real no las establece). Resultado: la
 distancia mediana incidente→candidato más cercano sube +5,98 % (bajo el umbral

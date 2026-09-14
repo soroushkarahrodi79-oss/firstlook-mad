@@ -1,16 +1,28 @@
 # PHASE 0D.3 — PRE-REGISTERED STAGED REALITY SUBSTITUTION
 
-> **Status:** pre-registered **2026-09-14**, on branch
+> **Status:** pre-specified **2026-09-14**, on branch
 > `research/phase0d3-reality-substitution` at base `abdd260` (PR #14 merged into
-> `main`). The Phase 0D.3 experiment design below was **frozen before any 0D.3
-> result output was generated**.
+> `main`).
+>
+> **Chronology (be precise — this is not git-auditable).** The 0D.3 experiment
+> design below was pre-specified within the execution session **before the
+> experiment was run**, according to the recorded workflow. However, this
+> preregistration document, the implementation, and the 0D.3 result outputs were
+> **committed together in a single commit**, so that ordering is **not
+> independently verifiable from Git commit history**. It may have been written
+> first within the session, but repository history does not, on its own, prove
+> the preregistration existed before the results. No fake earlier preregistration
+> commit was created to manufacture such proof.
 >
 > **This is NOT a blinded pre-registration.** Phase 0D.1 (acquisition) and Phase
 > 0D.2 (normalization and semantic fitness) evidence is already known: A-02 is
 > `ELIGIBLE_WITHIN_DECLARED_SCOPE` (13 Madrid-municipality fire stations), and
 > A-01, A-03, A-04 are `NOT_ELIGIBLE`. The design is frozen with that knowledge
 > in hand. What is frozen here is the **experiment**, not ignorance of the
-> inputs.
+> inputs. **No threshold was changed after the 0D.3 results were observed**, and
+> **the original result and verdict remain unchanged** (a later documentation
+> correction to wording, §11, changed no number, threshold, entry decision or
+> verdict).
 >
 > **Use:** `RESEARCH / SIMULATION PROTOTYPE ONLY`. This document does not, and
 > cannot, authorize `BUILD`, `SAFE_TO_FLY`, `MADRID VALIDATED`, Phase 0D.4, or
@@ -67,20 +79,26 @@ failure of any one forces `STOP` / `SUBSTITUTION_INVALID` (§9):
   represented in the 0C.1 model by the synthetic extent `EPSG:25830`
   E 390,000–500,000 m, N 4,410,000–4,520,000 m (110 km × 110 km = **12,100
   km²**).
-- **Declared scope of the real A-02 evidence:** Madrid **municipality** only
-  (`declared_coverage = MADRID_MUNICIPALITY`). Its geographic support is the
-  axis-aligned bounding box of the 13 canonical stations in `EPSG:25830`,
+- **Declared scope of the real A-02 evidence (source fact):** Madrid
+  **municipality** only (`declared_coverage = MADRID_MUNICIPALITY`) — the
+  publisher's catalogue coverage. This is distinct from the experiment's spatial
+  extent below.
+- **Matched extent used by this experiment (`SUPPORT`):** the axis-aligned
+  **bounding box of the 13 canonical station locations** in `EPSG:25830`,
   E [435063.001, 449956.520], N [4465720.117, 4481279.118]
   (≈14.89 km × 15.56 km ≈ **231.7 km²**, ≈ **1.9 %** of the analytical domain;
   values from the Phase 0D.2 quality report `easting_range_m` /
-  `northing_range_m`).
+  `northing_range_m`). **This is a station-envelope extent, NOT the official
+  Madrid municipality boundary and NOT the legal/administrative support of the
+  source dataset.** It is a conservative, repository-derived extent used only to
+  hold geographic support constant between the arms.
 
 **Binding rule.** Replacing a region-wide synthetic candidate layer with 13
-municipal stations and reading the result as a *regional* real-vs-synthetic test
-would confound **reality substitution** with **geographic scope reduction**.
+municipal-scope stations and reading the result as a *regional* real-vs-synthetic
+test would confound **reality substitution** with **geographic scope reduction**.
 This experiment therefore holds scope constant by construction: **both** arms
-operate on the **same** municipal support (§5). No regional inference may be
-emitted from this municipal-only experiment (enforced by test).
+operate on the **same** matched station-envelope extent (§5). No regional
+inference may be emitted from this municipal-scope experiment (enforced by test).
 
 ## 4. Entry decision vocabulary (frozen)
 
@@ -106,12 +124,16 @@ Two arms over an **identical** matched geographic support and **identical**
 non-A-02 parameters. The single manipulated variable is the candidate-site
 locations.
 
-### 5.1 Matched geographic support
+### 5.1 Matched geographic support (station-envelope extent)
 
-`SUPPORT` = the axis-aligned bounding box of the 13 canonical A-02 station
-coordinates in `EPSG:25830` (computed deterministically from the canonical file;
-not hardcoded, not padded, not invented). This is the **exact geographic support
-of the real evidence**, already documented in Phase 0D.2. Prefer-an-authoritative-
+`SUPPORT` = the axis-aligned **bounding box of the 13 canonical A-02 station
+locations** in `EPSG:25830` (computed deterministically from the canonical file;
+not hardcoded, not padded, not invented). This is a **matched station-envelope
+extent**, already documented in Phase 0D.2 (`easting_range_m` /
+`northing_range_m`). **It is NOT the official Madrid municipality boundary and
+NOT the legal/administrative support of the source dataset** — it is a
+conservative, repository-derived spatial extent used only to hold geographic
+support constant between the CONTROL and REAL arms. Prefer-an-authoritative-
 municipality-polygon was considered: none is tracked in the repository (only
 axis-aligned sanity envelopes in `normalization/models.py`); acquiring a new
 boundary dataset is prohibited (§0D.3 mission rule) and manually drawing a
@@ -233,16 +255,17 @@ precedence:
    - **`SUBSTITUTION_WEAK_SIGNAL`** if the effect **is** material on the primary
      metric **or** a threshold is crossed, but the effect is small, unstable
      (direction not stable across all 25 seeds), profile-dependent, and/or
-     **strongly scope-limited** (municipal support ≈1.9 % of the analytical
+     **strongly scope-limited** (matched station-envelope extent ≈1.9 % of the analytical
      domain, demand synthetic).
    - **`SUBSTITUTION_INFORMATIVE`** — reserved for a valid, reproducible,
      material, seed-stable effect **relevant to the tested mechanism across the
      analytical domain**.
 
-**Pre-registered structural cap.** Two facts known before running — A-02 covers
-≈1.9 % of the analytical domain, and the demand field is synthetic because A-01
-is `BASELINE_NOT_OBSERVABLE` — mean that no effect measured here can be
-"relevant to the tested mechanism across the analytical domain."
+**Pre-registered structural cap.** Two facts known before running — the matched
+station-envelope extent covers ≈1.9 % of the analytical domain, and the demand
+field is synthetic because A-01 is `BASELINE_NOT_OBSERVABLE` — mean that no
+effect measured here can be "relevant to the tested mechanism across the
+analytical domain."
 **`SUBSTITUTION_INFORMATIVE` is therefore unreachable in this configuration by
 pre-registration; the maximum attainable verdict is `SUBSTITUTION_WEAK_SIGNAL`.**
 This cap is a structural design decision fixed before results exist, not a
@@ -266,4 +289,25 @@ any circumstances.
 
 A change to §3–§9 after 0D.3 results exist is recorded here with date, reason and
 authorizer, and the verdict under these original rules is reported alongside.
-**Initial state: no deviations.**
+
+- **Initial state:** no deviations.
+- **2026-09-14 — documentation wording correction (post-results), after external
+  methodological review; authorizer: project owner (PR #15 review).** Two wording
+  corrections were applied across the 0D.3 documentation and the machine-readable
+  output *labels/metadata* (not their numeric values):
+  1. **Preregistration chronology.** The header no longer claims the design was
+     provably "frozen before any result": preregistration, implementation and
+     results were committed in a single commit, so the ordering is not
+     independently verifiable from Git history (see the header). It was
+     pre-specified within the session before the run per the recorded workflow.
+  2. **Scope precision.** The matched extent is relabelled a *station-envelope
+     extent* (bounding box of the 13 canonical A-02 locations), explicitly **not**
+     the official Madrid municipality boundary and **not** the source dataset's
+     legal support. The source's `declared_coverage = MADRID_MUNICIPALITY` is
+     preserved unchanged as a documented source fact.
+
+  **No rule in §3–§9 was changed. No threshold, seed, metric value, eligibility
+  state, entry decision (`LIMITED_PROCEED`) or verdict (`SUBSTITUTION_UNINFORMATIVE`)
+  changed.** The experiment code, its computed metric values and all numeric
+  outputs are unchanged; only descriptive labels/text were corrected and the
+  outputs regenerated deterministically.

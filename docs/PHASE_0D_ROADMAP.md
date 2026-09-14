@@ -186,8 +186,11 @@ a bounded sample to a full layer, or fabricating a baseline → stop and record
 `research/phase0d3-reality-substitution`, packaged as a draft PR, **pending human
 review**. The agent does not merge. **Entry `LIMITED_PROCEED`; verdict
 `SUBSTITUTION_UNINFORMATIVE`** under the rules pre-registered in
-`docs/PHASE_0D3_PREREGISTRATION.md` (frozen before any 0D.3 result existed).
-Report: `PHASE_0D3_REALITY_SUBSTITUTION_GATE_REPORT.md`; machine-readable:
+`docs/PHASE_0D3_PREREGISTRATION.md` (pre-specified in-session before the run;
+preregistration, implementation and outputs were committed together, so that
+ordering is not independently verifiable from Git history; no threshold changed
+after results were seen). Report:
+`PHASE_0D3_REALITY_SUBSTITUTION_GATE_REPORT.md`; machine-readable:
 `outputs/reports/phase0d3_substitution_manifest.json` and
 `…_results.json`. No assumption changed state; Phase 0D.4 not started.
 

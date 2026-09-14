@@ -131,8 +131,11 @@ def entry_decision(evidence: CanonicalA02Evidence) -> dict[str, object]:
             "only), so it cannot validly replace the synthetic candidate layer across "
             "the full analytical domain (rules out PROCEED). A scientifically valid "
             "matched-scope comparison can nonetheless be constructed by restricting both "
-            "arms to the exact geographic support of the real evidence (the station "
-            "bounding box). No STOP condition holds: 0C.1 reproduces from tracked inputs, "
+            "arms to a matched station-envelope extent derived from the bounding box of "
+            "the 13 canonical A-02 locations (not the official Madrid municipality "
+            "boundary; a conservative, repository-derived extent used only to hold "
+            "geographic support constant between the arms). No STOP condition holds: "
+            "0C.1 reproduces from tracked inputs, "
             "the matched scope is definable from tracked 0D.2 outputs, the scope-matched "
             "synthetic control is generable, exactly one assumption is substituted, and "
             "confining the comparison to geometry-only metrics keeps it non-misleading."
@@ -168,9 +171,9 @@ def decide_verdict(
         if threshold_crossed:
             reasons.append("a pre-existing coverage threshold is crossed")
         scope_note = (
-            "the effect is confined to the municipal support (~1.9% of the analytical "
-            "domain) against synthetic demand, and INFORMATIVE is unreachable by "
-            "pre-registration (§9 structural cap)"
+            "the effect is confined to the matched station-envelope extent (~1.9% of the "
+            "analytical domain) against synthetic demand, and INFORMATIVE is unreachable "
+            "by pre-registration (§9 structural cap)"
         )
         if not stable:
             scope_note += "; the effect direction is not stable across all robustness seeds"
@@ -184,9 +187,9 @@ def decide_verdict(
         "direction_stable_across_seeds": stable,
         "informative_structurally_unreachable": True,
         "informative_cap_reason": (
-            "A-02 covers ~1.9% of the analytical domain and demand is synthetic "
-            "(A-01 BASELINE_NOT_OBSERVABLE); no effect measured here is relevant to the "
-            "tested mechanism across the analytical domain."
+            "the matched station-envelope extent covers ~1.9% of the analytical domain "
+            "and demand is synthetic (A-01 BASELINE_NOT_OBSERVABLE); no effect measured "
+            "here is relevant to the tested mechanism across the analytical domain."
         ),
     }
 
@@ -224,9 +227,21 @@ def build_manifest(
         "source_sha256": evidence.source_sha256,
         "canonical_output_sha256": evidence.canonical_output_sha256,
         "declared_scope": evidence.declared_coverage,
+        "declared_scope_note": (
+            "declared_scope is the source dataset's declared coverage "
+            "(MADRID_MUNICIPALITY), a documented source fact; it is distinct from the "
+            "matched_support extent used by this experiment (see matched_support_definition)"
+        ),
         "analytical_scope": "COMUNIDAD_DE_MADRID (0C.1 synthetic extent 110 km x 110 km)",
         "matched_support_epsg25830": support_dict,
         "matched_support_area_m2": round(support_area, 3),
+        "matched_support_definition": (
+            "axis-aligned bounding box of the 13 canonical A-02 station locations in "
+            "EPSG:25830 (a station-envelope extent). This is NOT the official Madrid "
+            "municipality boundary and NOT the legal/administrative support of the "
+            "source dataset; it is a conservative, repository-derived spatial extent "
+            "applied identically to both arms only to hold geographic support constant."
+        ),
         "analytical_domain_area_m2": ANALYTICAL_DOMAIN_AREA_M2,
         "matched_support_fraction_of_domain": round(support_area / ANALYTICAL_DOMAIN_AREA_M2, 6),
         "scope_match_method": SCOPE_MATCH_METHOD,
@@ -242,7 +257,8 @@ def build_manifest(
             "travel model",
             "thresholds and constraints",
             "scoring / coverage logic",
-            "geographic support (matched to real evidence, identical in both arms)",
+            "geographic support (matched station-envelope extent from the 13 A-02 "
+            "locations, identical in both arms; see matched_support_definition)",
         ],
         "assumptions_not_substituted": list(INELIGIBLE_ASSUMPTIONS),
         "operational_properties_not_evaluated": {
@@ -318,7 +334,8 @@ def run_phase0d3(
         "verdict": verdict,
         "boundaries": {
             "no_regional_inference": (
-                "This is a municipal-only experiment; no Comunidad de Madrid inference is emitted."
+                "This is a municipal-scope experiment on a station-envelope extent; no "
+                "Comunidad de Madrid (regional) inference is emitted."
             ),
             "no_assumption_state_change": "No assumption moves TESTING -> SUPPORTED/REFUTED.",
             "no_decision": "Phase 0D.3 does not decide BUILD / REPOSITION / KILL.",

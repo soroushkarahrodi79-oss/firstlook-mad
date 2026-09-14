@@ -63,8 +63,10 @@ class ScopeMatchError(ValueError):
 def derive_support(evidence: CanonicalA02Evidence) -> SyntheticBounds:
     """Axis-aligned bounding box of the real A-02 stations in EPSG:25830.
 
-    This is the exact geographic support of the real evidence (pre-registration
-    §5.1). It is computed from the canonical records, never padded or invented.
+    This is a station-envelope extent derived from the 13 canonical A-02 locations
+    (pre-registration §5.1) — NOT the official Madrid municipality boundary. It is
+    computed from the canonical records, never padded or invented, and is applied
+    identically to both arms only to hold geographic support constant.
     """
 
     eastings = [site.point.easting_m for site in evidence.sites]

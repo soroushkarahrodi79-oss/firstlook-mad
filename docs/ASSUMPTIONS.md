@@ -145,13 +145,17 @@ previo. Ver `PHASE_0D2_NORMALIZATION_GATE_REPORT.md`.
 
 ### Adenda 0D.3 — sustitución de realidad por etapas (2026-09-14)
 
-Diseño pre-registrado (`docs/PHASE_0D3_PREREGISTRATION.md`), congelado antes de
-generar resultados. Entry `LIMITED_PROCEED`; veredicto
+Diseño pre-especificado en la sesión antes de ejecutar
+(`docs/PHASE_0D3_PREREGISTRATION.md`); pre-registro, implementación y salidas se
+commitearon juntos, así que ese orden no es verificable desde el historial de
+Git. Entry `LIMITED_PROCEED`; veredicto
 **`SUBSTITUTION_UNINFORMATIVE`**. Se sustituyó **una sola** variable —las
 localizaciones de sitios candidatos A-02 (rol objetivo de A-02: *existencia y
-localización*)— por los 13 parques reales de 0D.2, sobre un soporte geográfico
-igualado en ambos brazos (caja envolvente de las estaciones, ≈1,9 % del dominio
-analítico). Solo se compararon métricas de geometría; los modelos/comparadores
+localización*)— por los 13 parques reales de 0D.2, sobre una extensión envolvente
+de estaciones igualada en ambos brazos (caja delimitadora de las 13
+localizaciones canónicas en `EPSG:25830`, ≈1,9 % del dominio analítico; **no** es
+el límite municipal oficial ni el soporte legal del dataset fuente). Solo se
+compararon métricas de geometría; los modelos/comparadores
 que leen propiedades operativas quedan `NOT_EVALUATED` porque la evidencia real
 no las establece.
 
@@ -160,8 +164,9 @@ no las establece.
   la distancia mediana incidente→candidato solo +5,98 % (bajo el umbral material
   pre-registrado del 20 %), no cruza ningún umbral de cobertura (Modelo-A satura
   1,0 en ambos brazos) y su dirección **no** es estable en 25 seeds. La evidencia
-  real, a su alcance municipal y contra demanda sintética, aún no aporta
-  apalancamiento geométrico material. **No** pasa a `SUPPORTED`. Ningún parque se
+  real, a su alcance municipal (extensión envolvente ≈1,9 % del dominio) y contra
+  demanda sintética, aún no aporta apalancamiento geométrico material. **No** pasa
+  a `SUPPORTED`. Ningún parque se
   convierte en dock; propiedades operativas siguen `NOT_EVALUATED`.
 - **A-01, A-03, A-04:** sin cambios; `NOT_ELIGIBLE` en 0D.2, excluidos de la
   sustitución por diseño y por test. A-01 sigue `BASELINE_NOT_OBSERVABLE`.

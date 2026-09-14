@@ -2,8 +2,12 @@
 
 > **Use:** `RESEARCH / SIMULATION PROTOTYPE ONLY`. **Date:** 2026-09-14.
 > **Branch:** `research/phase0d3-reality-substitution` (base `abdd260`, PR #14
-> merged). **Pre-registration:** `docs/PHASE_0D3_PREREGISTRATION.md` (design
-> frozen before any 0D.3 result existed; not blinded — 0D.1/0D.2 evidence known).
+> merged). **Pre-registration:** `docs/PHASE_0D3_PREREGISTRATION.md`. The design
+> was pre-specified within the execution session before the experiment was run
+> per the recorded workflow; **however, the preregistration, implementation and
+> result outputs were committed together, so that ordering is not independently
+> verifiable from Git history.** Not blinded — 0D.1/0D.2 evidence was already
+> known. No threshold was changed after the results were observed.
 >
 > **Entry decision:** `LIMITED_PROCEED` · **Verdict:** `SUBSTITUTION_UNINFORMATIVE`.
 >
@@ -33,16 +37,21 @@ regenerate byte-for-byte via `uv run python scripts/run_phase0d3_substitution.py
 
 ## Experimental design
 
-A single, attribution-preserving substitution over a **matched geographic
-support**, comparing **geometry-only** metrics. The Phase 0C.1 engine
+A single, attribution-preserving substitution over a **matched station-envelope
+extent**, comparing **geometry-only** metrics. The Phase 0C.1 engine
 (`generate_inputs`, `evaluate_network`, `euclidean_distance_m`) is reused
 unchanged; no second model is built.
 
-- **Matched support** = the axis-aligned bounding box of the 13 real stations in
-  `EPSG:25830`: E [435063.001, 449956.520], N [4465720.117, 4481279.118]
-  (≈14.89 × 15.56 km ≈ **231.7 km²** = **1.9 %** of the 12,100 km² 0C.1 analytical
-  domain). Derived from the canonical file (0D.2 `easting_range_m`/
-  `northing_range_m`); not padded, not invented, no new dataset acquired.
+- **Matched extent** = the axis-aligned **bounding box of the 13 real station
+  locations** in `EPSG:25830`: E [435063.001, 449956.520],
+  N [4465720.117, 4481279.118] (≈14.89 × 15.56 km ≈ **231.7 km²** = **1.9 %** of
+  the 12,100 km² 0C.1 analytical domain). Derived from the canonical file (0D.2
+  `easting_range_m`/`northing_range_m`); not padded, not invented, no new dataset
+  acquired. **This is a station-envelope extent, NOT the official Madrid
+  municipality boundary and NOT the source dataset's legal/administrative
+  support** — a conservative, repository-derived extent used only to hold
+  geographic support constant between arms. (The source's declared coverage
+  remains `MADRID_MUNICIPALITY`, a separate source fact.)
 - **Both arms** use one scope-restricted config (only `bounds` and `site_count`
   changed vs 0C.1), one seed (`260827`), one identical incidents list, matched
   candidate count (13 vs 13). The single manipulated variable is candidate
@@ -61,7 +70,7 @@ unchanged; no second model is built.
 **`LIMITED_PROCEED`.** A-02 is scope-restricted to the Madrid municipality, so it
 cannot validly replace the synthetic candidate layer across the full analytical
 domain (rules out `PROCEED`). No `STOP` condition holds: 0C.1 reproduces from
-tracked inputs; the matched support is definable from tracked 0D.2 outputs; the
+tracked inputs; the matched station-envelope extent is definable from tracked 0D.2 outputs; the
 scope-matched synthetic control is generable; exactly one assumption is
 substituted; confining the comparison to geometry-only metrics keeps it
 non-misleading; and all required inputs are tracked and available in this
@@ -69,7 +78,7 @@ environment. `LIMITED_PROCEED` was not forced — it is the honest classificatio
 
 ## Control
 
-Synthetic 0C.1 candidate mechanism (uniform draw) over the matched support, 13
+Synthetic 0C.1 candidate mechanism (uniform draw) over the matched station-envelope extent, 13
 sites, seed 260827, against the 180 synthetic incidents. Candidate sites keep
 their synthetic operational attributes.
 
@@ -174,8 +183,8 @@ fire stations (operational properties `None` = `NOT_EVALUATED`, provenance
 ## Verdict
 
 **`SUBSTITUTION_UNINFORMATIVE`.** The matched-scope, single-substitution
-comparison is methodologically valid and reproducible, but at the municipal
-support the real A-02 evidence has too little geometric leverage to test the
+comparison is methodologically valid and reproducible, but at the matched
+station-envelope extent the real A-02 evidence has too little geometric leverage to test the
 model: the primary metric moves only +5.98 % (below the 20 % pre-registered
 materiality bar), no pre-existing coverage threshold is crossed (Model-A
 saturates identically in both arms), and the median-effect direction is not
